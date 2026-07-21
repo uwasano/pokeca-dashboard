@@ -1517,7 +1517,7 @@ async function load(){
   }catch(e){DATA=SAMPLE;}
   setFresh();render();
 }
-setInterval(loadAlerts,5*60*1000); // 監視結果は5分ごとに自動更新
+setInterval(loadAlerts,60*1000); // 監視結果は1分ごとに自動更新
 /* ===== 検索設定(サイト→GAS) ===== */
 function guessCat(t){const s=t.toLowerCase();
   if(/レンズ|lens|mm|f2\.8|f1\.[248]|ef\d|rf\d|nikkor|sigma|tamron|zuiko|nokton|fd|zeiss/i.test(t))return"lens";
