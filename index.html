@@ -451,6 +451,8 @@ function sourceLogo(src){
 }
 function alertImage(a,d){
  if(d.img||d.image||a.image)return {url:d.img||d.image||a.image,fallback:false};
+ const mm=/jp\.mercari\.com\/item\/(m\d+)/.exec(String(a.url||""));
+ if(mm)return {url:"https://static.mercdn.net/thumb/item/webp/"+mm[1]+"_1.jpg",fallback:false};
  const pool=[...(DATA?.listings||[]),...(DATA?.hardoff||[])];
  let hit=pool.find(x=>x.url&&a.url&&x.url===a.url);
  if(!hit){
