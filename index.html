@@ -300,11 +300,11 @@ header{align-items:center;margin-bottom:14px}
   </header>
 
   <section class="quick-search" aria-label="今すぐ商品検索">
-    <div class="quick-search-head"><strong>🔎 今すぐ商品検索</strong><small>次の5分巡回で最優先取得</small></div>
+    <div class="quick-search-head"><strong>⚡ 今すぐ取得・自動表示</strong><small>PC稼働中なら数秒で取得開始</small></div>
     <div class="quick-search-form">
       <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="brand">👜 ブランド</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
       <input id="quickSearchTerm" type="search" maxlength="100" placeholder="例: OLYMPUS XZ-1 ホワイト" autocomplete="off">
-      <button id="quickSearchBtn" type="button">この商品を取得</button>
+      <button id="quickSearchBtn" type="button">今すぐ取得する</button>
     </div>
     <label class="quick-search-options"><input id="quickSearchSold" type="checkbox" checked> 売れた実績も取得して相場を検証</label>
     <div class="quick-search-msg" id="quickSearchMsg" aria-live="polite"></div>
@@ -1705,15 +1705,27 @@ setInterval(loadAlerts,60*1000); // 監視結果は1分ごとに自動更新
 /* ===== 選択商品を次回PC巡回へ優先投入 ===== */
 if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   const qb=$("#quickSearchBtn"),qi=$("#quickSearchTerm"),qm=$("#quickSearchMsg");
+  async function waitForQuickScan(id,term){
+    const started=Date.now();let misses=0;
+    while(Date.now()-started<8*60*1000){
+      await new Promise(r=>setTimeout(r,5000));
+      try{const r=await fetch(DATA_URL+"?type=config&_="+Date.now(),{cache:"no-store"}),c=await r.json(),q=Array.isArray(c.scanRequests)?c.scanRequests:[];
+        if(q.some(x=>x&&x.id===id)){misses=0;qm.textContent="⚡ PCが取得中です… 完了すると自動で結果を更新します。";continue;}
+        if(++misses<2)continue;
+        qm.textContent="✓ 「"+term+"」の取得が完了しました。結果を更新しました。";await load();return;
+      }catch(_){qm.textContent="取得状況を確認中です…";}
+    }
+    qm.textContent="取得待ちが続いています。PCの電源・常駐受信機を確認してください。予約は残っています。";
+  }
   qb.addEventListener("click",async()=>{
     const term=qi.value.trim(),cat=$("#quickSearchCat").value,includeSold=$("#quickSearchSold").checked;
     if(term.length<2){qm.textContent="商品名・ブランド名・型番を2文字以上入力してください。";qi.focus();return;}
     qb.disabled=true;qb.textContent="登録中…";qm.textContent="優先検索キューへ送信しています。";
     try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,scanRequest:{term,cat,includeSold}})}),j=await r.json();
       if(!j||!j.ok)throw new Error(j&&j.error||"登録できませんでした");
-      qm.textContent="✓ 「"+term+"」を最優先に登録しました。PC稼働中なら最長5分＋取得時間で反映されます。";qi.value="";
+      qm.textContent="⚡ 「"+term+"」を送信しました。PCへ即時取得を指示しています。";qi.value="";waitForQuickScan(j.id,term);
     }catch(e){qm.textContent="登録に失敗しました："+(e.message||e)+"。最新版GASをデプロイしてください。";}
-    finally{qb.disabled=false;qb.textContent="この商品を取得";}
+    finally{qb.disabled=false;qb.textContent="今すぐ取得する";}
   });
   qi.addEventListener("keydown",e=>{if(e.key==="Enter")qb.click();});
 }
