@@ -412,7 +412,7 @@ header{align-items:center;margin-bottom:14px}
     <div class="quick-search-form">
       <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="brand">👜 ブランド</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
       <input id="quickSearchTerm" type="search" maxlength="100" placeholder="例: OLYMPUS XZ-1 ホワイト" autocomplete="off">
-      <button id="quickSearchBtn" type="button">今すぐ取得する</button>
+      <button id="quickSearchBtn" type="button">4サイト一括取得</button>
     </div>
     <label class="quick-search-options"><input id="quickSearchSold" type="checkbox" checked> 売れた実績も取得して相場を検証</label>
     <div class="quick-search-msg" id="quickSearchMsg" aria-live="polite"></div>
@@ -1729,13 +1729,14 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   }
   qb.addEventListener("click",async()=>{
     const term=qi.value.trim(),cat=$("#quickSearchCat").value,includeSold=$("#quickSearchSold").checked;
-    if(term.length<2){qm.textContent="商品名・ブランド名・型番を2文字以上入力してください。";qi.focus();return;}
-    qb.disabled=true;qb.textContent="登録中…";qm.textContent="優先検索キューへ送信しています。";$("#quickSearchResults").innerHTML="";
-    try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,scanRequest:{term,cat,includeSold}})}),j=await r.json();
-      if(!j||!j.ok)throw new Error(j&&j.error||"登録できませんでした");
-      qm.textContent="⚡ 「"+term+"」を送信しました。PCへ即時取得を指示しています。";qi.value="";waitForQuickScan(j.id,term);
-    }catch(e){qm.textContent="登録に失敗しました："+(e.message||e)+"。最新版GASをデプロイしてください。";}
-    finally{qb.disabled=false;qb.textContent="今すぐ取得する";}
+    qb.disabled=true;qb.textContent="4サイト取得中…";qm.textContent="eBay・ヤフオク・オフモール・Yahoo!フリマを一括取得しています。30秒〜数分かかります。";$("#quickSearchResults").innerHTML="";
+    try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,scanAllNonMercari:true,term,cat,includeSold})}),j=await r.json();
+      if(!j||!j.ok)throw new Error(j&&j.error||"一括取得できませんでした");
+      const x=j.result||{};
+      qm.textContent="✅ 一括取得完了：オフモール "+Number(x.offmall||0)+"件 / ヤフオク "+Number(x.yahoo||0)+"件 / Yahoo!フリマ "+Number(x.yahooFlea||0)+"件。eBay相場も利益候補へ反映しました。";
+      await load();render();if(term)renderQuickSearchResults(term);
+    }catch(e){qm.textContent="一括取得に失敗しました："+(e.message||e)+"。最新版GASを再デプロイしてください。";}
+    finally{qb.disabled=false;qb.textContent="4サイト一括取得";}
   });
   qi.addEventListener("keydown",e=>{if(e.key==="Enter")qb.click();});
 }
