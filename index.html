@@ -106,6 +106,8 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .aflow .fp .fv{font-size:17px;font-weight:800;color:var(--delta-good)}
 .anotes{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
 .fchips{display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap}
+.filter-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.filter-group{padding:11px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,248,255,.92));box-shadow:0 5px 18px rgba(31,55,100,.05)}.filter-label{display:flex;align-items:center;gap:6px;margin:0 0 8px;color:var(--ink-3);font-size:10px;font-weight:850;letter-spacing:.08em}.filter-group .fchips{margin:0}.filter-group .fchip{flex:1 1 auto}.filter-group.special{background:linear-gradient(145deg,#fffdf5,#f6f4ff)}
+@media(max-width:600px){.filter-board{grid-template-columns:1fr}.filter-group{padding:10px}.filter-group .fchip{min-width:calc(50% - 5px)}}
 .fchip{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:99px;padding:5px 13px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
 .fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .astat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
@@ -1218,21 +1220,23 @@ function render(){
       st.appendChild(b);
     });
     list.appendChild(st);
-    // フィルタチップ
-    const fc=document.createElement("div");fc.className="fchips";
+    // 用途別に分けたフィルター
+    const board=document.createElement("div");board.className="filter-board";
+    const group=(title,extra="")=>{const g=document.createElement("section");g.className="filter-group "+extra;const h=document.createElement("div");h.className="filter-label";h.textContent=title;const row=document.createElement("div");row.className="fchips";g.append(h,row);board.appendChild(g);return row;};
+    const rankGroup=group("🏆 ランク");const sourceGroup=group("🛒 仕入先");const categoryGroup=group("📦 カテゴリ");const specialGroup=group("✨ 特殊条件","special");
     const mk=(label,key,val)=>{const c=document.createElement("button");c.className="fchip";c.type="button";c.textContent=label;
       c.setAttribute("aria-pressed",state[key]===val?"true":"false");
       c.addEventListener("click",()=>{state[key]=state[key]===val?"all":val;render();});return c;};
-    fc.appendChild(mk("Sのみ","rank","S"));fc.appendChild(mk("A以上","rank","SA"));
-    fc.appendChild(mk("オフモール","src","オフモール"));fc.appendChild(mk("ヤフオク","src","ヤフオク"));fc.appendChild(mk("メルカリ","src","メルカリ"));fc.appendChild(mk("ヤフーフリマ","src","ヤフーフリマ"));
-    fc.appendChild(mk("📷カメラ","acat","camera"));fc.appendChild(mk("🔭レンズ","acat","lens"));fc.appendChild(mk("👜ブランド","acat","brand"));
+    rankGroup.appendChild(mk("Sのみ","rank","S"));rankGroup.appendChild(mk("A以上","rank","SA"));
+    sourceGroup.appendChild(mk("オフモール","src","オフモール"));sourceGroup.appendChild(mk("ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("Yahoo!フリマ","src","ヤフーフリマ"));
+    categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));
     {const wc=document.createElement("button");wc.className="fchip";wc.type="button";
      wc.textContent="⭐ウォッチ"+(WATCHITEMS.length?"("+WATCHITEMS.length+")":"");
      wc.setAttribute("aria-pressed",state.watchOnly?"true":"false");
-     wc.addEventListener("click",()=>{state.watchOnly=!state.watchOnly;render();});fc.appendChild(wc);}
-    {const ic=document.createElement("button");ic.className="fchip";ic.type="button";ic.textContent="⚡即決可能";ic.setAttribute("aria-pressed",state.instantOnly?"true":"false");ic.addEventListener("click",()=>{state.instantOnly=!state.instantOnly;render();});fc.appendChild(ic);}
-    {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay輸出利益";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;render();});fc.appendChild(ec);}
-    list.appendChild(fc);
+     wc.addEventListener("click",()=>{state.watchOnly=!state.watchOnly;render();});specialGroup.appendChild(wc);}
+    {const ic=document.createElement("button");ic.className="fchip";ic.type="button";ic.textContent="⚡ 即決可能";ic.setAttribute("aria-pressed",state.instantOnly?"true":"false");ic.addEventListener("click",()=>{state.instantOnly=!state.instantOnly;render();});specialGroup.appendChild(ic);}
+    {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay輸出利益";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;render();});specialGroup.appendChild(ec);}
+    list.appendChild(board);
     // 並び替えチップ
     const sc2=document.createElement("div");sc2.className="fchips";
     const lbl=document.createElement("span");lbl.style.cssText="font-size:11px;color:var(--ink-3);align-self:center";lbl.textContent="並び:";sc2.appendChild(lbl);
@@ -1375,7 +1379,7 @@ function render(){
       const why=document.createElement("div");why.className="opportunity-why";
       const stress=stressProfit(a,d);why.innerHTML='<span class="verified">✓ 同一商品実例 '+Number(d.n||a.soldN||0)+'件</span><span>粗利 '+(Number(d.g)>=0?"+":"−")+yen(Math.abs(Number(d.g||0)))+'</span><span>回転 約'+Number(d.pc||0)+'日</span><span>仕入上限 '+yen(Number(d.b||0))+'</span><span class="'+(stress>=3000?"safe":"danger")+'">'+(stress>=3000?"🛡 10%下落でも +":"⚠ 10%下落時 ")+(stress>=0?yen(stress):"−"+yen(Math.abs(stress)))+'</span>';
       card.appendChild(why);
-      if(d.eb&&Number(d.eb.profitJpy)>0){const eb=document.createElement("div");eb.className="ebay-strip";eb.innerHTML='<div class="ebay-head"><span>🌍 eBay輸出見込</span><b>+'+yen(d.eb.profitJpy)+'</b>'+(Number(d.eb.strong)===1?'<span class="ebay-strong">強い輸出候補</span>':'')+'</div><div class="ebay-meta"><span>ROI '+Number(d.eb.roi||0)+'%</span><span>海外出品 '+Number(d.eb.n||0)+'件</span><span>需要 '+Number(d.eb.demand||0)+'/100</span><span>想定売価 $'+Number(d.eb.saleUSD||0)+'</span><span>為替 ¥'+Number(d.eb.fx||0)+'/USD</span></div>';card.appendChild(eb);}
+      if(d.eb&&Number(d.eb.profitJpy)>0){const eb=document.createElement("div");eb.className="ebay-strip";const fx=Number(d.eb.fx||0),medUSD=Number(d.eb.medUSD||0),medJPY=Number(d.eb.medJpy||Math.round(medUSD*fx)),saleUSD=Number(d.eb.saleUSD||0),saleJPY=Number(d.eb.saleJpy||Math.round(saleUSD*fx)),shipJPY=Number(d.eb.intlShipJpy||3500),shipUSD=Number(d.eb.intlShipUSD||Math.round(shipJPY/Math.max(1,fx)*100)/100);eb.innerHTML='<div class="ebay-head"><span>🌍 eBay輸出見込</span><b>+'+yen(d.eb.profitJpy)+'</b>'+(Number(d.eb.strong)===1?'<span class="ebay-strong">強い輸出候補</span>':'')+'</div><div class="ebay-meta"><span>現在相場 <b>$'+medUSD.toLocaleString()+' / '+yen(medJPY)+'</b></span><span>想定販売 <b>$'+saleUSD.toLocaleString()+' / '+yen(saleJPY)+'</b></span><span>国際送料 <b>$'+shipUSD.toLocaleString()+' / '+yen(shipJPY)+'</b></span><span>ROI '+Number(d.eb.roi||0)+'%</span><span>海外出品 '+Number(d.eb.n||0)+'件</span><span>需要 '+Number(d.eb.demand||0)+'/100</span><span>為替 '+yen(fx)+'/USD</span></div>';card.appendChild(eb);}
       if(a.source==="ヤフオク"&&Number(d.bn)===1){const instantBtn=document.createElement("a");instantBtn.className="abtn primary";instantBtn.href=a.url;instantBtn.target="_blank";instantBtn.rel="noopener";instantBtn.style.cssText="display:block;text-align:center;margin-top:10px;text-decoration:none;background:linear-gradient(135deg,#ffb300,#ff7a00);border-color:transparent;color:#fff;font-weight:900";instantBtn.textContent="⚡ 即決可能 — 今すぐ商品を確認";card.appendChild(instantBtn);}
       const cs=conditionScoreJS(a.name,d);const cq=document.createElement("div");cq.className="anotes";const ct=document.createElement("span");ct.className="tag";ct.style.setProperty("--tc",cs>=80?"var(--good)":cs>=60?"var(--accent)":"var(--warn)");ct.textContent=(cs>=80?"✨ きれい優先":"状態評価")+" "+cs+"点";cq.appendChild(ct);card.appendChild(cq);
       // 仕入れの内訳(現在価格+送料) — 利益はすべて送料込みで計算済み
