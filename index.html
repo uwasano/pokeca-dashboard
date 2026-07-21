@@ -301,18 +301,6 @@ header{align-items:center;margin-bottom:14px}
     </div>
   </header>
 
-  <section class="quick-search" aria-label="今すぐ商品検索">
-    <div class="quick-search-head"><strong>⚡ 今すぐ取得・自動表示</strong><small>PC稼働中なら数秒で取得開始</small></div>
-    <div class="quick-search-form">
-      <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="brand">👜 ブランド</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
-      <input id="quickSearchTerm" type="search" maxlength="100" placeholder="例: OLYMPUS XZ-1 ホワイト" autocomplete="off">
-      <button id="quickSearchBtn" type="button">今すぐ取得する</button>
-    </div>
-    <label class="quick-search-options"><input id="quickSearchSold" type="checkbox" checked> 売れた実績も取得して相場を検証</label>
-    <div class="quick-search-msg" id="quickSearchMsg" aria-live="polite"></div>
-    <div class="quick-results" id="quickSearchResults"></div>
-  </section>
-
   <nav class="source-rail" aria-label="対応マーケット">
     <div class="source-track">
       <div class="source-group">
@@ -418,6 +406,18 @@ header{align-items:center;margin-bottom:14px}
     </div>
     <div id="list"></div>
   </div>
+
+  <section class="quick-search" aria-label="今すぐ商品検索">
+    <div class="quick-search-head"><strong>⚡ 個別商品を今すぐ取得</strong><small>全体ダッシュボードの下で詳しく調査</small></div>
+    <div class="quick-search-form">
+      <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="brand">👜 ブランド</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
+      <input id="quickSearchTerm" type="search" maxlength="100" placeholder="例: OLYMPUS XZ-1 ホワイト" autocomplete="off">
+      <button id="quickSearchBtn" type="button">今すぐ取得する</button>
+    </div>
+    <label class="quick-search-options"><input id="quickSearchSold" type="checkbox" checked> 売れた実績も取得して相場を検証</label>
+    <div class="quick-search-msg" id="quickSearchMsg" aria-live="polite"></div>
+    <div class="quick-results" id="quickSearchResults"></div>
+  </section>
 
   <div class="card">
     <div class="card-t">スコアの見かた</div>
@@ -1713,7 +1713,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
     const rows=(DATA?compute(DATA).rows:[]).filter(x=>{const s=String((x.title||"")+" "+(x.cardName||"")+" "+(x.cardNo||"")).toUpperCase();return tokens.every(t=>s.includes(t));}).slice(0,20);box.innerHTML="";
     if(!rows.length){box.textContent="該当する出品は今回見つかりませんでした。検索語を短くするか、色・型番を確認してください。";return;}
     const hd=document.createElement("div");hd.className="quick-results-head";hd.innerHTML='<span>📊 取得商品の仕入れ判定</span><span>'+rows.length+'件・点数／相場／利益つき</span>';box.appendChild(hd);
-    rows.forEach(x=>{box.appendChild(listingRow(x));const sold=(DATA.sold||[]).filter(s=>s.cardNo&&s.cardNo===x.cardNo&&s.saleVerified===true).sort((a,b)=>new Date(b.soldAt||b.seenAt)-new Date(a.soldAt||a.seenAt));const mp=document.createElement("div");mp.className="quick-market";const med=sold.length?median(sold.map(s=>Number(s.price||0))):Number(x.reference||0),maxBuy=med?Math.max(0,Math.round(med*(1-FEE_RATE)-SHIPPING-100-3000)):0;mp.innerHTML='<div class="quick-market-metrics"><span>狙い目点数<b>'+x.score+'/100</b></span><span>'+(x.refType==='成約'?'成約中央値':'参考相場')+'<b>'+yen(med)+'</b></span><span>予想利益<b style="color:'+(x.profit>=0?'var(--good)':'var(--serious)')+'">'+(x.profit>=0?'+':'−')+yen(Math.abs(x.profit))+'</b></span><span>仕入れ上限<b>'+yen(maxBuy)+'</b></span></div><div class="quick-sold-title">📊 同一商品の売れた実績 '+sold.length+'件</div>';if(sold.length){sold.slice(0,8).forEach(s=>{const r=document.createElement("div");r.className="quick-sold-row";const dt=new Date(s.soldAt||s.seenAt);r.innerHTML='<span>'+(Number.isFinite(dt.getTime())?dt.toLocaleDateString('ja-JP'):'日付不明')+'</span><a target="_blank" rel="noopener"></a><b>'+yen(Number(s.price||0))+'</b>';r.querySelector('a').textContent=s.title||'売却済み商品';r.querySelector('a').href='https://jp.mercari.com/item/'+s.itemId;mp.appendChild(r)});}else{const e=document.createElement("div");e.className="quick-sold-empty";e.textContent="売却済みの商品ページでSOLD OUTを確認できた同一実例はまだありません。現在の利益は確定していません。";mp.appendChild(e);}box.appendChild(mp);if(!x.reliable){const n=document.createElement("div");n.className="quick-unverified";n.textContent="⚠ 同一商品の売れた実績が不足しています。表示利益は出品中価格による参考値で、仕入れ判断には使わないでください。売れた実績の確認後に確定します。";box.appendChild(n);}});
+    rows.forEach(x=>{box.appendChild(listingRow(x));const allSold=(DATA.sold||[]).filter(s=>s.saleVerified===true).sort((a,b)=>new Date(b.soldAt||b.seenAt)-new Date(a.soldAt||a.seenAt));const base=k=>String(k||"").replace(/\s(?:MINI|NANO|MICRO|PM|MM|GM|TPM|BB|XS|SMALL|MEDIUM|LARGE|25|28|30|32|35|40)$/i,"");const exact=allSold.filter(s=>s.cardNo&&s.cardNo===x.cardNo),related=allSold.filter(s=>s.cardNo&&s.cardNo!==x.cardNo&&base(s.cardNo)===base(x.cardNo)).slice(0,8),sold=exact;const mp=document.createElement("div");mp.className="quick-market";const med=sold.length?median(sold.map(s=>Number(s.price||0))):Number(x.reference||0),maxBuy=sold.length?Math.max(0,Math.round(med*(1-FEE_RATE)-SHIPPING-100-3000)):0;mp.innerHTML='<div class="quick-market-metrics"><span>狙い目点数<b>'+x.score+'/100</b></span><span>'+(sold.length?'完全一致成約中央値':'参考相場')+'<b>'+yen(med)+'</b></span><span>'+(sold.length?'検証済み利益':'暫定差額')+'<b style="color:'+(x.profit>=0?'var(--good)':'var(--serious)')+'">'+(x.profit>=0?'+':'−')+yen(Math.abs(x.profit))+'</b></span><span>安全仕入れ上限<b>'+(sold.length?yen(maxBuy):'算定待ち')+'</b></span></div><div class="quick-sold-title">✅ 完全一致の売れた実績 '+exact.length+'件</div>';const addRows=(arr,label)=>arr.slice(0,8).forEach(s=>{const r=document.createElement("div");r.className="quick-sold-row";const dt=new Date(s.soldAt||s.seenAt);r.innerHTML='<span>'+(Number.isFinite(dt.getTime())?dt.toLocaleDateString('ja-JP'):'確認日')+'</span><a target="_blank" rel="noopener"></a><b>'+yen(Number(s.price||0))+'</b>';r.querySelector('a').textContent=(label?label+' ':'')+(s.title||'売却済み商品');r.querySelector('a').href='https://jp.mercari.com/item/'+s.itemId;mp.appendChild(r)});addRows(exact,'');if(related.length){const t=document.createElement("div");t.className="quick-sold-title";t.textContent='🟡 サイズ違い等の高類似実績 '+related.length+'件（利益計算には未使用）';mp.appendChild(t);addRows(related,'参考');}if(!exact.length&&!related.length){const competitors=(DATA.listings||[]).filter(z=>z.itemId!==x.itemId&&base(z.cardNo)===base(x.cardNo)).slice(0,5);const e=document.createElement("div");e.className="quick-sold-empty";e.textContent="完全一致成約は取得中です。代わりに現在出品の比較対象を下へ表示します（売れた証拠ではありません）。";mp.appendChild(e);competitors.forEach(z=>{const r=document.createElement("div");r.className="quick-sold-row";r.innerHTML='<span>現在出品</span><a target="_blank" rel="noopener"></a><b>'+yen(Number(z.price||0))+'</b>';r.querySelector('a').textContent=z.title||'比較出品';r.querySelector('a').href=z.url;mp.appendChild(r)});}box.appendChild(mp);if(!x.reliable){const n=document.createElement("div");n.className="quick-unverified";n.textContent="⚠ 完全一致実績が3件未満のため利益は暫定です。ただし証拠を隠さず、完全一致・高類似・現在出品を分離して表示しています。";box.appendChild(n);}});
   };
   async function waitForQuickScan(id,term){
     const started=Date.now();let misses=0;
