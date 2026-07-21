@@ -461,6 +461,16 @@ function alertImage(a,d){
  }
  return hit&&hit.image?{url:hit.image,fallback:false}:{url:sourceLogo(a.source),fallback:true};
 }
+function conditionScoreJS(name,d){
+ if(Number(d.cs)>0)return Number(d.cs);
+ const t=String(name||"");
+ if(/未使用|新品|極美品|ほぼ新品/.test(t))return 94;
+ if(/美品|動作確認済|完動|全動作|付属品完備|ワンオーナー/.test(t))return 84;
+ if(/良品|動作品|撮影確認|目立った傷や汚れなし/.test(t))return 72;
+ if(/傷|スレ|汚れ|使用感|現状品|未確認/.test(t))return 43;
+ if(/ジャンク|不動|故障|破損|カビ|曇り|ベタつき|難あり/.test(t))return 15;
+ return 55;
+}
 function alertScore(a,d){
  let s=({S:88,A:78,B:66,C:52}[a.rank]||55);
  const roi=a.buy>0?(a.adjProfit||0)/a.buy:0;
@@ -470,10 +480,11 @@ function alertScore(a,d){
  const pace=Number(d.pc||0);if(pace)s+=pace<=14?5:pace<=30?2:pace>60?-6:0;
  if(typeof d.tr==="number")s+=d.tr>=.05?3:d.tr<=-.15?-7:d.tr<=-.05?-3:0;
  if(d.dd)s-=Math.min(4,Number(d.dd)||0);
+ s+=Math.round((conditionScoreJS(a.name,d)-55)/10);
  return clamp(Math.round(s),0,100);
 }
 
-let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,sort:"new",acat:"all"};
+let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,sort:"quality",acat:"all"};
 /* ハードオフ(仕入れ) × メルカリ成約相場(売り) のサヤ取り。本物の利益源。 */
 const JUNK_RE=/ジャンク|部品取り|不動|故障|訳あり|難あり|破損|ランク[DEJ](?![A-Z0-9])/;
 function computeArbitrage(d){
@@ -1180,7 +1191,7 @@ function render(){
     const mkS=(label,val)=>{const c=document.createElement("button");c.className="fchip";c.type="button";c.textContent=label;
       c.setAttribute("aria-pressed",state.sort===val?"true":"false");
       c.addEventListener("click",()=>{state.sort=val;render();});return c;};
-    sc2.appendChild(mkS("新着順","new"));sc2.appendChild(mkS("⏳残り短い順","end"));
+    sc2.appendChild(mkS("✨状態が良い順","quality"));sc2.appendChild(mkS("新着順","new"));sc2.appendChild(mkS("⏳残り短い順","end"));
     sc2.appendChild(mkS("利益順","profit"));sc2.appendChild(mkS("月間換算順","mp"));
     list.appendChild(sc2);
     let rowsA=all;
@@ -1226,7 +1237,9 @@ function render(){
       if(seenItem.has(nk))return false;seenItem.add(nk);return true;
     });
     // 並び替え
-    if(state.sort==="end"){
+    if(state.sort==="quality"){
+      rowsA=rowsA.slice().sort((x,y)=>conditionScoreJS(y.name,y.detail||{})-conditionScoreJS(x.name,x.detail||{})||alertScore(y,y.detail||{})-alertScore(x,x.detail||{})||new Date(y.at)-new Date(x.at));
+    }else if(state.sort==="end"){
       rowsA=rowsA.slice().sort((x,y)=>{
         const ex=(x.detail&&x.detail.e)?new Date(x.detail.e).getTime():Infinity;
         const ey=(y.detail&&y.detail.e)?new Date(y.detail.e).getTime():Infinity;
@@ -1308,6 +1321,7 @@ function render(){
       main.appendChild(fl);hero.appendChild(main);
       const score=alertScore(a,d);const scoreBox=document.createElement("div");scoreBox.className="alert-score "+(score>=85?"high":score>=65?"mid":"low");scoreBox.title="利益・利益率・成約数・回転・相場トレンドから算出";
       scoreBox.innerHTML='<strong>'+score+'</strong><span>狙い目点数</span><small>100点満点</small>';hero.appendChild(scoreBox);card.appendChild(hero);
+      const cs=conditionScoreJS(a.name,d);const cq=document.createElement("div");cq.className="anotes";const ct=document.createElement("span");ct.className="tag";ct.style.setProperty("--tc",cs>=80?"var(--good)":cs>=60?"var(--accent)":"var(--warn)");ct.textContent=(cs>=80?"✨ きれい優先":"状態評価")+" "+cs+"点";cq.appendChild(ct);card.appendChild(cq);
       // 仕入れの内訳(現在価格+送料) — 利益はすべて送料込みで計算済み
       if(typeof d.sp==="number"&&d.sp>=0&&a.buy>d.sp){
         const bd0=document.createElement("div");
