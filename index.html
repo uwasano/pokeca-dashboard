@@ -111,6 +111,7 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .fchip{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:99px;padding:5px 13px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
 .fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .quick-search{margin:14px 0;padding:16px;border:1px solid #cbd5ff;border-radius:18px;background:linear-gradient(135deg,#f8faff,#f2f7ff);box-shadow:0 10px 30px rgba(49,78,180,.09)}.quick-search-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}.quick-search-head strong{font-size:15px}.quick-search-head small{color:var(--ink-3)}.quick-search-form{display:grid;grid-template-columns:150px 1fr auto;gap:9px}.quick-search select,.quick-search input{min-width:0;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--ink);padding:12px;font:inherit}.quick-search button{border:0;border-radius:12px;padding:0 18px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font:inherit;font-weight:800;cursor:pointer}.quick-search button:disabled{opacity:.55}.quick-search-options{display:flex;align-items:center;gap:8px;margin-top:9px;font-size:12px;color:var(--ink-2)}.quick-search-msg{min-height:18px;margin-top:8px;font-size:12px;font-weight:700;color:#2563eb}@media(max-width:650px){.quick-search-form{grid-template-columns:1fr 1fr}.quick-search input{grid-column:1/-1;grid-row:1}.quick-search button{min-height:46px}.quick-search-head{align-items:flex-start;flex-direction:column}}
+.quick-results{display:grid;gap:8px;margin-top:10px}.quick-result{display:grid;grid-template-columns:58px 1fr auto;gap:10px;align-items:center;padding:9px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:inherit;text-decoration:none}.quick-result img{width:58px;height:58px;border-radius:9px;object-fit:cover;background:#eef2f7}.quick-result b{display:block;font-size:13px;line-height:1.35}.quick-result small{color:var(--ink-3)}.quick-result-price{font-weight:900;color:#059669;white-space:nowrap}@media(max-width:520px){.quick-result{grid-template-columns:52px 1fr}.quick-result img{width:52px;height:52px}.quick-result-price{grid-column:2}}
 .astat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .astat .box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 12px;text-align:center}
 .astat .bn{font-size:20px;font-weight:800}
@@ -308,6 +309,7 @@ header{align-items:center;margin-bottom:14px}
     </div>
     <label class="quick-search-options"><input id="quickSearchSold" type="checkbox" checked> 売れた実績も取得して相場を検証</label>
     <div class="quick-search-msg" id="quickSearchMsg" aria-live="polite"></div>
+    <div class="quick-results" id="quickSearchResults"></div>
   </section>
 
   <nav class="source-rail" aria-label="対応マーケット">
@@ -1694,17 +1696,22 @@ async function load(){
   $("#hsub").textContent="読み込み中…";
   loadAlerts(); // 監視結果は並行で取得
   loadEbayStatus();
-  if(EMBED&&Array.isArray(EMBED.listings)){DATA=EMBED;setFresh();render();return;}
   try{if(!DATA_URL||DATA_URL.indexOf("__")===0||DATA_URL==="")throw 0;
     const res=await fetch(DATA_URL,{cache:"no-store"});const j=await res.json();
     if(!j||!Array.isArray(j.listings))throw 0;DATA=j;
-  }catch(e){DATA=SAMPLE;}
+  }catch(e){DATA=EMBED&&Array.isArray(EMBED.listings)?EMBED:SAMPLE;}
   setFresh();render();
 }
 setInterval(loadAlerts,60*1000); // 監視結果は1分ごとに自動更新
 /* ===== 選択商品を次回PC巡回へ優先投入 ===== */
 if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   const qb=$("#quickSearchBtn"),qi=$("#quickSearchTerm"),qm=$("#quickSearchMsg");
+  function renderQuickSearchResults(term){
+    const box=$("#quickSearchResults"),tokens=String(term).toUpperCase().split(/\s+/).filter(Boolean);
+    const rows=(DATA&&Array.isArray(DATA.listings)?DATA.listings:[]).filter(x=>{const s=String(x.title||x.cardName||"").toUpperCase();return tokens.every(t=>s.includes(t));}).slice(0,20);box.innerHTML="";
+    if(!rows.length){box.textContent="該当する出品は今回見つかりませんでした。検索語を短くするか、色・型番を確認してください。";return;}
+    rows.forEach(x=>{const a=document.createElement("a");a.className="quick-result";a.href=x.url||"#";a.target="_blank";a.rel="noopener";const im=document.createElement("img");im.src=x.image||sourceLogo("メルカリ");im.alt="";im.onerror=()=>{im.src=sourceLogo("メルカリ")};const tx=document.createElement("div"),b=document.createElement("b"),s=document.createElement("small"),p=document.createElement("span");b.textContent=x.title||x.cardName||"商品";s.textContent="メルカリ出品中";p.className="quick-result-price";p.textContent=yen(Number(x.price||0));tx.append(b,s);a.append(im,tx,p);box.appendChild(a);});
+  }
   async function waitForQuickScan(id,term){
     const started=Date.now();let misses=0;
     while(Date.now()-started<8*60*1000){
@@ -1712,7 +1719,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
       try{const r=await fetch(DATA_URL+"?type=config&_="+Date.now(),{cache:"no-store"}),c=await r.json(),q=Array.isArray(c.scanRequests)?c.scanRequests:[];
         if(q.some(x=>x&&x.id===id)){misses=0;qm.textContent="⚡ PCが取得中です… 完了すると自動で結果を更新します。";continue;}
         if(++misses<2)continue;
-        qm.textContent="✓ 「"+term+"」の取得が完了しました。結果を更新しました。";await load();return;
+        qm.textContent="✓ 「"+term+"」の取得が完了しました。結果を更新しました。";await load();renderQuickSearchResults(term);return;
       }catch(_){qm.textContent="取得状況を確認中です…";}
     }
     qm.textContent="取得待ちが続いています。PCの電源・常駐受信機を確認してください。予約は残っています。";
@@ -1720,7 +1727,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   qb.addEventListener("click",async()=>{
     const term=qi.value.trim(),cat=$("#quickSearchCat").value,includeSold=$("#quickSearchSold").checked;
     if(term.length<2){qm.textContent="商品名・ブランド名・型番を2文字以上入力してください。";qi.focus();return;}
-    qb.disabled=true;qb.textContent="登録中…";qm.textContent="優先検索キューへ送信しています。";
+    qb.disabled=true;qb.textContent="登録中…";qm.textContent="優先検索キューへ送信しています。";$("#quickSearchResults").innerHTML="";
     try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,scanRequest:{term,cat,includeSold}})}),j=await r.json();
       if(!j||!j.ok)throw new Error(j&&j.error||"登録できませんでした");
       qm.textContent="⚡ 「"+term+"」を送信しました。PCへ即時取得を指示しています。";qi.value="";waitForQuickScan(j.id,term);
