@@ -1701,17 +1701,18 @@ async function load(){
     if(!j||!Array.isArray(j.listings))throw 0;DATA=j;
   }catch(e){DATA=EMBED&&Array.isArray(EMBED.listings)?EMBED:SAMPLE;}
   setFresh();render();
+  if(window.renderQuickSearchResults)window.renderQuickSearchResults("");
 }
 setInterval(loadAlerts,60*1000); // 監視結果は1分ごとに自動更新
 /* ===== 選択商品を次回PC巡回へ優先投入 ===== */
 if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   const qb=$("#quickSearchBtn"),qi=$("#quickSearchTerm"),qm=$("#quickSearchMsg");
-  function renderQuickSearchResults(term){
+  window.renderQuickSearchResults=function(term){
     const box=$("#quickSearchResults"),tokens=String(term).toUpperCase().split(/\s+/).filter(Boolean);
     const rows=(DATA&&Array.isArray(DATA.listings)?DATA.listings:[]).filter(x=>{const s=String(x.title||x.cardName||"").toUpperCase();return tokens.every(t=>s.includes(t));}).slice(0,20);box.innerHTML="";
     if(!rows.length){box.textContent="該当する出品は今回見つかりませんでした。検索語を短くするか、色・型番を確認してください。";return;}
     rows.forEach(x=>{const a=document.createElement("a");a.className="quick-result";a.href=x.url||"#";a.target="_blank";a.rel="noopener";const im=document.createElement("img");im.src=x.image||sourceLogo("メルカリ");im.alt="";im.onerror=()=>{im.src=sourceLogo("メルカリ")};const tx=document.createElement("div"),b=document.createElement("b"),s=document.createElement("small"),p=document.createElement("span");b.textContent=x.title||x.cardName||"商品";s.textContent="メルカリ出品中";p.className="quick-result-price";p.textContent=yen(Number(x.price||0));tx.append(b,s);a.append(im,tx,p);box.appendChild(a);});
-  }
+  };
   async function waitForQuickScan(id,term){
     const started=Date.now();let misses=0;
     while(Date.now()-started<8*60*1000){
