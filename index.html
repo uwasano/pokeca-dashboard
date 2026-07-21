@@ -275,6 +275,7 @@ header{align-items:center;margin-bottom:14px}
 @media(max-width:900px){.search-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}.alert-hero{grid-template-columns:88px minmax(0,1fr) 60px;gap:10px}.alert-photo{width:88px;border-radius:13px}.alert-score{width:58px;height:64px;border-radius:17px}.alert-score strong{font-size:22px}.alert-score span{font-size:8px}.alert-score small{display:none}.alert-main .aname{font-size:14px}.alert-main .aflow{gap:5px}.alert-main .arr{display:none}.cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profit-cockpit{padding:15px}.cockpit-title{font-size:17px}.deal-toast-stack{right:12px;bottom:12px}}
 .auth-lab{position:relative;overflow:hidden;border:1px solid rgba(83,91,242,.2);background:linear-gradient(145deg,rgba(83,91,242,.08),rgba(0,194,168,.05)),var(--surface)}
+.auth-modal{position:fixed;inset:0;z-index:5000;background:rgba(8,12,28,.72);backdrop-filter:blur(10px);overflow-y:auto;padding:24px 12px}.auth-modal .auth-lab{max-width:980px;margin:0 auto;box-shadow:0 28px 80px rgba(0,0,0,.35)}.auth-close{position:sticky;top:0;z-index:2;float:right;border:0;border-radius:999px;width:38px;height:38px;background:#111827;color:#fff;font-size:20px;cursor:pointer}.auth-launch{background:linear-gradient(135deg,#312e81,#7c3aed)!important;color:#fff!important;border-color:transparent!important}
 .auth-lab:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-120px;top:-140px;background:rgba(83,91,242,.13);filter:blur(12px);pointer-events:none}
 .auth-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;position:relative}.auth-head h2{font-size:19px;margin:0 0 5px}.auth-head p{font-size:12px;color:var(--ink-2);margin:0;line-height:1.65}.auth-badge{padding:7px 10px;border-radius:999px;background:#fff3d8;color:#8a5c00;font-size:10px;font-weight:850;white-space:nowrap}
 .shot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}.shot-chip{border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--surface);font-size:11px;line-height:1.5}.shot-chip b{display:block;font-size:12px}.shot-chip.done{border-color:#21a67a;background:rgba(33,166,122,.09)}
@@ -291,6 +292,7 @@ header{align-items:center;margin-bottom:14px}
       <div class="h-sub" id="hsub">読み込み中…</div>
     </div>
     <div class="btnrow">
+      <button class="mini-btn auth-launch" id="authOpen" type="button">🔬 精密鑑定</button>
       <button class="mini-btn" id="reloadBtn" type="button">↻ 更新</button>
       <button class="mini-btn" id="themeBtn" type="button">🌙</button>
     </div>
@@ -365,7 +367,7 @@ header{align-items:center;margin-bottom:14px}
 
   <div class="presets" id="catRow" style="margin-bottom:10px"></div>
 
-  <section class="card auth-lab" id="authLab">
+  <div class="auth-modal" id="authModal" hidden><section class="card auth-lab" id="authLab"><button class="auth-close" id="authClose" type="button" aria-label="閉じる">×</button>
     <div class="auth-head"><div><h2>🔬 ブランド精密鑑定ラボ</h2><p>部位別の微細特徴・文字情報・年代整合を分けて検査し、怪しい箇所を写真上に表示します。</p></div><span class="auth-badge">AI補助判定・真贋保証ではありません</span></div>
     <div class="shot-grid" id="authShotGuide">
       <div class="shot-chip"><b>① 全体・正面</b>形、柄、左右対称</div><div class="shot-chip"><b>② 背面・底・側面</b>裁断、接合、コバ</div><div class="shot-chip"><b>③ 内装・ポケット</b>素材、構造、汚れ</div><div class="shot-chip"><b>④ ロゴ刻印 接写</b>真正面＋斜光</div>
@@ -375,7 +377,7 @@ header{align-items:center;margin-bottom:14px}
     <div class="auth-actions"><label class="auth-upload">📷 写真を選ぶ（最大12枚）<input id="authFiles" type="file" accept="image/*" capture="environment" multiple></label><input class="auth-note" id="authNote" placeholder="ブランド、商品名、購入先、気になる点など"><button class="auth-run" id="authRun" type="button">精密鑑定を開始</button></div>
     <div class="auth-previews" id="authPreviews"></div><div class="auth-result" id="authResult"></div>
     <div class="auth-warning">織り密度・糸の太さ・刻印深さの絶対測定には、ピントの合ったマクロ写真と定規が必要です。高額品はメーカーまたは専門鑑定の現物確認を併用してください。比較画像は出所が確認できる参照データだけを使用します。</div>
-  </section>
+  </section></div>
 
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-view="alerts" aria-selected="true">🔔 監視候補</button>
@@ -1235,11 +1237,12 @@ function render(){
   if(VIEW==="alerts"){
     $("#controls").style.display="none";$("#presets").style.display="none";$("#scoreFilter").style.display="none";
     $("#listTitle").textContent="収益オポチュニティ・コックピット";
-    const all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);
+    const all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit).filter(a=>a.adjProfit>=1000||(a.detail&&Number(a.detail.marketPending)===1));
     const cS=all.filter(a=>a.rank==="S").length,cA=all.filter(a=>a.rank==="A").length,cB=all.filter(a=>a.rank==="B"||a.rank==="C").length;
     const cp=document.createElement("section");cp.className="profit-cockpit";
     const potential=all.reduce((n,a)=>n+Math.max(0,Number(a.adjProfit||0)),0),quick=all.filter(a=>Number((a.detail||{}).pc||99)<=14&&a.adjProfit>=3000).length,instant=all.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1&&a.adjProfit>=3000).length,ebayN=all.filter(a=>a.detail&&a.detail.eb&&a.detail.eb.profitJpy>=10000).length;
-    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>検証済み候補</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>候補利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+ebayN+'</strong><span>eBay輸出利益1万円以上</span></div></div>';
+    const pendingN=all.filter(a=>a.detail&&Number(a.detail.marketPending)===1).length;
+    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>候補（再確認 '+pendingN+'件）</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>確認済み利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+ebayN+'</strong><span>eBay輸出利益1万円以上</span></div></div>';
     list.appendChild(cp);
     // 集計ボックス
     const st=document.createElement("div");st.className="astat";
@@ -1366,6 +1369,7 @@ function render(){
         const rt=document.createElement("span");rt.className="schip y";rt.textContent="利益率 "+Math.round(a.adjProfit/a.buy*100)+"%";top.appendChild(rt);
       }
       if(a.adjProfit<3000){const dev=document.createElement("span");dev.className="schip";dev.textContent="育成候補";dev.title="利益1,000〜2,999円。通知せずサイト内で追跡";top.appendChild(dev);}
+      if(Number(d.marketPending)===1){const pv=document.createElement("span");pv.className="schip";pv.style.cssText="background:#fff3cd;color:#7a5200;border-color:#f0cf72";pv.textContent="🔄 相場再確認中";pv.title="売却済みを確認できた完全一致実例が3件未満。古い利益は無効化しています";top.appendChild(pv);}
       // オークションの残り期間
       // ★ウォッチ登録(GAS保存=端末をまたいで共有)
       if(a.url&&a.url!=="#"&&DATA_URL){
@@ -1748,6 +1752,7 @@ const cl=document.getElementById("critLink");if(cl)cl.addEventListener("click",e
 $("#foot").textContent="PCが取得したメルカリ相場データを表示。判定は判断書§27準拠。真贋・状態の確定は現物確認が必要です。";
 /* precision authentication lab */
 let AUTH_PHOTOS=[];
+const authModal=document.getElementById("authModal");document.getElementById("authOpen").addEventListener("click",()=>{authModal.hidden=false;document.body.style.overflow="hidden"});function closeAuthLab(){authModal.hidden=true;document.body.style.overflow=""}document.getElementById("authClose").addEventListener("click",closeAuthLab);authModal.addEventListener("click",e=>{if(e.target===authModal)closeAuthLab()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!authModal.hidden)closeAuthLab()});
 const escAuth=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function authCompress(file){return new Promise((resolve,reject)=>{const rd=new FileReader();rd.onerror=reject;rd.onload=()=>{const im=new Image();im.onerror=reject;im.onload=()=>{let w=im.width,h=im.height,max=1500;if(Math.max(w,h)>max){const z=max/Math.max(w,h);w=Math.round(w*z);h=Math.round(h*z)}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);resolve(c.toDataURL("image/jpeg",.78))};im.src=rd.result};rd.readAsDataURL(file)})}
 function renderAuthPhotos(){const box=document.getElementById("authPreviews");box.innerHTML="";AUTH_PHOTOS.forEach((src,i)=>{const d=document.createElement("div");d.className="auth-preview";d.dataset.photo=String(i);d.innerHTML='<img src="'+src+'"><span>写真 '+(i+1)+'</span>';box.appendChild(d)});document.querySelectorAll("#authShotGuide .shot-chip").forEach((e,i)=>e.classList.toggle("done",i<AUTH_PHOTOS.length))}
