@@ -106,8 +106,8 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .aflow .fp .fv{font-size:17px;font-weight:800;color:var(--delta-good)}
 .anotes{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
 .fchips{display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap}
-.filter-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.filter-group{padding:11px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,248,255,.92));box-shadow:0 5px 18px rgba(31,55,100,.05)}.filter-label{display:flex;align-items:center;gap:6px;margin:0 0 8px;color:var(--ink-3);font-size:10px;font-weight:850;letter-spacing:.08em}.filter-group .fchips{margin:0}.filter-group .fchip{flex:1 1 auto}.filter-group.special{background:linear-gradient(145deg,#fffdf5,#f6f4ff)}
-@media(max-width:600px){.filter-board{grid-template-columns:1fr}.filter-group{padding:10px}.filter-group .fchip{min-width:calc(50% - 5px)}}
+.filter-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0}.filter-group{position:relative;overflow:hidden;padding:13px;border:1px solid var(--border);border-radius:18px;background:#fff;box-shadow:0 8px 24px rgba(31,55,100,.07)}.filter-group::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:#64748b}.filter-group.rank::before{background:#f59e0b}.filter-group.source::before{background:#2563eb}.filter-group.category::before{background:#10b981}.filter-group.special::before{background:#8b5cf6}.filter-label{display:flex;align-items:center;gap:6px;margin:0 0 10px 3px;color:var(--ink-2);font-size:11px;font-weight:900;letter-spacing:.07em}.filter-group .fchips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;gap:7px}.filter-group .fchip{width:100%;min-width:0;padding:9px 8px;white-space:normal}.filter-group.rank .fchip[aria-pressed="true"]{background:linear-gradient(135deg,#f59e0b,#f97316)}.filter-group.source .fchip[aria-pressed="true"]{background:linear-gradient(135deg,#2563eb,#4f46e5)}.filter-group.category .fchip[aria-pressed="true"]{background:linear-gradient(135deg,#059669,#0d9488)}.filter-group.special .fchip[aria-pressed="true"]{background:linear-gradient(135deg,#7c3aed,#db2777)}
+@media(max-width:600px){.filter-board{grid-template-columns:1fr;gap:9px}.filter-group{padding:11px 10px 11px 13px}.filter-group .fchip{min-height:44px;font-size:12.5px}}
 .fchip{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:99px;padding:5px 13px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
 .fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .astat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
@@ -160,6 +160,7 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .cnote{font-size:10.5px;color:var(--ink-3);margin-top:3px}
 .endc{font-size:10px;font-weight:800;border-radius:6px;padding:1.5px 7px;flex:none;background:color-mix(in srgb,#f5a300 18%,transparent);color:#8a6100}
 .endc.urgent{background:color-mix(in srgb,var(--serious) 14%,transparent);color:var(--serious)}
+.auction-clock{margin:10px 0 12px;padding:12px 14px;border:1px solid #bfdbfe;border-radius:16px;background:linear-gradient(135deg,#eff6ff,#eef2ff);box-shadow:0 8px 22px rgba(37,99,235,.09)}.auction-clock-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#1e3a8a;font-size:11px;font-weight:850}.auction-clock-time{display:flex;align-items:baseline;gap:5px;margin-top:5px}.auction-clock-time strong{font-size:23px;line-height:1;color:#1d4ed8;letter-spacing:.02em;font-variant-numeric:tabular-nums}.auction-clock-time span{font-size:10px;color:#64748b}.auction-clock-meta{display:flex;justify-content:space-between;gap:8px;margin-top:7px;padding-top:7px;border-top:1px dashed #bfdbfe;font-size:10.5px;color:#475569}.auction-clock.soon{border-color:#fdba74;background:linear-gradient(135deg,#fff7ed,#fffbeb)}.auction-clock.soon .auction-clock-time strong{color:#ea580c}.auction-clock.final{border-color:#fca5a5;background:linear-gradient(135deg,#fff1f2,#fef2f2);animation:clockPulse 1.4s ease-in-out infinite}.auction-clock.final .auction-clock-time strong{color:#dc2626}.auction-clock.ended{opacity:.72;background:#f1f5f9;border-color:#cbd5e1}.auction-clock.ended .auction-clock-time strong{color:#64748b}@keyframes clockPulse{50%{box-shadow:0 8px 28px rgba(220,38,38,.2)}}
 .starb{border:none;background:none;font-size:19px;cursor:pointer;color:#f5a300;padding:0 2px;line-height:1;margin-left:auto}
 .acard-top .atime{margin-left:0}
 .wstored{font-size:10.5px;color:var(--ink-3);margin-top:4px}
@@ -273,6 +274,13 @@ header{align-items:center;margin-bottom:14px}
 @media(prefers-reduced-motion:reduce){.market-ticker{overflow-x:auto}.market-ticker-track{animation:none}.market-ticker-group[aria-hidden="true"]{display:none}}
 @media(max-width:900px){.search-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}.alert-hero{grid-template-columns:88px minmax(0,1fr) 60px;gap:10px}.alert-photo{width:88px;border-radius:13px}.alert-score{width:58px;height:64px;border-radius:17px}.alert-score strong{font-size:22px}.alert-score span{font-size:8px}.alert-score small{display:none}.alert-main .aname{font-size:14px}.alert-main .aflow{gap:5px}.alert-main .arr{display:none}.cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profit-cockpit{padding:15px}.cockpit-title{font-size:17px}.deal-toast-stack{right:12px;bottom:12px}}
+.auth-lab{position:relative;overflow:hidden;border:1px solid rgba(83,91,242,.2);background:linear-gradient(145deg,rgba(83,91,242,.08),rgba(0,194,168,.05)),var(--surface)}
+.auth-lab:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-120px;top:-140px;background:rgba(83,91,242,.13);filter:blur(12px);pointer-events:none}
+.auth-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;position:relative}.auth-head h2{font-size:19px;margin:0 0 5px}.auth-head p{font-size:12px;color:var(--ink-2);margin:0;line-height:1.65}.auth-badge{padding:7px 10px;border-radius:999px;background:#fff3d8;color:#8a5c00;font-size:10px;font-weight:850;white-space:nowrap}
+.shot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}.shot-chip{border:1px solid var(--border);border-radius:12px;padding:10px;background:var(--surface);font-size:11px;line-height:1.5}.shot-chip b{display:block;font-size:12px}.shot-chip.done{border-color:#21a67a;background:rgba(33,166,122,.09)}
+.auth-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.auth-upload{display:inline-flex;align-items:center;gap:7px;padding:11px 14px;border-radius:12px;background:var(--hero-grad);color:#fff;font-size:12px;font-weight:850;cursor:pointer}.auth-upload input{display:none}.auth-note{flex:1;min-width:220px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--ink)}
+.auth-previews{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:12px}.auth-preview{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--wash);border:1px solid var(--border)}.auth-preview img{width:100%;height:100%;object-fit:cover}.auth-preview span{position:absolute;left:5px;bottom:5px;background:rgba(0,0,0,.7);color:#fff;border-radius:6px;padding:2px 5px;font-size:9px}.anomaly-box{position:absolute;border:2px solid #ff3b5c;background:rgba(255,59,92,.12);pointer-events:none}.auth-run{padding:11px 16px;border:0;border-radius:12px;background:#111827;color:#fff;font-weight:850;cursor:pointer}.auth-run:disabled{opacity:.5}.auth-result{margin-top:13px;display:none}.auth-result.show{display:block}.auth-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.auth-metric{padding:12px;border-radius:12px;background:var(--wash);border:1px solid var(--border)}.auth-metric small{display:block;color:var(--ink-3)}.auth-metric strong{font-size:18px}.auth-details{margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:11px;line-height:1.75}.auth-warning{margin-top:10px;font-size:10px;color:var(--ink-3);line-height:1.6}
+@media(max-width:680px){.shot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-previews{grid-template-columns:repeat(3,minmax(0,1fr))}.auth-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-head{display:block}.auth-badge{display:inline-block;margin-top:8px}}
 </style>
 </head>
 <body>
@@ -357,6 +365,18 @@ header{align-items:center;margin-bottom:14px}
 
   <div class="presets" id="catRow" style="margin-bottom:10px"></div>
 
+  <section class="card auth-lab" id="authLab">
+    <div class="auth-head"><div><h2>🔬 ブランド精密鑑定ラボ</h2><p>部位別の微細特徴・文字情報・年代整合を分けて検査し、怪しい箇所を写真上に表示します。</p></div><span class="auth-badge">AI補助判定・真贋保証ではありません</span></div>
+    <div class="shot-grid" id="authShotGuide">
+      <div class="shot-chip"><b>① 全体・正面</b>形、柄、左右対称</div><div class="shot-chip"><b>② 背面・底・側面</b>裁断、接合、コバ</div><div class="shot-chip"><b>③ 内装・ポケット</b>素材、構造、汚れ</div><div class="shot-chip"><b>④ ロゴ刻印 接写</b>真正面＋斜光</div>
+      <div class="shot-chip"><b>⑤ 縫製 接写</b>定規を添えて撮影</div><div class="shot-chip"><b>⑥ 生地・柄 接写</b>織り、粒、プリント</div><div class="shot-chip"><b>⑦ 金具・ファスナー</b>刻印、反射、メッキ</div><div class="shot-chip"><b>⑧ 製造情報</b>型番、番号、タグ、RFID</div>
+      <div class="shot-chip"><b>⑨ 付属品</b>箱、袋、保証書</div><div class="shot-chip"><b>⑩ レシート</b>個人情報は隠す</div><div class="shot-chip"><b>⑪ 傷・補修部</b>真正面＋斜め</div><div class="shot-chip"><b>⑫ サイズ</b>定規と全体を一緒に</div>
+    </div>
+    <div class="auth-actions"><label class="auth-upload">📷 写真を選ぶ（最大12枚）<input id="authFiles" type="file" accept="image/*" capture="environment" multiple></label><input class="auth-note" id="authNote" placeholder="ブランド、商品名、購入先、気になる点など"><button class="auth-run" id="authRun" type="button">精密鑑定を開始</button></div>
+    <div class="auth-previews" id="authPreviews"></div><div class="auth-result" id="authResult"></div>
+    <div class="auth-warning">織り密度・糸の太さ・刻印深さの絶対測定には、ピントの合ったマクロ写真と定規が必要です。高額品はメーカーまたは専門鑑定の現物確認を併用してください。比較画像は出所が確認できる参照データだけを使用します。</div>
+  </section>
+
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-view="alerts" aria-selected="true">🔔 監視候補</button>
     <button class="tab" role="tab" data-view="profit" aria-selected="false">💰 メルカリ内</button>
@@ -433,6 +453,17 @@ const FEE_RATE=0.10, SHIPPING=210;
 const $=s=>document.querySelector(s);
 const yen=n=>"¥"+Math.round(n).toLocaleString("ja-JP");
 const pct=n=>(n*100).toFixed(0)+"%";
+function updateAuctionClocks(){
+ document.querySelectorAll(".auction-clock[data-end]").forEach(el=>{
+  const end=new Date(el.dataset.end),rem=end.getTime()-Date.now(),out=el.querySelector(".auction-clock-time strong");if(!out||!Number.isFinite(end.getTime()))return;
+  el.classList.remove("soon","final","ended");
+  if(rem<=0){el.classList.add("ended");out.textContent="終了しました";return;}
+  if(rem<=3600000)el.classList.add("final");else if(rem<=21600000)el.classList.add("soon");
+  const total=Math.floor(rem/1000),days=Math.floor(total/86400),hours=Math.floor(total%86400/3600),mins=Math.floor(total%3600/60),secs=total%60;
+  out.textContent=(days?days+"日 ":"")+String(hours).padStart(2,"0")+"時間 "+String(mins).padStart(2,"0")+"分 "+String(secs).padStart(2,"0")+"秒";
+ });
+}
+setInterval(updateAuctionClocks,1000);
 function conditionInfo(text,cat){const has=w=>(text||"").includes(w);const t=(text||"").toUpperCase();
  if(cat==="camera"||cat==="lens"||cat==="bundle"){
   // カメラ・レンズ仕様書§17/§20/§26準拠(テキスト判定できる範囲)
@@ -1223,19 +1254,19 @@ function render(){
     // 用途別に分けたフィルター
     const board=document.createElement("div");board.className="filter-board";
     const group=(title,extra="")=>{const g=document.createElement("section");g.className="filter-group "+extra;const h=document.createElement("div");h.className="filter-label";h.textContent=title;const row=document.createElement("div");row.className="fchips";g.append(h,row);board.appendChild(g);return row;};
-    const rankGroup=group("🏆 ランク");const sourceGroup=group("🛒 仕入先");const categoryGroup=group("📦 カテゴリ");const specialGroup=group("✨ 特殊条件","special");
+    const rankGroup=group("🏆 ランク","rank");const sourceGroup=group("🛒 仕入先・販売先","source");const categoryGroup=group("📦 カテゴリ","category");const specialGroup=group("✨ 特殊条件","special");
     const mk=(label,key,val)=>{const c=document.createElement("button");c.className="fchip";c.type="button";c.textContent=label;
       c.setAttribute("aria-pressed",state[key]===val?"true":"false");
-      c.addEventListener("click",()=>{state[key]=state[key]===val?"all":val;render();});return c;};
-    rankGroup.appendChild(mk("Sのみ","rank","S"));rankGroup.appendChild(mk("A以上","rank","SA"));
-    sourceGroup.appendChild(mk("オフモール","src","オフモール"));sourceGroup.appendChild(mk("ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("Yahoo!フリマ","src","ヤフーフリマ"));
+      c.addEventListener("click",()=>{state[key]=state[key]===val?"all":val;if(key==="src")state.ebayOnly=false;render();});return c;};
+    rankGroup.appendChild(mk("🥇 Sのみ","rank","S"));rankGroup.appendChild(mk("🏅 A以上","rank","SA"));
+    sourceGroup.appendChild(mk("🏪 オフモール","src","オフモール"));sourceGroup.appendChild(mk("🔨 ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("🔴 メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("🟣 Yahoo!フリマ","src","ヤフーフリマ"));
+    {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;if(state.ebayOnly)state.src="all";render();});sourceGroup.appendChild(ec);}
     categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));
     {const wc=document.createElement("button");wc.className="fchip";wc.type="button";
      wc.textContent="⭐ウォッチ"+(WATCHITEMS.length?"("+WATCHITEMS.length+")":"");
      wc.setAttribute("aria-pressed",state.watchOnly?"true":"false");
      wc.addEventListener("click",()=>{state.watchOnly=!state.watchOnly;render();});specialGroup.appendChild(wc);}
     {const ic=document.createElement("button");ic.className="fchip";ic.type="button";ic.textContent="⚡ 即決可能";ic.setAttribute("aria-pressed",state.instantOnly?"true":"false");ic.addEventListener("click",()=>{state.instantOnly=!state.instantOnly;render();});specialGroup.appendChild(ic);}
-    {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay輸出利益";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;render();});specialGroup.appendChild(ec);}
     list.appendChild(board);
     // 並び替えチップ
     const sc2=document.createElement("div");sc2.className="fchips";
@@ -1327,19 +1358,6 @@ function render(){
       }
       if(a.adjProfit<3000){const dev=document.createElement("span");dev.className="schip";dev.textContent="育成候補";dev.title="利益1,000〜2,999円。通知せずサイト内で追跡";top.appendChild(dev);}
       // オークションの残り期間
-      if(d&&d.e){
-        const rem=new Date(d.e).getTime()-Date.now();
-        const ec=document.createElement("span");
-        const ed=new Date(d.e);
-        const dtxt=(ed.getMonth()+1)+"/"+ed.getDate()+" "+ed.getHours()+":"+String(ed.getMinutes()).padStart(2,"0");
-        if(rem<=0){ec.className="endc";ec.textContent="終了("+dtxt+")";}
-        else{
-          const h=Math.floor(rem/3600000);
-          ec.className="endc"+(h<6?" urgent":"");
-          ec.textContent="⏳残り"+(h>=24?Math.floor(h/24)+"日":h>=1?h+"時間":Math.max(1,Math.floor(rem/60000))+"分")+"・"+dtxt+"まで";
-        }
-        top.appendChild(ec);
-      }
       // ★ウォッチ登録(GAS保存=端末をまたいで共有)
       if(a.url&&a.url!=="#"&&DATA_URL){
         const st2=document.createElement("button");st2.className="starb";st2.type="button";
@@ -1358,6 +1376,15 @@ function render(){
       const mins=Math.max(0,Math.round((Date.now()-new Date(a.at).getTime())/60000));
       tm.textContent=mins<60?mins+"分前":mins<1440?Math.round(mins/60)+"時間前":Math.round(mins/1440)+"日前";
       top.appendChild(tm);card.appendChild(top);
+      if(a.source==="ヤフオク"&&d.e){
+        const endDate=new Date(d.e);
+        if(Number.isFinite(endDate.getTime())){
+          const ac=document.createElement("section");ac.className="auction-clock";ac.dataset.end=endDate.toISOString();
+          const endText=endDate.toLocaleString("ja-JP",{month:"numeric",day:"numeric",weekday:"short",hour:"2-digit",minute:"2-digit"});
+          ac.innerHTML='<div class="auction-clock-top"><span>⏳ ヤフオク終了まで</span><span>'+(Number(d.bn)===1?'⚡ 即決あり':'🔨 入札形式')+'</span></div><div class="auction-clock-time"><strong>計算中…</strong></div><div class="auction-clock-meta"><span>終了 '+endText+'</span><span>現在 '+yen(a.buy)+'</span></div>';
+          card.appendChild(ac);updateAuctionClocks();
+        }
+      }
       if(a._stored){const ws=document.createElement("div");ws.className="wstored";ws.textContent="⭐ ウォッチ保存分(いまは検知一覧に無い商品)— AI診断で最新の判定を確認できます";card.appendChild(ws);}
       const hero=document.createElement("div");hero.className="alert-hero";
       const photoData=alertImage(a,d);
@@ -1710,6 +1737,14 @@ const tb=$("#themeBtn");function eff(){const t=document.documentElement.dataset.
 function sync(){tb.textContent=eff()?"☀️":"🌙";}tb.addEventListener("click",()=>{document.documentElement.dataset.theme=eff()?"light":"dark";sync();});sync();
 const cl=document.getElementById("critLink");if(cl)cl.addEventListener("click",e=>{e.preventDefault();const c=document.getElementById("critFull");c.hidden=!c.hidden;cl.textContent=(c.hidden?"▶":"▼")+" 判定基準の全文を見る";});
 $("#foot").textContent="PCが取得したメルカリ相場データを表示。判定は判断書§27準拠。真贋・状態の確定は現物確認が必要です。";
+/* precision authentication lab */
+let AUTH_PHOTOS=[];
+const escAuth=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function authCompress(file){return new Promise((resolve,reject)=>{const rd=new FileReader();rd.onerror=reject;rd.onload=()=>{const im=new Image();im.onerror=reject;im.onload=()=>{let w=im.width,h=im.height,max=1500;if(Math.max(w,h)>max){const z=max/Math.max(w,h);w=Math.round(w*z);h=Math.round(h*z)}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);resolve(c.toDataURL("image/jpeg",.78))};im.src=rd.result};rd.readAsDataURL(file)})}
+function renderAuthPhotos(){const box=document.getElementById("authPreviews");box.innerHTML="";AUTH_PHOTOS.forEach((src,i)=>{const d=document.createElement("div");d.className="auth-preview";d.dataset.photo=String(i);d.innerHTML='<img src="'+src+'"><span>写真 '+(i+1)+'</span>';box.appendChild(d)});document.querySelectorAll("#authShotGuide .shot-chip").forEach((e,i)=>e.classList.toggle("done",i<AUTH_PHOTOS.length))}
+document.getElementById("authFiles").addEventListener("change",async e=>{const fs=[...e.target.files].slice(0,12);AUTH_PHOTOS=[];for(const f of fs){if(!f.type.startsWith("image/"))continue;try{AUTH_PHOTOS.push(await authCompress(f))}catch(_){}}renderAuthPhotos()});
+function authRows(items){return (items||[]).map(x=>'<div>• <b>'+escAuth(x.feature||x.field||x.key||"")+'</b> — '+escAuth(x.status||"")+(x.observation?'：'+escAuth(x.observation):"")+'</div>').join("")||'<div>確認可能な情報がありません</div>'}
+document.getElementById("authRun").addEventListener("click",async()=>{const b=document.getElementById("authRun"),out=document.getElementById("authResult");if(!AUTH_PHOTOS.length){out.className="auth-result show";out.innerHTML='<div class="auth-details">写真を1枚以上選んでください。</div>';return}b.disabled=true;b.textContent="画像を精密検査中…";out.className="auth-result show";out.innerHTML='<div class="auth-details">刻印・縫製・素材・年代の整合を確認しています。</div>';try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,photoAppraise:{photos:AUTH_PHOTOS,note:document.getElementById("authNote").value}})}),j=await r.json();if(j.error)throw new Error(j.error);const risk=Number(j.authenticity_risk||0),cov=Number((j.capture_coverage||{}).score||0),quality=Number(j.evidence_quality||0);out.innerHTML='<div class="auth-metrics"><div class="auth-metric"><small>総合判定</small><strong>'+escAuth(j.authenticity_verdict||"要確認")+'</strong></div><div class="auth-metric"><small>疑義リスク</small><strong>'+risk+'%</strong></div><div class="auth-metric"><small>撮影カバー率</small><strong>'+cov+'%</strong></div><div class="auth-metric"><small>証拠品質</small><strong>'+quality+'点</strong></div></div><div class="auth-details"><b>商品候補</b><br>'+escAuth(j.item_name||"未特定")+' '+escAuth(j.model_number||"")+'<br><br><b>微細特徴</b>'+authRows(j.micro_features)+'<br><b>文字・書類・年代</b>'+authRows(j.document_checks)+'<br><b>ブランド固有チェック</b>'+authRows(j.brand_specific_checks)+'<br><b>追加撮影</b><br>'+escAuth((j.missing_shots||[]).join(" / ")||"なし")+'<br><br>'+escAuth(j.comment||"")+'</div>';(j.anomaly_regions||[]).forEach(a=>{const d=document.querySelector('.auth-preview[data-photo="'+Number(a.photo_index||0)+'"]');if(!d||!a.bbox_pct)return;const q=a.bbox_pct,x=document.createElement("i");x.className="anomaly-box";x.title=a.label||a.reason||"要確認";x.style.cssText='left:'+q.x+'%;top:'+q.y+'%;width:'+q.w+'%;height:'+q.h+'%';d.appendChild(x)})}catch(e){out.innerHTML='<div class="auth-details" style="color:#c62828">鑑定できませんでした：'+escAuth(e.message||e)+'</div>'}finally{b.disabled=false;b.textContent="精密鑑定を開始"}});
 load();
 </script>
 </body>
