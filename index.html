@@ -246,6 +246,10 @@ header{align-items:center;margin-bottom:14px}
 .cockpit-head{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:14px}.cockpit-kicker{font-size:9px;font-weight:850;letter-spacing:.18em;opacity:.72}.cockpit-title{font-size:19px;font-weight:900;letter-spacing:-.03em;margin-top:3px}.cockpit-live{padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.13);font-size:9px;font-weight:800;white-space:nowrap;border:1px solid rgba(255,255,255,.16)}
 .cockpit-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.cockpit-metric{padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.105);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px)}.cockpit-metric strong{display:block;font-size:19px;line-height:1.15;font-weight:900;font-variant-numeric:tabular-nums}.cockpit-metric span{display:block;font-size:9px;opacity:.72;margin-top:4px}
 .opportunity-why{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.opportunity-why span{font-size:9.5px;font-weight:750;color:var(--ink-2);padding:5px 8px;border-radius:999px;background:var(--wash);border:1px solid var(--border)}.opportunity-why .verified{color:var(--good);background:color-mix(in srgb,var(--good) 9%,transparent)}
+.opportunity-why .safe{color:#047857;background:#dff8ed;border-color:#b9ecd8}.opportunity-why .danger{color:#b45309;background:#fff4dc;border-color:#f5dba8}
+.deal-toast-stack{position:fixed;right:18px;bottom:18px;z-index:120;display:flex;flex-direction:column;gap:10px;width:min(370px,calc(100vw - 24px));pointer-events:none}
+.deal-toast{pointer-events:auto;position:relative;overflow:hidden;border-radius:18px;padding:14px;background:rgba(13,24,54,.96);color:#fff;border:1px solid rgba(255,255,255,.16);box-shadow:0 22px 55px rgba(8,15,35,.34);backdrop-filter:blur(18px);animation:toast-in .32s cubic-bezier(.2,.8,.2,1)}
+.deal-toast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(#ffd54a,#ff8a00)}.toast-top{display:flex;align-items:center;gap:8px;padding-left:3px}.toast-flash{display:inline-flex;padding:5px 8px;border-radius:999px;background:#ffcf33;color:#3f2b00;font-size:10px;font-weight:900}.toast-title{font-size:12px;font-weight:850}.toast-close{margin-left:auto;border:0;background:rgba(255,255,255,.1);color:#fff;width:28px;height:28px;border-radius:9px;cursor:pointer}.toast-name{font-size:13px;font-weight:800;line-height:1.45;margin:10px 3px 8px}.toast-values{display:flex;gap:12px;margin:0 3px 11px;font-size:10px;color:rgba(255,255,255,.68)}.toast-values b{display:block;color:#fff;font-size:15px;margin-top:2px}.toast-open{display:block;text-align:center;text-decoration:none;color:#15203f;background:linear-gradient(135deg,#fff4a8,#ffc83d);padding:10px;border-radius:11px;font-size:12px;font-weight:900}.deal-toast.leaving{animation:toast-out .2s ease forwards}@keyframes toast-in{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}@keyframes toast-out{to{opacity:0;transform:translateX(20px) scale(.96)}}
 .source-rail{position:relative;overflow-x:auto;padding:4px 0 14px;margin-bottom:2px;scrollbar-width:none}
 .source-rail::-webkit-scrollbar{display:none}
 .source-track{display:flex;width:max-content}
@@ -264,7 +268,7 @@ header{align-items:center;margin-bottom:14px}
 @keyframes mini-market-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.market-ticker{overflow-x:auto}.market-ticker-track{animation:none}.market-ticker-group[aria-hidden="true"]{display:none}}
 @media(max-width:900px){.search-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}.alert-hero{grid-template-columns:88px minmax(0,1fr) 60px;gap:10px}.alert-photo{width:88px;border-radius:13px}.alert-score{width:58px;height:64px;border-radius:17px}.alert-score strong{font-size:22px}.alert-score span{font-size:8px}.alert-score small{display:none}.alert-main .aname{font-size:14px}.alert-main .aflow{gap:5px}.alert-main .arr{display:none}.cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profit-cockpit{padding:15px}.cockpit-title{font-size:17px}}
+@media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}.alert-hero{grid-template-columns:88px minmax(0,1fr) 60px;gap:10px}.alert-photo{width:88px;border-radius:13px}.alert-score{width:58px;height:64px;border-radius:17px}.alert-score strong{font-size:22px}.alert-score span{font-size:8px}.alert-score small{display:none}.alert-main .aname{font-size:14px}.alert-main .aflow{gap:5px}.alert-main .arr{display:none}.cockpit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profit-cockpit{padding:15px}.cockpit-title{font-size:17px}.deal-toast-stack{right:12px;bottom:12px}}
 </style>
 </head>
 <body>
@@ -486,7 +490,18 @@ function alertScore(a,d){
  if(typeof d.tr==="number")s+=d.tr>=.05?3:d.tr<=-.15?-7:d.tr<=-.05?-3:0;
  if(d.dd)s-=Math.min(4,Number(d.dd)||0);
  s+=Math.round((conditionScoreJS(a.name,d)-55)/10);
+ const stress=stressProfit(a,d);s+=stress>=3000?4:stress<0?-7:-2;
  return clamp(Math.round(s),0,100);
+}
+function stressProfit(a,d){const q=Number((d||{}).q||0),buy=Number(a.buy||0);return q>0&&buy>0?Math.round(q*.9*(1-FEE_RATE)-SHIPPING-100-buy):0;}
+const TOASTED=new Set();
+function showInstantBuyToasts(alerts){
+ const deals=(alerts||[]).filter(a=>a.source==="ヤフオク"&&a.detail&&Number(a.detail.bn)===1&&a.adjProfit>=3000&&a.buy<=Number(a.detail.b||0)).slice(0,3);
+ if(!deals.length)return;let stack=document.querySelector(".deal-toast-stack");if(!stack){stack=document.createElement("div");stack.className="deal-toast-stack";stack.setAttribute("aria-live","polite");document.body.appendChild(stack);}
+ for(const a of deals){const key=a.url||a.name;if(TOASTED.has(key))continue;TOASTED.add(key);const d=a.detail||{},t=document.createElement("aside");t.className="deal-toast";
+  t.innerHTML='<div class="toast-top"><span class="toast-flash">⚡ 即決可能</span><span class="toast-title">利益条件クリア</span><button class="toast-close" type="button" aria-label="閉じる">×</button></div><div class="toast-name"></div><div class="toast-values"><span>即決仕入<b>'+yen(a.buy)+'</b></span><span>検証利益<b>+'+yen(a.adjProfit)+'</b></span><span>安全上限<b>'+yen(d.b||0)+'</b></span></div><a class="toast-open" target="_blank" rel="noopener">ヤフオクで今すぐ確認 →</a>';
+  t.querySelector(".toast-name").textContent=a.name;t.querySelector(".toast-open").href=a.url;t.querySelector(".toast-close").addEventListener("click",()=>{t.classList.add("leaving");setTimeout(()=>t.remove(),210)});stack.appendChild(t);
+ }
 }
 // GAS更新前でも、検証済み即売価格から利益を再計算して古い保存利益の表示を止める。
 function verifyAlertProfit(a){
@@ -500,7 +515,7 @@ function verifyAlertProfit(a){
  a._profitVerified=true;return a;
 }
 
-let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,sort:"quality",acat:"all"};
+let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,sort:"quality",acat:"all"};
 /* ハードオフ(仕入れ) × メルカリ成約相場(売り) のサヤ取り。本物の利益源。 */
 const JUNK_RE=/ジャンク|部品取り|不動|故障|訳あり|難あり|破損|ランク[DEJ](?![A-Z0-9])/;
 function computeArbitrage(d){
@@ -1178,8 +1193,8 @@ function render(){
     const all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);
     const cS=all.filter(a=>a.rank==="S").length,cA=all.filter(a=>a.rank==="A").length,cB=all.filter(a=>a.rank==="B"||a.rank==="C").length;
     const cp=document.createElement("section");cp.className="profit-cockpit";
-    const potential=all.reduce((n,a)=>n+Math.max(0,Number(a.adjProfit||0)),0),quick=all.filter(a=>Number((a.detail||{}).pc||99)<=14&&a.adjProfit>=3000).length,developing=all.filter(a=>a.adjProfit<3000).length,srcN=new Set(all.map(a=>a.source).filter(Boolean)).size;
-    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>検証済み候補</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>候補利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+quick+'</strong><span>14日以内の即戦力</span></div><div class="cockpit-metric"><strong>'+developing+' / '+srcN+'</strong><span>育成候補 / 監視サイト</span></div></div>';
+    const potential=all.reduce((n,a)=>n+Math.max(0,Number(a.adjProfit||0)),0),quick=all.filter(a=>Number((a.detail||{}).pc||99)<=14&&a.adjProfit>=3000).length,instant=all.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1&&a.adjProfit>=3000).length,safeN=all.filter(a=>stressProfit(a,a.detail||{})>=3000).length;
+    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>検証済み候補</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>候補利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+safeN+'</strong><span>相場10%下落にも耐える</span></div></div>';
     list.appendChild(cp);
     // 集計ボックス
     const st=document.createElement("div");st.className="astat";
@@ -1204,6 +1219,7 @@ function render(){
      wc.textContent="⭐ウォッチ"+(WATCHITEMS.length?"("+WATCHITEMS.length+")":"");
      wc.setAttribute("aria-pressed",state.watchOnly?"true":"false");
      wc.addEventListener("click",()=>{state.watchOnly=!state.watchOnly;render();});fc.appendChild(wc);}
+    {const ic=document.createElement("button");ic.className="fchip";ic.type="button";ic.textContent="⚡即決可能";ic.setAttribute("aria-pressed",state.instantOnly?"true":"false");ic.addEventListener("click",()=>{state.instantOnly=!state.instantOnly;render();});fc.appendChild(ic);}
     list.appendChild(fc);
     // 並び替えチップ
     const sc2=document.createElement("div");sc2.className="fchips";
@@ -1235,6 +1251,7 @@ function render(){
     if(state.rank==="S")rowsA=rowsA.filter(a=>a.rank==="S");
     if(state.rank==="SA")rowsA=rowsA.filter(a=>a.rank==="S"||a.rank==="A");
     if(state.src!=="all")rowsA=rowsA.filter(a=>a.source===state.src);
+    if(state.instantOnly)rowsA=rowsA.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1);
     if(state.acat!=="all"){
       const acatOf=a=>{
         const k=(a.detail&&a.detail.k)||"";
@@ -1343,8 +1360,9 @@ function render(){
       const score=alertScore(a,d);const scoreBox=document.createElement("div");scoreBox.className="alert-score "+(score>=85?"high":score>=65?"mid":"low");scoreBox.title="利益・利益率・成約数・回転・相場トレンドから算出";
       scoreBox.innerHTML='<strong>'+score+'</strong><span>狙い目点数</span><small>100点満点</small>';hero.appendChild(scoreBox);card.appendChild(hero);
       const why=document.createElement("div");why.className="opportunity-why";
-      why.innerHTML='<span class="verified">✓ 同一商品実例 '+Number(d.n||a.soldN||0)+'件</span><span>粗利 '+(Number(d.g)>=0?"+":"−")+yen(Math.abs(Number(d.g||0)))+'</span><span>回転 約'+Number(d.pc||0)+'日</span><span>仕入上限 '+yen(Number(d.b||0))+'</span>';
+      const stress=stressProfit(a,d);why.innerHTML='<span class="verified">✓ 同一商品実例 '+Number(d.n||a.soldN||0)+'件</span><span>粗利 '+(Number(d.g)>=0?"+":"−")+yen(Math.abs(Number(d.g||0)))+'</span><span>回転 約'+Number(d.pc||0)+'日</span><span>仕入上限 '+yen(Number(d.b||0))+'</span><span class="'+(stress>=3000?"safe":"danger")+'">'+(stress>=3000?"🛡 10%下落でも +":"⚠ 10%下落時 ")+(stress>=0?yen(stress):"−"+yen(Math.abs(stress)))+'</span>';
       card.appendChild(why);
+      if(a.source==="ヤフオク"&&Number(d.bn)===1){const instantBtn=document.createElement("a");instantBtn.className="abtn primary";instantBtn.href=a.url;instantBtn.target="_blank";instantBtn.rel="noopener";instantBtn.style.cssText="display:block;text-align:center;margin-top:10px;text-decoration:none;background:linear-gradient(135deg,#ffb300,#ff7a00);border-color:transparent;color:#fff;font-weight:900";instantBtn.textContent="⚡ 即決可能 — 今すぐ商品を確認";card.appendChild(instantBtn);}
       const cs=conditionScoreJS(a.name,d);const cq=document.createElement("div");cq.className="anotes";const ct=document.createElement("span");ct.className="tag";ct.style.setProperty("--tc",cs>=80?"var(--good)":cs>=60?"var(--accent)":"var(--warn)");ct.textContent=(cs>=80?"✨ きれい優先":"状態評価")+" "+cs+"点";cq.appendChild(ct);card.appendChild(cq);
       // 仕入れの内訳(現在価格+送料) — 利益はすべて送料込みで計算済み
       if(typeof d.sp==="number"&&d.sp>=0&&a.buy>d.sp){
@@ -1589,7 +1607,7 @@ function setFresh(){const b=$("#freshBadge");if(!DATA){b.textContent="";return;}
 async function loadAlerts(){
   try{if(!DATA_URL||DATA_URL.indexOf("__")===0||DATA_URL==="")return;
     const res=await fetch(DATA_URL+"?type=alerts",{cache:"no-store"});const j=await res.json();
-    if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;if(VIEW==="alerts")render();}
+    if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;if(VIEW==="alerts")render();showInstantBuyToasts(j.alerts);}
     try{
       const rw=await fetch(DATA_URL+"?type=watchlist");
       const jw=await rw.json();
