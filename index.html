@@ -250,6 +250,8 @@ header{align-items:center;margin-bottom:14px}
 .deal-toast-stack{position:fixed;right:18px;bottom:18px;z-index:120;display:flex;flex-direction:column;gap:10px;width:min(370px,calc(100vw - 24px));pointer-events:none}
 .deal-toast{pointer-events:auto;position:relative;overflow:hidden;border-radius:18px;padding:14px;background:rgba(13,24,54,.96);color:#fff;border:1px solid rgba(255,255,255,.16);box-shadow:0 22px 55px rgba(8,15,35,.34);backdrop-filter:blur(18px);animation:toast-in .32s cubic-bezier(.2,.8,.2,1)}
 .deal-toast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(#ffd54a,#ff8a00)}.toast-top{display:flex;align-items:center;gap:8px;padding-left:3px}.toast-flash{display:inline-flex;padding:5px 8px;border-radius:999px;background:#ffcf33;color:#3f2b00;font-size:10px;font-weight:900}.toast-title{font-size:12px;font-weight:850}.toast-close{margin-left:auto;border:0;background:rgba(255,255,255,.1);color:#fff;width:28px;height:28px;border-radius:9px;cursor:pointer}.toast-name{font-size:13px;font-weight:800;line-height:1.45;margin:10px 3px 8px}.toast-values{display:flex;gap:12px;margin:0 3px 11px;font-size:10px;color:rgba(255,255,255,.68)}.toast-values b{display:block;color:#fff;font-size:15px;margin-top:2px}.toast-open{display:block;text-align:center;text-decoration:none;color:#15203f;background:linear-gradient(135deg,#fff4a8,#ffc83d);padding:10px;border-radius:11px;font-size:12px;font-weight:900}.deal-toast.leaving{animation:toast-out .2s ease forwards}@keyframes toast-in{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}@keyframes toast-out{to{opacity:0;transform:translateX(20px) scale(.96)}}
+.deal-toast.ebay::before{background:linear-gradient(#8b5cf6,#38bdf8)}.toast-flash.ebay{background:linear-gradient(135deg,#ddd6fe,#7dd3fc);color:#172554}
+.ebay-strip{margin-top:10px;padding:12px 13px;border-radius:14px;color:#fff;background:linear-gradient(125deg,#4338ca,#6d28d9 55%,#0369a1);box-shadow:0 9px 22px rgba(79,70,229,.18)}.ebay-head{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;font-weight:850}.ebay-head b{font-size:17px}.ebay-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:7px;font-size:9.5px;color:rgba(255,255,255,.76)}.ebay-strong{display:inline-flex;padding:4px 7px;border-radius:999px;background:#fde047;color:#3f3000;font-size:9px;font-weight:900}
 .source-rail{position:relative;overflow-x:auto;padding:4px 0 14px;margin-bottom:2px;scrollbar-width:none}
 .source-rail::-webkit-scrollbar{display:none}
 .source-track{display:flex;width:max-content}
@@ -258,7 +260,7 @@ header{align-items:center;margin-bottom:14px}
 .source-pill{scroll-snap-align:start;flex:none;display:flex;align-items:center;gap:9px;min-width:156px;padding:10px 13px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:780;box-shadow:0 6px 18px rgba(16,24,40,.045);transition:transform .16s,border-color .16s}
 .source-pill:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
 .source-pill img{width:24px;height:24px;border-radius:7px;object-fit:contain;background:#fff;padding:2px}
-.source-pill small{display:block;color:var(--ink-3);font-size:9px;font-weight:650;line-height:1.1;margin-top:1px}
+.source-pill small{display:block;color:var(--ink-3);font-size:9px;font-weight:650;line-height:1.1;margin-top:1px}.source-pill small.connected{color:#059669}.source-pill small.error{color:#d97706}
 .market-ticker{overflow:hidden;border:1px solid var(--border);border-radius:999px;background:color-mix(in srgb,var(--surface) 88%,transparent);height:28px;margin:-5px 0 14px;display:flex;align-items:center;box-shadow:0 4px 14px rgba(16,24,40,.035)}
 .market-ticker-track{display:flex;width:max-content;animation:mini-market-flow 34s linear infinite;will-change:transform}
 .market-ticker-group{display:flex;align-items:center;white-space:nowrap;padding-right:28px;font-size:10.5px;font-weight:700;color:var(--ink-2)}
@@ -288,7 +290,7 @@ header{align-items:center;margin-bottom:14px}
     <div class="source-track">
       <div class="source-group">
         <a class="source-pill" href="https://jp.mercari.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt=""><span>メルカリ<small>仕入れ・成約</small></span></a>
-        <a class="source-pill" href="https://www.ebay.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt=""><span>eBay<small>海外相場</small></span></a>
+        <a class="source-pill" href="https://www.ebay.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt=""><span>eBay<small id="ebayStatus">接続確認中</small></span></a>
         <a class="source-pill" href="https://auctions.yahoo.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=auctions.yahoo.co.jp&sz=64" alt=""><span>ヤフオク<small>出品・落札</small></span></a>
         <a class="source-pill" href="https://paypayfleamarket.yahoo.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=paypayfleamarket.yahoo.co.jp&sz=64" alt=""><span>Yahoo!フリマ<small>新着出品</small></span></a>
         <a class="source-pill" href="https://netmall.hardoff.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=netmall.hardoff.co.jp&sz=64" alt=""><span>オフモール<small>店舗在庫</small></span></a>
@@ -334,6 +336,7 @@ header{align-items:center;margin-bottom:14px}
     </div>
     <div id="cfgBody" hidden style="margin-top:10px">
       <div style="font-size:12px;color:var(--ink-2);line-height:1.65">探したいカテゴリをONにして、カテゴリごとに検索語を入力できます。空欄のカテゴリは、これまでどおり自動の定番検索を続けます。</div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0;padding:11px 13px;border-radius:13px;background:var(--wash);border:1px solid var(--border)"><label class="chkline"><input type="checkbox" id="cfg_batAuto" checked> PC自動巡回</label><label style="font-size:12px;font-weight:750">更新間隔 <select id="cfg_batInterval" style="margin-left:5px;padding:7px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink)"><option value="5">5分</option><option value="15">15分</option><option value="30">30分</option><option value="60">60分</option></select></label><span style="font-size:10px;color:var(--ink-3)">5分設定は12検索語ずつ自動ローテーションします</span></div>
       <div class="search-cat-grid">
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_camera" checked> 📷 カメラ</label><span>CAMERA</span></div><textarea id="cfg_terms_camera" placeholder="例: SONY α7 III&#10;例: Nikon D850&#10;例: RICOH GR III"></textarea><div class="search-cat-hint">カメラ本体だけの検索語。レンズ語とは混ざりません。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_lens" checked> 🔭 レンズ</label><span>LENS</span></div><textarea id="cfg_terms_lens" placeholder="例: Canon RF 24-70mm F2.8&#10;例: SONY 24-70 GM II"></textarea><div class="search-cat-hint">焦点距離・マウント・世代を含めて指定できます。</div></section>
@@ -503,6 +506,14 @@ function showInstantBuyToasts(alerts){
   t.querySelector(".toast-name").textContent=a.name;t.querySelector(".toast-open").href=a.url;t.querySelector(".toast-close").addEventListener("click",()=>{t.classList.add("leaving");setTimeout(()=>t.remove(),210)});stack.appendChild(t);
  }
 }
+function showEbayProfitToasts(alerts){
+ const deals=(alerts||[]).filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.strong)===1).sort((a,b)=>b.detail.eb.profitJpy-a.detail.eb.profitJpy).slice(0,2);
+ if(!deals.length)return;let stack=document.querySelector(".deal-toast-stack");if(!stack){stack=document.createElement("div");stack.className="deal-toast-stack";stack.setAttribute("aria-live","polite");document.body.appendChild(stack);}
+ for(const a of deals){const e=a.detail.eb,key="ebay:"+(a.url||a.name);if(TOASTED.has(key))continue;TOASTED.add(key);const t=document.createElement("aside");t.className="deal-toast ebay";
+  t.innerHTML='<div class="toast-top"><span class="toast-flash ebay">🌍 eBay輸出候補</span><span class="toast-title">海外利益が強い</span><button class="toast-close" type="button" aria-label="閉じる">×</button></div><div class="toast-name"></div><div class="toast-values"><span>輸出見込利益<b>+'+yen(e.profitJpy)+'</b></span><span>ROI<b>'+e.roi+'%</b></span><span>海外需要<b>'+e.demand+'/100</b></span></div><a class="toast-open" target="_blank" rel="noopener">国内の仕入れ商品を確認 →</a>';
+  t.querySelector(".toast-name").textContent=a.name;t.querySelector(".toast-open").href=a.url;t.querySelector(".toast-close").addEventListener("click",()=>{t.classList.add("leaving");setTimeout(()=>t.remove(),210)});stack.appendChild(t);
+ }
+}
 // GAS更新前でも、検証済み即売価格から利益を再計算して古い保存利益の表示を止める。
 function verifyAlertProfit(a){
  const d=a.detail||{};if(!(Number(d.q)>0)||!(Number(a.buy)>0))return a;
@@ -515,7 +526,7 @@ function verifyAlertProfit(a){
  a._profitVerified=true;return a;
 }
 
-let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,sort:"quality",acat:"all"};
+let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], REMOTE_CFG={}, VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,ebayOnly:false,sort:"quality",acat:"all"};
 /* ハードオフ(仕入れ) × メルカリ成約相場(売り) のサヤ取り。本物の利益源。 */
 const JUNK_RE=/ジャンク|部品取り|不動|故障|訳あり|難あり|破損|ランク[DEJ](?![A-Z0-9])/;
 function computeArbitrage(d){
@@ -1193,8 +1204,8 @@ function render(){
     const all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);
     const cS=all.filter(a=>a.rank==="S").length,cA=all.filter(a=>a.rank==="A").length,cB=all.filter(a=>a.rank==="B"||a.rank==="C").length;
     const cp=document.createElement("section");cp.className="profit-cockpit";
-    const potential=all.reduce((n,a)=>n+Math.max(0,Number(a.adjProfit||0)),0),quick=all.filter(a=>Number((a.detail||{}).pc||99)<=14&&a.adjProfit>=3000).length,instant=all.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1&&a.adjProfit>=3000).length,safeN=all.filter(a=>stressProfit(a,a.detail||{})>=3000).length;
-    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>検証済み候補</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>候補利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+safeN+'</strong><span>相場10%下落にも耐える</span></div></div>';
+    const potential=all.reduce((n,a)=>n+Math.max(0,Number(a.adjProfit||0)),0),quick=all.filter(a=>Number((a.detail||{}).pc||99)<=14&&a.adjProfit>=3000).length,instant=all.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1&&a.adjProfit>=3000).length,ebayN=all.filter(a=>a.detail&&a.detail.eb&&a.detail.eb.profitJpy>=10000).length;
+    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>検証済み候補</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>候補利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+ebayN+'</strong><span>eBay輸出利益1万円以上</span></div></div>';
     list.appendChild(cp);
     // 集計ボックス
     const st=document.createElement("div");st.className="astat";
@@ -1220,6 +1231,7 @@ function render(){
      wc.setAttribute("aria-pressed",state.watchOnly?"true":"false");
      wc.addEventListener("click",()=>{state.watchOnly=!state.watchOnly;render();});fc.appendChild(wc);}
     {const ic=document.createElement("button");ic.className="fchip";ic.type="button";ic.textContent="⚡即決可能";ic.setAttribute("aria-pressed",state.instantOnly?"true":"false");ic.addEventListener("click",()=>{state.instantOnly=!state.instantOnly;render();});fc.appendChild(ic);}
+    {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay輸出利益";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;render();});fc.appendChild(ec);}
     list.appendChild(fc);
     // 並び替えチップ
     const sc2=document.createElement("div");sc2.className="fchips";
@@ -1252,6 +1264,7 @@ function render(){
     if(state.rank==="SA")rowsA=rowsA.filter(a=>a.rank==="S"||a.rank==="A");
     if(state.src!=="all")rowsA=rowsA.filter(a=>a.source===state.src);
     if(state.instantOnly)rowsA=rowsA.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1);
+    if(state.ebayOnly)rowsA=rowsA.filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.profitJpy)>0);
     if(state.acat!=="all"){
       const acatOf=a=>{
         const k=(a.detail&&a.detail.k)||"";
@@ -1362,6 +1375,7 @@ function render(){
       const why=document.createElement("div");why.className="opportunity-why";
       const stress=stressProfit(a,d);why.innerHTML='<span class="verified">✓ 同一商品実例 '+Number(d.n||a.soldN||0)+'件</span><span>粗利 '+(Number(d.g)>=0?"+":"−")+yen(Math.abs(Number(d.g||0)))+'</span><span>回転 約'+Number(d.pc||0)+'日</span><span>仕入上限 '+yen(Number(d.b||0))+'</span><span class="'+(stress>=3000?"safe":"danger")+'">'+(stress>=3000?"🛡 10%下落でも +":"⚠ 10%下落時 ")+(stress>=0?yen(stress):"−"+yen(Math.abs(stress)))+'</span>';
       card.appendChild(why);
+      if(d.eb&&Number(d.eb.profitJpy)>0){const eb=document.createElement("div");eb.className="ebay-strip";eb.innerHTML='<div class="ebay-head"><span>🌍 eBay輸出見込</span><b>+'+yen(d.eb.profitJpy)+'</b>'+(Number(d.eb.strong)===1?'<span class="ebay-strong">強い輸出候補</span>':'')+'</div><div class="ebay-meta"><span>ROI '+Number(d.eb.roi||0)+'%</span><span>海外出品 '+Number(d.eb.n||0)+'件</span><span>需要 '+Number(d.eb.demand||0)+'/100</span><span>想定売価 $'+Number(d.eb.saleUSD||0)+'</span><span>為替 ¥'+Number(d.eb.fx||0)+'/USD</span></div>';card.appendChild(eb);}
       if(a.source==="ヤフオク"&&Number(d.bn)===1){const instantBtn=document.createElement("a");instantBtn.className="abtn primary";instantBtn.href=a.url;instantBtn.target="_blank";instantBtn.rel="noopener";instantBtn.style.cssText="display:block;text-align:center;margin-top:10px;text-decoration:none;background:linear-gradient(135deg,#ffb300,#ff7a00);border-color:transparent;color:#fff;font-weight:900";instantBtn.textContent="⚡ 即決可能 — 今すぐ商品を確認";card.appendChild(instantBtn);}
       const cs=conditionScoreJS(a.name,d);const cq=document.createElement("div");cq.className="anotes";const ct=document.createElement("span");ct.className="tag";ct.style.setProperty("--tc",cs>=80?"var(--good)":cs>=60?"var(--accent)":"var(--warn)");ct.textContent=(cs>=80?"✨ きれい優先":"状態評価")+" "+cs+"点";cq.appendChild(ct);card.appendChild(cq);
       // 仕入れの内訳(現在価格+送料) — 利益はすべて送料込みで計算済み
@@ -1607,7 +1621,7 @@ function setFresh(){const b=$("#freshBadge");if(!DATA){b.textContent="";return;}
 async function loadAlerts(){
   try{if(!DATA_URL||DATA_URL.indexOf("__")===0||DATA_URL==="")return;
     const res=await fetch(DATA_URL+"?type=alerts",{cache:"no-store"});const j=await res.json();
-    if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;if(VIEW==="alerts")render();showInstantBuyToasts(j.alerts);}
+    if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;if(VIEW==="alerts")render();showInstantBuyToasts(j.alerts);showEbayProfitToasts(j.alerts);}
     try{
       const rw=await fetch(DATA_URL+"?type=watchlist");
       const jw=await rw.json();
@@ -1615,9 +1629,14 @@ async function loadAlerts(){
     }catch(e2){}
   }catch(e){}
 }
+async function loadEbayStatus(){
+ const el=$("#ebayStatus");if(!el||!DATA_URL)return;
+ try{const r=await fetch(DATA_URL+"?type=ebaystatus",{cache:"no-store"}),j=await r.json();if(j&&j.tokenOk){el.textContent="● 監視接続中";el.className="connected";}else{el.textContent=j&&j.configured?"OAuth確認エラー":"キー設定待ち";el.className="error";}}catch(e){el.textContent="接続確認待ち";el.className="error";}
+}
 async function load(){
   $("#hsub").textContent="読み込み中…";
   loadAlerts(); // 監視結果は並行で取得
+  loadEbayStatus();
   if(EMBED&&Array.isArray(EMBED.listings)){DATA=EMBED;setFresh();render();return;}
   try{if(!DATA_URL||DATA_URL.indexOf("__")===0||DATA_URL==="")throw 0;
     const res=await fetch(DATA_URL,{cache:"no-store"});const j=await res.json();
@@ -1638,7 +1657,10 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   // 現在の設定を読み込む
   fetch(DATA_URL+"?type=config",{cache:"no-store"}).then(r=>r.json()).then(c=>{
     if(!c||typeof c!=="object")return;
+    REMOTE_CFG=c;
     ["pokeca","camera","lens","brand","bundle","sold"].forEach(k=>{if(typeof c[k]==="boolean")$("#cfg_"+k).checked=c[k];});
+    if(typeof c.batAuto==="boolean")$("#cfg_batAuto").checked=c.batAuto;
+    $("#cfg_batInterval").value=String(Number(c.batIntervalMin||5));
     if(Array.isArray(c.extraTerms)){
       ["camera","lens","brand","pokeca","bundle"].forEach(cat=>{
         const el=$("#cfg_terms_"+cat);if(el)el.value=c.extraTerms.filter(x=>x&&x.cat===cat).map(x=>x.t).join("\n");
@@ -1651,7 +1673,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
       const el=$("#cfg_terms_"+cat);if(!el)return;
       el.value.split("\n").map(s=>s.trim()).filter(Boolean).forEach(t=>extra.push({t,cat}));
     });
-    const config={pokeca:$("#cfg_pokeca").checked,camera:$("#cfg_camera").checked,lens:$("#cfg_lens").checked,bundle:$("#cfg_bundle").checked,brand:$("#cfg_brand").checked,sold:$("#cfg_sold").checked,extraTerms:extra,disabledTerms:[]};
+    const config={...REMOTE_CFG,pokeca:$("#cfg_pokeca").checked,camera:$("#cfg_camera").checked,lens:$("#cfg_lens").checked,bundle:$("#cfg_bundle").checked,brand:$("#cfg_brand").checked,sold:$("#cfg_sold").checked,batAuto:$("#cfg_batAuto").checked,batIntervalMin:Number($("#cfg_batInterval").value||5),extraTerms:extra,disabledTerms:[]};
     $("#cfgMsg").textContent="保存中…";
     try{
       // content-typeを指定しない(=text/plain)ことでCORSのpreflightを避ける。GAS側はJSON.parseで読む。
