@@ -226,16 +226,23 @@ header{align-items:center;margin-bottom:14px}
 .search-cat-card textarea{min-height:82px;border-radius:12px;padding:10px 12px}
 .acard{border-radius:18px;padding:16px;box-shadow:0 8px 24px rgba(16,24,40,.05);transition:transform .18s,box-shadow .18s,border-color .18s}
 .acard:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 28%,transparent);box-shadow:0 14px 32px rgba(16,24,40,.09)}
-.source-rail{position:relative;overflow:hidden;padding:4px 0 14px;margin-bottom:2px;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
-.source-track{display:flex;width:max-content;animation:market-flow 28s linear infinite;will-change:transform}
+.source-rail{position:relative;overflow-x:auto;padding:4px 0 14px;margin-bottom:2px;scrollbar-width:none}
+.source-rail::-webkit-scrollbar{display:none}
+.source-track{display:flex;width:max-content}
 .source-group{display:flex;align-items:center;gap:10px;padding-right:10px}
-.source-rail:hover .source-track,.source-rail:focus-within .source-track{animation-play-state:paused}
-@keyframes market-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){.source-track{animation:none}.source-rail{overflow-x:auto;mask-image:none;-webkit-mask-image:none}.source-group[aria-hidden="true"]{display:none}}
+.source-group[aria-hidden="true"]{display:none}
 .source-pill{scroll-snap-align:start;flex:none;display:flex;align-items:center;gap:9px;min-width:156px;padding:10px 13px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:780;box-shadow:0 6px 18px rgba(16,24,40,.045);transition:transform .16s,border-color .16s}
 .source-pill:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
 .source-pill img{width:24px;height:24px;border-radius:7px;object-fit:contain;background:#fff;padding:2px}
 .source-pill small{display:block;color:var(--ink-3);font-size:9px;font-weight:650;line-height:1.1;margin-top:1px}
+.market-ticker{overflow:hidden;border:1px solid var(--border);border-radius:999px;background:color-mix(in srgb,var(--surface) 88%,transparent);height:28px;margin:-5px 0 14px;display:flex;align-items:center;box-shadow:0 4px 14px rgba(16,24,40,.035)}
+.market-ticker-track{display:flex;width:max-content;animation:mini-market-flow 34s linear infinite;will-change:transform}
+.market-ticker-group{display:flex;align-items:center;white-space:nowrap;padding-right:28px;font-size:10.5px;font-weight:700;color:var(--ink-2)}
+.market-ticker-group span{display:inline-flex;align-items:center;gap:6px;margin-right:28px}
+.market-ticker-group img{width:16px;height:16px;border-radius:4px;object-fit:contain;background:#fff;padding:1px;box-shadow:0 1px 3px rgba(16,24,40,.12)}
+.market-ticker:hover .market-ticker-track{animation-play-state:paused}
+@keyframes mini-market-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.market-ticker{overflow-x:auto}.market-ticker-track{animation:none}.market-ticker-group[aria-hidden="true"]{display:none}}
 @media(max-width:900px){.search-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}}
 </style>
@@ -253,7 +260,7 @@ header{align-items:center;margin-bottom:14px}
     </div>
   </header>
 
-  <nav class="source-rail" aria-label="対応マーケット（自動スクロール。マウスを重ねると停止）">
+  <nav class="source-rail" aria-label="対応マーケット">
     <div class="source-track">
       <div class="source-group">
         <a class="source-pill" href="https://jp.mercari.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt=""><span>メルカリ<small>仕入れ・成約</small></span></a>
@@ -271,6 +278,12 @@ header{align-items:center;margin-bottom:14px}
       </div>
     </div>
   </nav>
+  <div class="market-ticker" aria-label="マーケット情報">
+    <div class="market-ticker-track">
+      <div class="market-ticker-group"><span><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt="">メルカリ 新着・成約を監視</span><span><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt="">eBay 海外相場を比較</span><span><img src="https://www.google.com/s2/favicons?domain=auctions.yahoo.co.jp&sz=64" alt="">ヤフオク 出品・落札を追跡</span><span><img src="https://www.google.com/s2/favicons?domain=paypayfleamarket.yahoo.co.jp&sz=64" alt="">Yahoo!フリマ 新着を確認</span><span><img src="https://www.google.com/s2/favicons?domain=netmall.hardoff.co.jp&sz=64" alt="">オフモール 店舗在庫を巡回</span></div>
+      <div class="market-ticker-group" aria-hidden="true"><span><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt="">メルカリ 新着・成約を監視</span><span><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt="">eBay 海外相場を比較</span><span><img src="https://www.google.com/s2/favicons?domain=auctions.yahoo.co.jp&sz=64" alt="">ヤフオク 出品・落札を追跡</span><span><img src="https://www.google.com/s2/favicons?domain=paypayfleamarket.yahoo.co.jp&sz=64" alt="">Yahoo!フリマ 新着を確認</span><span><img src="https://www.google.com/s2/favicons?domain=netmall.hardoff.co.jp&sz=64" alt="">オフモール 店舗在庫を巡回</span></div>
+    </div>
+  </div>
 
   <div class="grid-kpi">
     <div class="card hero">
