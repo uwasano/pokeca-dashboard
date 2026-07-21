@@ -205,6 +205,36 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .crange b{color:var(--ink);font-variant-numeric:tabular-nums}
 .expl{font-size:11.5px;color:var(--ink-3);line-height:1.7}.expl b{color:var(--ink-2)}
 footer{margin-top:16px;font-size:11px;color:var(--ink-3);line-height:1.7}
+/* ===== 2026 command-center refresh ===== */
+:root{--page:#f3f6fb;--surface:rgba(255,255,255,.88);--ink:#101828;--ink-2:#475467;--ink-3:#7b8798;--border:rgba(16,24,40,.09);--wash:rgba(49,82,158,.065);--accent:#315ee7;--accent-2:#7247e8;--hero-grad:linear-gradient(135deg,#1d4ed8 0%,#5b35d5 58%,#a43bd4 100%)}
+body{background:radial-gradient(circle at 12% -5%,rgba(49,94,231,.18),transparent 28rem),radial-gradient(circle at 88% 2%,rgba(164,59,212,.13),transparent 25rem),var(--page);min-height:100vh}
+.wrap{max-width:1240px;padding:22px 18px 72px}
+header{align-items:center;margin-bottom:14px}
+.h-title{font-size:clamp(21px,3vw,30px);font-weight:850;letter-spacing:-.035em}
+.h-sub{font-size:12px}
+.card{border-radius:18px;box-shadow:0 10px 30px rgba(16,24,40,.045);backdrop-filter:blur(14px)}
+.grid-kpi{gap:12px}.grid-kpi .card{min-height:118px;padding:18px}
+.tabs{padding:6px;border-radius:16px;background:rgba(49,94,231,.07);position:sticky;top:8px;z-index:20;backdrop-filter:blur(18px);border:1px solid var(--border)}
+.tab{min-height:44px;border-radius:12px;font-weight:750}.tab[aria-selected="true"]{box-shadow:0 7px 18px rgba(49,94,231,.16)}
+.chip,.fchip{min-height:42px;padding:9px 16px;border-radius:13px;font-size:13px;font-weight:750;box-shadow:0 3px 10px rgba(16,24,40,.035)}
+.chip[aria-pressed="true"],.fchip[aria-pressed="true"]{background:var(--hero-grad);border-color:transparent;color:#fff;box-shadow:0 8px 22px rgba(49,94,231,.23)}
+.search-cat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.search-cat-card{position:relative;border-radius:16px;padding:15px;background:linear-gradient(145deg,var(--surface),color-mix(in srgb,var(--accent) 4%,var(--surface)));box-shadow:0 7px 22px rgba(16,24,40,.05)}
+.search-cat-card:has(input:checked){border-color:color-mix(in srgb,var(--accent) 45%,transparent);box-shadow:0 10px 26px rgba(49,94,231,.12)}
+.search-cat-head{font-size:14px;margin-bottom:10px}.search-cat-head .chkline{font-size:15px;font-weight:800;color:var(--ink)}
+.search-cat-head .chkline input{width:20px;height:20px}.search-cat-head>span{font-size:9px;letter-spacing:.12em;color:var(--ink-3)}
+.search-cat-card textarea{min-height:82px;border-radius:12px;padding:10px 12px}
+.acard{border-radius:18px;padding:16px;box-shadow:0 8px 24px rgba(16,24,40,.05);transition:transform .18s,box-shadow .18s,border-color .18s}
+.acard:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 28%,transparent);box-shadow:0 14px 32px rgba(16,24,40,.09)}
+.source-rail{display:flex;align-items:center;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:4px 1px 14px;margin-bottom:2px;scrollbar-width:none}
+.source-rail::-webkit-scrollbar{display:none}
+.source-label{flex:none;font-size:10px;font-weight:800;letter-spacing:.11em;color:var(--ink-3);padding-right:2px}
+.source-pill{scroll-snap-align:start;flex:none;display:flex;align-items:center;gap:9px;min-width:156px;padding:10px 13px;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:780;box-shadow:0 6px 18px rgba(16,24,40,.045);transition:transform .16s,border-color .16s}
+.source-pill:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+.source-pill img{width:24px;height:24px;border-radius:7px;object-fit:contain;background:#fff;padding:2px}
+.source-pill small{display:block;color:var(--ink-3);font-size:9px;font-weight:650;line-height:1.1;margin-top:1px}
+@media(max-width:900px){.search-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}}
 </style>
 </head>
 <body>
@@ -219,6 +249,15 @@ footer{margin-top:16px;font-size:11px;color:var(--ink-3);line-height:1.7}
       <button class="mini-btn" id="themeBtn" type="button">🌙</button>
     </div>
   </header>
+
+  <nav class="source-rail" aria-label="対応マーケット">
+    <span class="source-label">MARKETS</span>
+    <a class="source-pill" href="https://jp.mercari.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt=""><span>メルカリ<small>仕入れ・成約</small></span></a>
+    <a class="source-pill" href="https://auctions.yahoo.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=auctions.yahoo.co.jp&sz=64" alt=""><span>ヤフオク<small>出品・落札</small></span></a>
+    <a class="source-pill" href="https://netmall.hardoff.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=netmall.hardoff.co.jp&sz=64" alt=""><span>オフモール<small>店舗在庫</small></span></a>
+    <a class="source-pill" href="https://paypayfleamarket.yahoo.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=paypayfleamarket.yahoo.co.jp&sz=64" alt=""><span>Yahoo!フリマ<small>新着出品</small></span></a>
+    <a class="source-pill" href="https://www.ebay.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt=""><span>eBay<small>海外相場</small></span></a>
+  </nav>
 
   <div class="grid-kpi">
     <div class="card hero">
