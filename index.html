@@ -1176,8 +1176,12 @@ function render(){
       rowsA=WATCHITEMS.map(w=>byUrl.get(w.url)||{at:w.at,source:w.src||"",rank:w.rank||"C",name:w.name,url:w.url,buy:w.price,soldMed:0,soldN:0,adjProfit:w.adj||0,notes:"",detail:null,_stored:true});
     }
     // 同じ商品は最新の1件だけ表示(テスト取得を繰り返しても重複しない)
-    const seenU=new Set();
-    rowsA=rowsA.filter(a=>{const k=(a.url&&a.url!=="#")?a.url:(a.name+"|"+a.buy);if(seenU.has(k))return false;seenU.add(k);return true;});
+    const seenU=new Set(),seenItem=new Set();
+    rowsA=rowsA.filter(a=>{
+      const uk=(a.url&&a.url!=="#")?a.url:(a.name+"|"+a.buy);if(seenU.has(uk))return false;seenU.add(uk);
+      const nk=String(a.source||"")+"|"+String(a.name||"").toUpperCase().replace(/[\s　・･【】\[\]()（）「」『』]/g,"").replace(/[^A-Z0-9ぁ-んァ-ヶ一-龠]/g,"")+"|"+Number(a.buy||0);
+      if(seenItem.has(nk))return false;seenItem.add(nk);return true;
+    });
     // 並び替え
     if(state.sort==="end"){
       rowsA=rowsA.slice().sort((x,y)=>{
