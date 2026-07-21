@@ -226,6 +226,21 @@ header{align-items:center;margin-bottom:14px}
 .search-cat-card textarea{min-height:82px;border-radius:12px;padding:10px 12px}
 .acard{border-radius:18px;padding:16px;box-shadow:0 8px 24px rgba(16,24,40,.05);transition:transform .18s,box-shadow .18s,border-color .18s}
 .acard:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 28%,transparent);box-shadow:0 14px 32px rgba(16,24,40,.09)}
+.alert-hero{display:grid;grid-template-columns:118px minmax(0,1fr) 82px;gap:16px;align-items:center;margin-top:13px}
+.alert-photo{position:relative;display:block;width:118px;aspect-ratio:1;border-radius:16px;overflow:hidden;background:linear-gradient(145deg,#fff,#edf1f8);border:1px solid var(--border);box-shadow:0 8px 20px rgba(16,24,40,.08)}
+.alert-photo img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .25s ease}
+.alert-photo:hover img{transform:scale(1.045)}
+.alert-photo.fallback{display:grid;place-items:center;background:linear-gradient(145deg,#fff,#f2f5fb)}
+.alert-photo.fallback img{width:48px;height:48px;object-fit:contain}
+.alert-photo::after{content:"元サイト画像";position:absolute;left:7px;bottom:7px;padding:3px 7px;border-radius:999px;background:rgba(16,24,40,.74);color:#fff;font-size:8px;font-weight:750;letter-spacing:.04em;backdrop-filter:blur(5px)}
+.alert-photo.fallback::after{content:"出品元"}
+.alert-main{min-width:0}.alert-main .aname{margin-top:0;font-size:16px;line-height:1.55;letter-spacing:-.015em}
+.alert-score{width:78px;height:78px;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;background:linear-gradient(145deg,#315ee7,#7247e8);box-shadow:0 12px 25px rgba(49,94,231,.25);font-variant-numeric:tabular-nums}
+.alert-score.high{background:linear-gradient(145deg,#059669,#10b981);box-shadow:0 12px 25px rgba(5,150,105,.24)}
+.alert-score.mid{background:linear-gradient(145deg,#315ee7,#7247e8)}
+.alert-score.low{background:linear-gradient(145deg,#d97706,#f59e0b);box-shadow:0 12px 25px rgba(217,119,6,.22)}
+.alert-score strong{font-size:28px;line-height:1;font-weight:900;letter-spacing:-.05em}.alert-score span{font-size:9px;font-weight:750;margin-top:5px;letter-spacing:.08em}
+.alert-score small{font-size:8px;opacity:.82;margin-top:1px}
 .source-rail{position:relative;overflow-x:auto;padding:4px 0 14px;margin-bottom:2px;scrollbar-width:none}
 .source-rail::-webkit-scrollbar{display:none}
 .source-track{display:flex;width:max-content}
@@ -244,7 +259,7 @@ header{align-items:center;margin-bottom:14px}
 @keyframes mini-market-flow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.market-ticker{overflow-x:auto}.market-ticker-track{animation:none}.market-ticker-group[aria-hidden="true"]{display:none}}
 @media(max-width:900px){.search-cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}}
+@media(max-width:680px){.wrap{padding:14px 10px 56px}.search-cat-grid{grid-template-columns:1fr}.source-pill{min-width:142px}.tabs{top:5px}.grid-kpi{gap:8px}.alert-hero{grid-template-columns:88px minmax(0,1fr) 60px;gap:10px}.alert-photo{width:88px;border-radius:13px}.alert-score{width:58px;height:64px;border-radius:17px}.alert-score strong{font-size:22px}.alert-score span{font-size:8px}.alert-score small{display:none}.alert-main .aname{font-size:14px}.alert-main .aflow{gap:5px}.alert-main .arr{display:none}}
 </style>
 </head>
 <body>
@@ -429,6 +444,32 @@ function conditionInfo(text,cat){const has=w=>(text||"").includes(w);const t=(te
 function stockFromTitle(t){const m=(t||"").match(/在庫\s*(\d+)/);return m?+m[1]:null;}
 function median(a){const b=a.slice().sort((x,y)=>x-y),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):0;}
 function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
+function sourceLogo(src){
+ const s=String(src||"");
+ const domain=s.includes("メルカリ")?"jp.mercari.com":s.includes("eBay")?"ebay.com":s.includes("ヤフオク")?"auctions.yahoo.co.jp":s.includes("フリマ")?"paypayfleamarket.yahoo.co.jp":"netmall.hardoff.co.jp";
+ return "https://www.google.com/s2/favicons?domain="+domain+"&sz=128";
+}
+function alertImage(a,d){
+ if(d.img||d.image||a.image)return {url:d.img||d.image||a.image,fallback:false};
+ const pool=[...(DATA?.listings||[]),...(DATA?.hardoff||[])];
+ let hit=pool.find(x=>x.url&&a.url&&x.url===a.url);
+ if(!hit){
+  const needle=String(a.name||"").replace(/\s+/g,"").toUpperCase();
+  hit=pool.find(x=>{const t=String(x.title||x.name||"").replace(/\s+/g,"").toUpperCase();return needle.length>8&&(t.includes(needle.slice(0,18))||needle.includes(t.slice(0,18)));});
+ }
+ return hit&&hit.image?{url:hit.image,fallback:false}:{url:sourceLogo(a.source),fallback:true};
+}
+function alertScore(a,d){
+ let s=({S:88,A:78,B:66,C:52}[a.rank]||55);
+ const roi=a.buy>0?(a.adjProfit||0)/a.buy:0;
+ s+=clamp(Math.round((roi-.15)*22),-5,9);
+ s+=clamp(Math.round(((a.adjProfit||0)-5000)/3500),-4,7);
+ const n=Number(a.soldN||d.n||0);s+=n>=12?6:n>=8?4:n>=5?2:-2;
+ const pace=Number(d.pc||0);if(pace)s+=pace<=14?5:pace<=30?2:pace>60?-6:0;
+ if(typeof d.tr==="number")s+=d.tr>=.05?3:d.tr<=-.15?-7:d.tr<=-.05?-3:0;
+ if(d.dd)s-=Math.min(4,Number(d.dd)||0);
+ return clamp(Math.round(s),0,100);
+}
 
 let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,sort:"new",acat:"all"};
 /* ハードオフ(仕入れ) × メルカリ成約相場(売り) のサヤ取り。本物の利益源。 */
@@ -1248,14 +1289,23 @@ function render(){
       tm.textContent=mins<60?mins+"分前":mins<1440?Math.round(mins/60)+"時間前":Math.round(mins/1440)+"日前";
       top.appendChild(tm);card.appendChild(top);
       if(a._stored){const ws=document.createElement("div");ws.className="wstored";ws.textContent="⭐ ウォッチ保存分(いまは検知一覧に無い商品)— AI診断で最新の判定を確認できます";card.appendChild(ws);}
-      const nm=document.createElement("div");nm.className="aname";nm.textContent=a.name;card.appendChild(nm);
+      const hero=document.createElement("div");hero.className="alert-hero";
+      const photoData=alertImage(a,d);
+      const photo=document.createElement(a.url&&a.url!=="#"?"a":"div");photo.className="alert-photo"+(photoData.fallback?" fallback":"");
+      if(photo.tagName==="A"){photo.href=a.url;photo.target="_blank";photo.rel="noopener";photo.title="元サイトの商品ページを開く";}
+      const img=document.createElement("img");img.src=photoData.url;img.alt=a.name||"監視対象の商品画像";img.loading="lazy";img.decoding="async";
+      img.addEventListener("error",()=>{photo.classList.add("fallback");img.src=sourceLogo(a.source);},{once:true});photo.appendChild(img);hero.appendChild(photo);
+      const main=document.createElement("div");main.className="alert-main";
+      const nm=document.createElement("div");nm.className="aname";nm.textContent=a.name;main.appendChild(nm);
       const fl=document.createElement("div");fl.className="aflow";
       const f1=document.createElement("div");f1.className="fx";f1.innerHTML='<div class="fl">仕入れ</div><div class="fv">'+yen(a.buy)+'</div>';fl.appendChild(f1);
       const ar=document.createElement("span");ar.className="arr";ar.textContent="→";fl.appendChild(ar);
       const qp=d.q||0; // 即売価格(下位32%地点) — 早く売る前提の現実的な値段
       const f2=document.createElement("div");f2.className="fx";f2.innerHTML='<div class="fl">'+(qp?"即売価格":"売れた相場")+'('+(a.soldN||"?")+'件)</div><div class="fv">'+yen(qp||a.soldMed)+'</div>';fl.appendChild(f2);
       const f3=document.createElement("div");f3.className="fp";f3.innerHTML='<div class="fl">リスク調整後利益</div><div class="fv">+'+yen(a.adjProfit)+'</div>';fl.appendChild(f3);
-      card.appendChild(fl);
+      main.appendChild(fl);hero.appendChild(main);
+      const score=alertScore(a,d);const scoreBox=document.createElement("div");scoreBox.className="alert-score "+(score>=85?"high":score>=65?"mid":"low");scoreBox.title="利益・利益率・成約数・回転・相場トレンドから算出";
+      scoreBox.innerHTML='<strong>'+score+'</strong><span>狙い目点数</span><small>100点満点</small>';hero.appendChild(scoreBox);card.appendChild(hero);
       // 仕入れの内訳(現在価格+送料) — 利益はすべて送料込みで計算済み
       if(typeof d.sp==="number"&&d.sp>=0&&a.buy>d.sp){
         const bd0=document.createElement("div");
