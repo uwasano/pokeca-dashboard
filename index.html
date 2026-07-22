@@ -733,9 +733,29 @@ function modelKeyJS(title,cat){
     }
     const lvm=t.match(/[MNE]\d{5}/);
     if(lvm)return "LV "+lvm[0];
-    const line=(t.match(/モノグラム|ダミエ|エピ|タイガ|アンプラント|ヴェルニ|マヒナ|エクリプス|シャドウ|アズール/)||[])[0]||"";
-    const lvModel=(t.match(/スピーディ|ネヴァーフル|ネバーフル|アルマ|キーポル|ポルトフォイユ|ジッピー|ミュルティクレ|ポシェット|ノエ|モンスリ|カバ|パピヨン|サラ|メティス|ディアーヌ|オンザゴー|ブローニュ|ループ|ファボリット|エヴァ|ティヴォリ|ネオノエ/)||[])[0]||"";
-    const lvSize=(t.match(/(?:^|[^0-9])(2[0-9]|3[0-5]|4[0-5]|5[0-5])(?![0-9])/)||[])[1]||"";
+    const lines=[[/アンプラント|EMPREINTE/,"アンプラント"],[/マルチカラー|MULTICOLOR|MULTICOLORE/,"マルチカラー"],[/エクリプス|ECLIPSE/,"エクリプス"],[/シャドウ|SHADOW/,"シャドウ"],[/グラフィット|GRAPHITE/,"グラフィット"],[/アズール|AZUR/,"アズール"],[/エベヌ|EBENE/,"ダミエ"],[/ダミエ|DAMIER/,"ダミエ"],[/ヴェルニ|VERNIS/,"ヴェルニ"],[/エピ|EPI/,"エピ"],[/タイガ|TAIGA/,"タイガ"],[/マヒナ|MAHINA/,"マヒナ"],[/モノグラム|MONOGRAM/,"モノグラム"]];
+    let line="";for(const [re,nm] of lines)if(re.test(t)){line=nm;break}
+    const models=[
+      [/ポシェット\s*[・･]?\s*ポルト\s*[・･]?\s*モネ\s*[・･]?\s*クレディ|POCHETTE\s*PORTE\s*MONNAIE\s*CREDIT/,"ポシェットポルトモネクレディ"],
+      [/ポルト\s*[・･]?\s*モネ\s*[・･]?\s*ビエ\s*[・･]?\s*トレゾール|PORTE\s*MONNAIE\s*BILLETS?\s*TRESOR/,"ポルトモネビエトレゾール"],
+      [/ポシェット\s*[・･]?\s*アクセソワール|POCHETTE\s*ACCESSOIRES?/,"ポシェットアクセソワール"],
+      [/ポシェット\s*[・･]?\s*クレ(?![マア])|POCHETTE\s*CLE(?:S)?/,"ポシェットクレ"],
+      [/ポシェット\s*[・･]?\s*ツイン|POCHETTE\s*TWIN/,"ポシェットツイン"],
+      [/ジッピー\s*[・･]?\s*ウォレット|ZIPPY\s*WALLET/,"ジッピーウォレット"],[/ジッピー\s*[・･]?\s*クレマンス|ZIPPY\s*CLEMENCE/,"ジッピークレマンス"],[/ジッピー\s*[・･]?\s*コインパース|ZIPPY\s*COIN/,"ジッピーコインパース"],[/ジッピー|ZIPPY/,"?"],
+      [/ポルトフォイユ\s*[・･]?\s*クレマンス/,"ポルトフォイユクレマンス"],[/ポルトフォイユ\s*[・･]?\s*サラ|サラ|SARAH/,"ポルトフォイユサラ"],[/エミリー|EMILIE/,"ポルトフォイユエミリー"],[/ポルトフォイユ|PORTEFEUILLE/,"?"],
+      [/ネオノエ|NEONOE/,"ネオノエ"],[/ナノ\s*ノエ|NANO\s*NOE/,"ナノノエ"],[/ノエ|NOE/,"ノエ"],[/スピーディ|SPEEDY/,"スピーディ"],[/ネヴァーフル|ネバーフル|NEVERFULL/,"ネヴァーフル"],[/メティス|METIS/,"メティス"],[/オンザゴー|ON\s*THE\s*GO|ONTHEGO/,"オンザゴー"],[/アルマ|ALMA/,"アルマ"],[/キーポル|KEEPALL/,"キーポル"],[/アクセソワール|ACCESSOIRES/,"アクセソワール"],[/カプシーヌ|CAPUCINES/,"カプシーヌ"],[/ミュルティクレ/,"ミュルティクレ"],[/ポシェット|POCHETTE/,"?"],[/モンスリ/,"モンスリ"],[/パピヨン|PAPILLON/,"パピヨン"]
+    ];
+    let lvModel="";for(const [re,nm] of models)if(re.test(t)){lvModel=nm;break}
+    if(lvModel==="?"){
+      if(/長財布|LONG\s*WALLET|札入れ|2\s*カード|２\s*カード/.test(t))lvModel="ポシェットポルトモネクレディ";
+      else if(/アクセサリー\s*ポーチ|アクセサリーポーチ|ショルダー(?:バッグ|ポーチ)?|CROSSBODY|SHOULDER|ハンドストラップ/.test(t))lvModel="ポシェットアクセソワール";
+      else if(/キー\s*ポーチ|キーリング|KEY\s*(?:POUCH|RING)|小銭入れ|コインケース|COIN\s*(?:CASE|PURSE)/.test(t))lvModel="ポシェットクレ";
+    }
+    if(lvModel==="?")return "";
+    let lvSize=(t.match(/(?:^|[^0-9])(2[0-9]|3[0-5]|4[0-5]|5[0-5])(?![0-9])/)||[])[1]||"";
+    if(!lvSize)lvSize=(t.match(/(?:^|[^A-Z])(TINY|NANO|MINI|MICRO|COMPACT|SMALL|MEDIUM|LARGE|PM|MM|GM|BB|XS|XL)(?![A-Z])/)||[])[1]||"";
+    if(!lvSize){const sj=(t.match(/タイニー|ナノ|ミニ|マイクロ|コンパクト|スモール|ミディアム|ラージ/)||[])[0];if(sj)lvSize=({タイニー:"TINY",ナノ:"NANO",ミニ:"MINI",マイクロ:"MICRO",コンパクト:"COMPACT",スモール:"SMALL",ミディアム:"MEDIUM",ラージ:"LARGE"})[sj]||""}
+    if(lvModel==="ナノノエ")lvSize="";
     if(line&&lvModel)return ("LV "+line+" "+lvModel+lvSize).replace(/ネバーフル/,"ネヴァーフル");
     return "";
   }
@@ -1447,7 +1467,7 @@ function render(){
       rowsA=rowsA.filter(a=>brx[state.brandName]&&brx[state.brandName].test(a.name+" "+((a.detail&&a.detail.k)||"")));
     }
     if(state.acat==="brand"&&state.brandType!=="all"){
-      const typeOf=n=>/財布|ウォレット|WALLET|コインケース|札入れ/i.test(n)?"wallet":/カードケース|名刺|キーケース|チャーム|スカーフ|カレ|ベルト/i.test(n)?"small":/時計|WATCH|クリッパー|Hウォッチ/i.test(n)?"watch":/リング|ネックレス|ブレスレット|ピアス|イヤリング|ジュエリー|JEWEL/i.test(n)?"jewelry":/バッグ|BAG|バーキン|ケリー|ピコタン|マトラッセ|トート|ショルダー|ポシェット|ボストン|クラッチ|リュック|スピーディ|ネヴァーフル/i.test(n)?"bag":"small";
+      const typeOf=n=>/財布|ウォレット|WALLET|コインケース|札入れ|ポシェット\s*[・･]?\s*ポルト\s*[・･]?\s*モネ\s*[・･]?\s*クレディ|POCHETTE\s*PORTE\s*MONNAIE\s*CREDIT/i.test(n)?"wallet":/カードケース|名刺|キーケース|チャーム|スカーフ|カレ|ベルト/i.test(n)?"small":/時計|WATCH|クリッパー|Hウォッチ/i.test(n)?"watch":/リング|ネックレス|ブレスレット|ピアス|イヤリング|ジュエリー|JEWEL/i.test(n)?"jewelry":/バッグ|BAG|バーキン|ケリー|ピコタン|マトラッセ|トート|ショルダー|ポシェット|ボストン|クラッチ|リュック|スピーディ|ネヴァーフル/i.test(n)?"bag":"small";
       rowsA=rowsA.filter(a=>typeOf(a.name)===state.brandType);
     }
     // ⭐ウォッチ絞り込み: ウォッチ登録品を表示(現役の検知カードがあればそれ、無ければ保存情報から)
