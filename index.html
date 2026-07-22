@@ -577,7 +577,7 @@ function verifyAlertProfit(a){
  a._profitVerified=true;return a;
 }
 
-let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], REMOTE_CFG={}, VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,ebayOnly:false,foreignMarketOnly:false,exportProfitOnly:false,sort:"quality",acat:"all"};
+let DATA=null, ALERTS=null, WATCHIDS=new Set(), WATCHITEMS=[], REMOTE_CFG={}, VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,ebayOnly:false,foreignMarketOnly:false,exportProfitOnly:false,sort:"quality",acat:"all",brandName:"all",brandType:"all"};
 /* ハードオフ(仕入れ) × メルカリ成約相場(売り) のサヤ取り。本物の利益源。 */
 const JUNK_RE=/ジャンク|部品取り|不動|故障|訳あり|難あり|破損|ランク[DEJ](?![A-Z0-9])/;
 function computeArbitrage(d){
@@ -667,7 +667,11 @@ function modelKeyJS(title,cat){
   let t=(title||"").toUpperCase().replace(/[０-９]/g,d=>"０１２３４５６７８９".indexOf(d)).replace(/[Ａ-Ｚ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/\s+/g," ");
   const brand=brandOf(t);
   if(cat==="brand"){
-    if(!/ヴィトン|ビトン|VUITTON/.test(t))return "";
+    if(!/ヴィトン|ビトン|VUITTON/.test(t)){
+      const bm=[[/エルメス|HERM[EÈ]S/,"HERMES",[[/バーキン|BIRKIN/,"BIRKIN"],[/ケリー|KELLY/,"KELLY"],[/ピコタン|PICOTIN/,"PICOTIN"],[/エヴリン|エブリン|EVELYNE/,"EVELYNE"]]],[/シャネル|CHANEL/,"CHANEL",[[/マトラッセ|MATELASSE/,"MATELASSE"],[/ボーイシャネル|BOY CHANEL/,"BOY"],[/ココハンドル|COCO HANDLE/,"COCOHANDLE"]]],[/グッチ|GUCCI/,"GUCCI",[[/GG\s*マーモント|GG\s*MARMONT/,"GGMARMONT"],[/オフィディア|OPHIDIA/,"OPHIDIA"]]],[/プラダ|PRADA/,"PRADA",[[/ガレリア|GALLERIA/,"GALLERIA"],[/サフィアーノ|SAFFIANO/,"SAFFIANO"]]],[/ディオール|DIOR/,"DIOR",[[/レディ\s*ディオール|LADY\s*DIOR/,"LADYDIOR"],[/サドル|SADDLE/,"SADDLE"]]],[/セリーヌ|CELINE/,"CELINE",[[/ラゲージ|LUGGAGE/,"LUGGAGE"],[/トリオンフ|TRIOMPHE/,"TRIOMPHE"]]],[/ロエベ|LOEWE/,"LOEWE",[[/パズル|PUZZLE/,"PUZZLE"],[/ハンモック|HAMMOCK/,"HAMMOCK"]]],[/ボッテガ|BOTTEGA/,"BOTTEGA",[[/カセット|CASSETTE/,"CASSETTE"],[/ジョディ|JODIE/,"JODIE"]]]];
+      for(const [bre,bn,models] of bm)if(bre.test(t)){let mn="";for(const [mr,n] of models)if(mr.test(t)){mn=n;break}if(!mn)return "";const sm=t.match(/(?:^|[^A-Z0-9])(MINI|NANO|MICRO|PM|MM|GM|TPM|BB|XS|SMALL|MEDIUM|LARGE|25|28|30|32|35|40)(?![A-Z0-9])/);if(!sm)return "";return `BR ${bn} ${mn} ${sm[1]}`}
+      return "";
+    }
     const lvm=t.match(/[MNE]\d{5}/);
     if(lvm)return "LV "+lvm[0];
     const line=(t.match(/モノグラム|ダミエ|エピ|タイガ|アンプラント|ヴェルニ|マヒナ|エクリプス|シャドウ|アズール/)||[])[0]||"";
@@ -683,7 +687,21 @@ function modelKeyJS(title,cat){
     const focal=focalOf(t2);
     if(!focal)return "";
     const ap=apertureOf(t2);
-    return `${brand} ${focal}MM${ap?" F"+ap:""}`.trim();
+    let mt="";
+    if(brand==="SIGMA"||brand==="TAMRON"||brand==="TOKINA"){
+      if(/RFマウント|CANON\s*RF|キヤノン\s*RF|キャノン\s*RF/.test(t))mt="RF";
+      else if(/EFマウント|CANON(?:用|向け|対応)|キヤノン(?:用|向け|対応)|キャノン(?:用|向け|対応)/.test(t))mt="EF";
+      else if(/Zマウント|NIKON\s*Z|ニコン\s*Z/.test(t))mt="Z";
+      else if(/Fマウント|NIKON(?:用|向け|対応)|ニコン(?:用|向け|対応)/.test(t))mt="F";
+      else if(/Eマウント|SONY\s*E|ソニー\s*E/.test(t))mt="E";
+      else if(/Aマウント|SONY\s*A|ソニー\s*A/.test(t))mt="A";
+      else if(/Xマウント|FUJI(?:FILM)?(?:用|向け|対応)|富士フイルム(?:用|向け|対応)|フジ(?:用|向け|対応)/.test(t))mt="X";
+      else if(/マイクロフォーサーズ|MFT|M4\/3/.test(t))mt="MFT";
+      else if(/Kマウント|PENTAX(?:用|向け|対応)|ペンタックス(?:用|向け|対応)/.test(t))mt="K";
+      else if(/Lマウント|LEICA\s*L|ライカ\s*L/.test(t))mt="L";
+      if(!mt)return "";
+    }
+    return `${brand} ${focal}MM${ap?" F"+ap:""}${mt?" "+mt:""}`.trim();
   }
   if(cat==="camera"){
     const dsc=t.match(/DSC-?[A-Z]{1,3}\d+[A-Z]*\d*/);
@@ -1273,7 +1291,10 @@ function render(){
     // 用途別に分けたフィルター
     const board=document.createElement("div");board.className="filter-board";
     const group=(title,extra="")=>{const g=document.createElement("section");g.className="filter-group "+extra;const h=document.createElement("div");h.className="filter-label";h.textContent=title;const row=document.createElement("div");row.className="fchips";g.append(h,row);board.appendChild(g);return row;};
-    const rankGroup=group("🏆 ランク","rank");const sourceGroup=group("🛒 仕入先・販売先","source");const categoryGroup=group("📦 カテゴリ","category");const specialGroup=group("✨ 特殊条件","special");
+    const rankGroup=group("🏆 ランク","rank");const sourceGroup=group("🛒 仕入先・販売先","source");const categoryGroup=group("📦 カテゴリ","category");
+    const brandGroup=state.acat==="brand"?group("🏷️ ブランド別","brand-sub"):null;
+    const brandTypeGroup=state.acat==="brand"?group("👜 商品ジャンル別","brand-type"):null;
+    const specialGroup=group("✨ 特殊条件","special");
     const mk=(label,key,val)=>{const c=document.createElement("button");c.className="fchip";c.type="button";c.textContent=label;
       c.setAttribute("aria-pressed",state[key]===val?"true":"false");
       c.addEventListener("click",()=>{state[key]=state[key]===val?"all":val;if(key==="src")state.ebayOnly=false;render();});return c;};
@@ -1281,6 +1302,8 @@ function render(){
     sourceGroup.appendChild(mk("🏪 オフモール","src","オフモール"));sourceGroup.appendChild(mk("🔨 ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("🔴 メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("🟣 Yahoo!フリマ","src","ヤフーフリマ"));sourceGroup.appendChild(mk("📦 eBay輸入","src","eBay輸入"));
     {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;if(state.ebayOnly)state.src="all";render();});sourceGroup.appendChild(ec);}
     categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));
+    if(brandGroup){[["すべて","all"],["LV","vuitton"],["HERMES","hermes"],["CHANEL","chanel"],["GUCCI","gucci"],["PRADA","prada"],["DIOR","dior"],["CELINE","celine"],["LOEWE","loewe"],["BOTTEGA","bottega"]].forEach(x=>brandGroup.appendChild(mk(x[0],"brandName",x[1])));}
+    if(brandTypeGroup){[["すべて","all"],["👜 バッグ","bag"],["👛 財布","wallet"],["💳 小物・カード","small"],["⌚ 時計","watch"],["💎 ジュエリー","jewelry"]].forEach(x=>brandTypeGroup.appendChild(mk(x[0],"brandType",x[1])));}
     {const fc=document.createElement("button");fc.className="fchip";fc.type="button";fc.textContent="🌍 海外市場が厚い";fc.title="eBay現在出品の同型候補が5件以上・市場厚み35/70以上・輸出参考利益がプラスの商品（売却済み需要ではありません）";fc.setAttribute("aria-pressed",state.foreignMarketOnly?"true":"false");fc.addEventListener("click",()=>{state.foreignMarketOnly=!state.foreignMarketOnly;if(state.foreignMarketOnly){state.exportProfitOnly=false;state.ebayOnly=false;state.src="all";state.sort="foreign"}render();});categoryGroup.appendChild(fc);}
     {const xp=document.createElement("button");xp.className="fchip";xp.type="button";xp.textContent="🚀 海外高利益";xp.title="eBay現在出品を基準に、手数料・国際送料・梱包・返品リスク・為替余裕を引いても参考利益1万円以上、ROI30%以上の商品";xp.setAttribute("aria-pressed",state.exportProfitOnly?"true":"false");xp.addEventListener("click",()=>{state.exportProfitOnly=!state.exportProfitOnly;if(state.exportProfitOnly){state.foreignMarketOnly=false;state.ebayOnly=false;state.src="all";state.sort="exportProfit"}render();});categoryGroup.appendChild(xp);}
     {const wc=document.createElement("button");wc.className="fchip";wc.type="button";
@@ -1326,11 +1349,19 @@ function render(){
     if(state.acat!=="all"){
       const acatOf=a=>{
         const k=(a.detail&&a.detail.k)||"";
-        if(k.startsWith("LV ")||/ヴィトン|ビトン|VUITTON/i.test(a.name))return "brand";
+        if(k.startsWith("LV ")||k.startsWith("BR ")||/ヴィトン|ビトン|VUITTON|エルメス|HERM[EÈ]S|シャネル|CHANEL|グッチ|GUCCI|プラダ|PRADA|ディオール|DIOR|セリーヌ|CELINE|ロエベ|LOEWE|ボッテガ|BOTTEGA/i.test(a.name))return "brand";
         if(/\dMM\b/.test(k)||/レンズ|LENS/i.test(a.name))return "lens";
         return "camera";
       };
       rowsA=rowsA.filter(a=>acatOf(a)===state.acat);
+    }
+    if(state.acat==="brand"&&state.brandName!=="all"){
+      const brx={vuitton:/ヴィトン|ビトン|VUITTON/i,hermes:/エルメス|HERM[EÈ]S/i,chanel:/シャネル|CHANEL/i,gucci:/グッチ|GUCCI/i,prada:/プラダ|PRADA/i,dior:/ディオール|DIOR/i,celine:/セリーヌ|CELINE/i,loewe:/ロエベ|LOEWE/i,bottega:/ボッテガ|BOTTEGA/i};
+      rowsA=rowsA.filter(a=>brx[state.brandName]&&brx[state.brandName].test(a.name+" "+((a.detail&&a.detail.k)||"")));
+    }
+    if(state.acat==="brand"&&state.brandType!=="all"){
+      const typeOf=n=>/財布|ウォレット|WALLET|コインケース|札入れ/i.test(n)?"wallet":/カードケース|名刺|キーケース|チャーム|スカーフ|カレ|ベルト/i.test(n)?"small":/時計|WATCH|クリッパー|Hウォッチ/i.test(n)?"watch":/リング|ネックレス|ブレスレット|ピアス|イヤリング|ジュエリー|JEWEL/i.test(n)?"jewelry":/バッグ|BAG|バーキン|ケリー|ピコタン|マトラッセ|トート|ショルダー|ポシェット|ボストン|クラッチ|リュック|スピーディ|ネヴァーフル/i.test(n)?"bag":"small";
+      rowsA=rowsA.filter(a=>typeOf(a.name)===state.brandType);
     }
     // ⭐ウォッチ絞り込み: ウォッチ登録品を表示(現役の検知カードがあればそれ、無ければ保存情報から)
     if(state.watchOnly){
@@ -1742,7 +1773,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
     try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,scanAllNonMercari:true,term,cat,includeSold})}),j=await r.json();
       if(!j||!j.ok)throw new Error(j&&j.error||"一括取得できませんでした");
       const x=j.counts||{};
-      qm.textContent="✅ 入力語で直接取得：オフモール "+Number(x.offmall||0)+"件 / ヤフオク "+Number(x.yahoo||0)+"件 / Yahoo!フリマ "+Number(x.flea||0)+"件 / eBay "+Number(x.ebay||0)+"件。";
+      qm.textContent="✅ 入力語で直接取得：オフモール "+Number(x.offmall||0)+"件 / ヤフオク "+Number(x.yahoo||0)+"件 / Yahoo!フリマ "+Number(x.flea||0)+"件 / eBay "+Number(x.ebay||0)+"件。"+(j.mercariQueued?" メルカリ売り切れも最優先で商品ページ確認中です。":"");
       renderDirectQuickResults(j);
     }catch(e){qm.textContent="一括取得に失敗しました："+(e.message||e)+"。最新版GASを再デプロイしてください。";}
     finally{qb.disabled=false;qb.textContent="4サイト一括取得";}
