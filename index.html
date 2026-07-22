@@ -1295,9 +1295,10 @@ function render(){
     const brandGroup=state.acat==="brand"?group("🏷️ ブランド別","brand-sub"):null;
     const brandTypeGroup=state.acat==="brand"?group("👜 商品ジャンル別","brand-type"):null;
     const specialGroup=group("✨ 特殊条件","special");
+    const runBrandChoice=()=>{const bn={vuitton:"LOUIS VUITTON",hermes:"HERMES",chanel:"CHANEL",gucci:"GUCCI",prada:"PRADA",dior:"DIOR",celine:"CELINE",loewe:"LOEWE",bottega:"BOTTEGA VENETA"},bt={bag:"バッグ",wallet:"財布",small:"カードケース 小物",watch:"時計",jewelry:"ジュエリー"};const parts=[];if(state.brandName!=="all")parts.push(bn[state.brandName]||"");if(state.brandType!=="all")parts.push(bt[state.brandType]||"");if(!parts.length)return;setTimeout(()=>{const qi=$("#quickSearchTerm"),qc=$("#quickSearchCat"),qb=$("#quickSearchBtn"),qs=document.querySelector(".quick-search");if(!qi||!qc||!qb)return;qi.value=parts.filter(Boolean).join(" ");qc.value="brand";if(qs)qs.scrollIntoView({behavior:"smooth",block:"start"});qb.click();},80);};
     const mk=(label,key,val)=>{const c=document.createElement("button");c.className="fchip";c.type="button";c.textContent=label;
       c.setAttribute("aria-pressed",state[key]===val?"true":"false");
-      c.addEventListener("click",()=>{state[key]=state[key]===val?"all":val;if(key==="src")state.ebayOnly=false;render();});return c;};
+      c.addEventListener("click",()=>{state[key]=state[key]===val?"all":val;if(key==="src")state.ebayOnly=false;const doSearch=(key==="brandName"||key==="brandType")&&state[key]!=="all";render();if(doSearch)runBrandChoice();});return c;};
     rankGroup.appendChild(mk("🥇 Sのみ","rank","S"));rankGroup.appendChild(mk("🏅 A以上","rank","SA"));
     sourceGroup.appendChild(mk("🏪 オフモール","src","オフモール"));sourceGroup.appendChild(mk("🔨 ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("🔴 メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("🟣 Yahoo!フリマ","src","ヤフーフリマ"));sourceGroup.appendChild(mk("📦 eBay輸入","src","eBay輸入"));
     {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;if(state.ebayOnly)state.src="all";render();});sourceGroup.appendChild(ec);}
