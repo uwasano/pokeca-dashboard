@@ -728,7 +728,7 @@ function modelKeyJS(title,cat){
         for(const [re,key] of hs)if(re.test(t))return "BR HERMES "+key;
       }
       const bm=[[/エルメス|HERM[EÈ]S/,"HERMES",[[/バーキン|BIRKIN/,"BIRKIN"],[/ケリー|KELLY/,"KELLY"],[/ピコタン|PICOTIN/,"PICOTIN"],[/エヴリン|エブリン|EVELYNE/,"EVELYNE"]]],[/シャネル|CHANEL/,"CHANEL",[[/マトラッセ|MATELASSE/,"MATELASSE"],[/ボーイシャネル|BOY CHANEL/,"BOY"],[/ココハンドル|COCO HANDLE/,"COCOHANDLE"]]],[/グッチ|GUCCI/,"GUCCI",[[/GG\s*マーモント|GG\s*MARMONT/,"GGMARMONT"],[/オフィディア|OPHIDIA/,"OPHIDIA"]]],[/プラダ|PRADA/,"PRADA",[[/ガレリア|GALLERIA/,"GALLERIA"],[/サフィアーノ|SAFFIANO/,"SAFFIANO"]]],[/ディオール|DIOR/,"DIOR",[[/レディ\s*ディオール|LADY\s*DIOR/,"LADYDIOR"],[/サドル|SADDLE/,"SADDLE"]]],[/セリーヌ|CELINE/,"CELINE",[[/ラゲージ|LUGGAGE/,"LUGGAGE"],[/トリオンフ|TRIOMPHE/,"TRIOMPHE"]]],[/ロエベ|LOEWE/,"LOEWE",[[/パズル|PUZZLE/,"PUZZLE"],[/ハンモック|HAMMOCK/,"HAMMOCK"]]],[/ボッテガ|BOTTEGA/,"BOTTEGA",[[/カセット|CASSETTE/,"CASSETTE"],[/ジョディ|JODIE/,"JODIE"]]]];
-      for(const [bre,bn,models] of bm)if(bre.test(t)){let mn="";for(const [mr,n] of models)if(mr.test(t)){mn=n;break}if(!mn)return "";const sm=t.match(/(?:^|[^A-Z0-9])(MINI|NANO|MICRO|PM|MM|GM|TPM|BB|XS|SMALL|MEDIUM|LARGE|25|28|30|32|35|40)(?![A-Z0-9])/);if(!sm)return "";return `BR ${bn} ${mn} ${sm[1]}`}
+      for(const [bre,bn,models] of bm)if(bre.test(t)){let mn="";for(const [mr,n] of models)if(mr.test(t)){mn=n;break}if(!mn)return "";const code=bn==="CHANEL"?((t.match(/(?:^|[^A-Z0-9])((?:AP|AS)\d{4}|A\d{5})(?![A-Z0-9])/)||[])[1]||""):"";if(code)return `BR ${bn} ${code}`;const sm=t.match(/(?:^|[^A-Z0-9])(MINI|NANO|MICRO|PM|MM|GM|TPM|BB|XS|SMALL|MEDIUM|LARGE|25|28|30|32|35|40)(?![A-Z0-9])/),kind=/長財布|LONG\s*WALLET/.test(t)?"LONGWALLET":/二つ折り|2つ折り|BIFOLD|BI-FOLD/.test(t)?"BIFOLD":/三つ折り|3つ折り|TRIFOLD|TRI-FOLD/.test(t)?"TRIFOLD":/カードケース|CARD\s*(?:CASE|HOLDER)/.test(t)?"CARDCASE":/コインケース|小銭入れ|COIN\s*(?:CASE|PURSE)/.test(t)?"COINCASE":/クラッチ|CLUTCH/.test(t)?"CLUTCH":/バニティ|VANITY/.test(t)?"VANITY":"",sizeRequired=/^(BIRKIN|KELLY|PICOTIN|EVELYNE|MATELASSE|BOY|COCOHANDLE|GGMARMONT|OPHIDIA|GALLERIA|LADYDIOR|SADDLE|LUGGAGE|TRIOMPHE|PUZZLE|HAMMOCK|CASSETTE|JODIE)$/.test(mn);if(sizeRequired&&!sm){if(kind&&/WALLET|BIFOLD|TRIFOLD|CARDCASE|COINCASE/.test(kind))return `BR ${bn} ${mn} ${kind}`;return ""}return `BR ${bn} ${mn}${sm?" "+sm[1]:kind?" "+kind:""}`}
       return "";
     }
     const lvm=t.match(/[MNE]\d{5}/);
@@ -1891,8 +1891,20 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
       const actions=card.querySelector(".direct-actions");card.insertBefore(panel,actions||null);
     });
   }
+  function hydrateDirectEvidence(rows){
+    // 今すぐ検索の応答が作られた後にPCのSOLD巡回が完了しても、古い0/3表示を残さない。
+    // 1分更新で受け取った全体SOLDデータを、商品キー完全一致の時だけ各カードへ即合流する。
+    const sold=Array.isArray(DATA&&DATA.sold)?DATA.sold:[];
+    rows.forEach(x=>{
+      const key=String(x.modelKey||modelKeyJS(x.name||"",x.cat||"brand")||"");if(!key)return;
+      const local=sold.filter(s=>s&&s.saleVerified===true&&s.verification==="item_page_sold_out"&&modelKeyJS(s.title||"",s.category||x.cat||"brand")===key).map(s=>({p:Number(s.price||0),t:s.title||"売却済み商品",u:s.itemId?"https://jp.mercari.com/item/"+s.itemId:(s.url||""),a:0,v:1}));
+      const remote=Array.isArray(x.evidence)?x.evidence:[];if(local.length<=remote.length)return;
+      x.evidence=local.slice(0,30);x.soldN=local.length;
+      if(x.exit){x.exit.evidenceN=local.length;x.exit.evidence=x.evidence;}
+    });
+  }
   function renderDirectQuickResults(j){
-    const box=$("#quickSearchResults"),rows=Array.isArray(j.results)?j.results:[];box.innerHTML="";
+    const box=$("#quickSearchResults"),rows=Array.isArray(j.results)?j.results:[];hydrateDirectEvidence(rows);box.innerHTML="";
     const c=j.counts||{},m=j.market||{},head=document.createElement("div");head.className="quick-results-head";
     head.innerHTML='<span>🔎 「'+escAuth(j.term||'')+'」の直接取得結果</span><span>合計 '+Number(c.total||0)+'件</span>';box.appendChild(head);
     const sum=document.createElement("div");sum.className="quick-market";sum.innerHTML='<div class="quick-market-metrics"><span>オフモール<b>'+Number(c.offmall||0)+'件</b></span><span>ヤフオク<b>'+Number(c.yahoo||0)+'件</b></span><span>Yahoo!フリマ<b>'+Number(c.flea||0)+'件</b></span><span>eBay<b>'+Number(c.ebay||0)+'件</b></span></div><div class="quick-sold-title">🎯 販売先・売価・手数料・両側送料は商品カードごとに個別確定</div><div style="margin-top:7px;font-size:11px;color:var(--ink-3)">検索語全体の相場を全商品へ流用しません。各商品の完全一致成約3件以上が揃った販売先だけを「利益の出口」に採用します。</div>';box.appendChild(sum);
@@ -1904,7 +1916,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
     enhanceDirectResults(box,rows,m);applyRevenueExitUI(box,rows);
   }
   function renderDirectQuickResultsV2(j){
-    const box=$("#quickSearchResults"),rows=Array.isArray(j.results)?j.results:[],c=j.counts||{},m=j.market||{};box.innerHTML="";
+    const box=$("#quickSearchResults"),rows=Array.isArray(j.results)?j.results:[],c=j.counts||{},m=j.market||{};hydrateDirectEvidence(rows);box.innerHTML="";
     const head=document.createElement("div");head.className="quick-results-head";head.innerHTML='<span>🔎 「'+escAuth(j.term||'')+'」の直接取得結果</span><span>合計 '+Number(c.total||0)+'件</span>';box.appendChild(head);
     const sum=document.createElement("div");sum.className="quick-market";sum.innerHTML='<div class="quick-market-metrics"><span>オフモール<b>'+Number(c.offmall||0)+'件</b></span><span>ヤフオク<b>'+Number(c.yahoo||0)+'件</b></span><span>ジモティー<b>'+Number(c.jimoty||0)+'件</b></span><span>eBay<b>'+Number(c.ebay||0)+'件</b></span></div><div class="quick-sold-title">🎯 純利益＝売価 − 仕入 − 手数料 − 送料 − 鑑定 − 補修 − 返品・売れ残り予備費</div><div style="margin-top:7px;font-size:11px;color:var(--ink-3)">完全一致成約3件未満は利益未確定のまま表示します。ブランドバッグは真贋判定を利益判定から分離しています。</div>';box.appendChild(sum);
     const q=encodeURIComponent(j.term||''),cat=j.cat||'camera',compare=document.createElement('section');compare.className='source-compare';
