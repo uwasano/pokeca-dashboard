@@ -307,6 +307,7 @@ header{align-items:center;margin-bottom:14px}
 .auth-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.auth-upload{display:inline-flex;align-items:center;gap:7px;padding:11px 14px;border-radius:12px;background:var(--hero-grad);color:#fff;font-size:12px;font-weight:850;cursor:pointer}.auth-upload input{display:none}.auth-note{flex:1;min-width:220px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--ink)}
 .auth-previews{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:12px}.auth-preview{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--wash);border:1px solid var(--border)}.auth-preview img{width:100%;height:100%;object-fit:cover}.auth-preview span{position:absolute;left:5px;bottom:5px;background:rgba(0,0,0,.7);color:#fff;border-radius:6px;padding:2px 5px;font-size:9px}.anomaly-box{position:absolute;border:2px solid #ff3b5c;background:rgba(255,59,92,.12);pointer-events:none}.auth-run{padding:11px 16px;border:0;border-radius:12px;background:#111827;color:#fff;font-weight:850;cursor:pointer}.auth-run:disabled{opacity:.5}.auth-result{margin-top:13px;display:none}.auth-result.show{display:block}.auth-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.auth-metric{padding:12px;border-radius:12px;background:var(--wash);border:1px solid var(--border)}.auth-metric small{display:block;color:var(--ink-3)}.auth-metric strong{font-size:18px}.auth-details{margin-top:10px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);font-size:11px;line-height:1.75}.auth-warning{margin-top:10px;font-size:10px;color:var(--ink-3);line-height:1.6}
 @media(max-width:680px){.shot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-previews{grid-template-columns:repeat(3,minmax(0,1fr))}.auth-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.auth-head{display:block}.auth-badge{display:inline-block;margin-top:8px}}
+.seller-radar{margin:14px 0;padding:16px;border:1px solid rgba(14,116,144,.18);border-radius:20px;background:linear-gradient(145deg,#f0fdfa,#eff6ff);box-shadow:0 10px 28px rgba(15,118,110,.07)}.seller-radar-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}.seller-radar-head h3{margin:0;color:#0f2942;font-size:15px}.seller-radar-head p{margin:4px 0 0;color:#5b6b7e;font-size:10px;line-height:1.55}.seller-radar-count{padding:5px 9px;border-radius:99px;background:#fff;color:#0f766e;font-size:9px;font-weight:900}.seller-radar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.seller-person{display:grid;grid-template-columns:38px minmax(0,1fr);gap:9px;padding:11px;border:1px solid rgba(15,118,110,.12);border-radius:15px;background:rgba(255,255,255,.9);text-decoration:none;color:inherit}.seller-rank{display:flex;width:38px;height:38px;align-items:center;justify-content:center;border-radius:12px;background:linear-gradient(135deg,#0f766e,#2563eb);color:#fff;font-size:16px;font-weight:950}.seller-rank.A{background:linear-gradient(135deg,#2563eb,#7c3aed)}.seller-rank.B{background:#64748b}.seller-rank.危険{background:#dc2626}.seller-person b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}.seller-person small{display:block;margin-top:3px;color:#64748b;font-size:8.5px;line-height:1.5}.seller-person strong{color:#047857}.seller-badge{display:inline-flex;align-items:center;padding:4px 8px;border-radius:99px;background:#dff8ef;color:#087457;font-size:8.5px;font-weight:900}@media(max-width:700px){.seller-radar-grid{grid-template-columns:1fr 1fr}.seller-radar{padding:13px}.seller-person:nth-child(n+5){display:none}}
 </style>
 </head>
 <body>
@@ -596,7 +597,7 @@ function showEbayProfitToasts(alerts){
  for(const a of deals){const e=a.detail.eb,key="ebay:"+(a.url||a.name);if(TOASTED.has(key))continue;TOASTED.add(key);const t=document.createElement("aside");t.className="deal-toast ebay";
   const eq=encodeURIComponent(e.query||a.name),soldUrl=e.soldSearchUrl||('https://www.ebay.com/sch/i.html?_nkw='+eq+'&LH_Sold=1&LH_Complete=1');
   t.innerHTML='<div class="toast-top"><span class="toast-flash ebay">🌍 eBay輸出候補</span><span class="toast-title">現在出品ベース・成約未確認</span><button class="toast-close" type="button" aria-label="閉じる">×</button></div><div class="toast-name"></div><div class="toast-values"><span>輸出見込利益<b>+'+yen(e.profitJpy)+'</b></span><span>ROI<b>'+e.roi+'%</b></span><span>市場厚み<b>'+Number(e.marketDepth||e.demand||0)+'/70</b></span></div><a class="toast-open ebay-data-link" href="'+soldUrl+'" target="_blank" rel="noopener">eBay売却済み検索で確認 →</a>';
-  t.querySelector(".toast-name").textContent=a.name;t.querySelector(".toast-open").href=a.url;t.querySelector(".toast-close").addEventListener("click",()=>{t.classList.add("leaving");setTimeout(()=>t.remove(),210)});stack.appendChild(t);
+  t.querySelector(".toast-name").textContent=a.name;t.querySelector(".toast-open").href=soldUrl;t.querySelector(".toast-close").addEventListener("click",()=>{t.classList.add("leaving");setTimeout(()=>t.remove(),210)});stack.appendChild(t);
  }
 }
 // GAS更新前でも、検証済み即売価格から利益を再計算して古い保存利益の表示を止める。
@@ -614,7 +615,7 @@ function verifyAlertProfit(a){
 }
 
 let LOCAL_FAVS=[];try{LOCAL_FAVS=JSON.parse(localStorage.getItem("profit_favorites_v2")||"[]")}catch(_){LOCAL_FAVS=[]}
-let DATA=null, ALERTS=null, WATCHIDS=new Set(LOCAL_FAVS.map(x=>x.url)), WATCHITEMS=LOCAL_FAVS.slice(), REMOTE_CFG={}, VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,ebayOnly:false,foreignMarketOnly:false,exportProfitOnly:false,sort:"profit",acat:"brand",brandName:"all",brandType:"bag"};
+let DATA=null, ALERTS=null, WATCHIDS=new Set(LOCAL_FAVS.map(x=>x.url)), WATCHITEMS=LOCAL_FAVS.slice(), REMOTE_CFG={}, VIEW="alerts", PRESET="score", state={minProfit:null,minScore:0,goodOnly:false,q:"",cat:"all",rank:"all",src:"all",watchOnly:false,instantOnly:false,ebayOnly:false,foreignMarketOnly:false,exportProfitOnly:false,sellerRadarOnly:false,sort:"profit",acat:"brand",brandName:"all",brandType:"bag"};
 const SOURCE_RANK_JS={"オフモール":1,"メルカリ":2,"ヤフオク":3,"ジモティー":4,"地方リサイクル・質店EC":5,"eBay":6,"ヤフーフリマ":7};
 function sourceRankJS(s){return SOURCE_RANK_JS[String(s||"")]||99}
 function favoriteData(x){return{at:new Date().toISOString(),url:String(x.url||x.itemUrl||""),name:String(x.name||x.title||x.cardName||"商品"),price:Number(x.price||x.buy||0),src:String(x.source||""),rank:String(x.rank||""),adj:Number(x.profit??x.adjProfit??x.bestProfit??0),image:String(x.image||""),cat:String(x.cat||x.category||""),model:String(x.modelKey||x.cardNo||x.bagModel||""),roi:Number(x.roi||(Number(x.price||x.buy)>0?Number((x.profit??x.adjProfit)||0)/Number(x.price||x.buy)*100:0)),auth:String(x.authenticityRisk||(x.detail&&x.detail.ar)||""),sourcePriority:Number(x.sourcePriority||sourceRankJS(x.source))}}
@@ -1341,6 +1342,13 @@ function cardRow(c){
   if(c.bestRow&&c.bestRow.url)right.appendChild(favoriteButton({...c.bestRow,profit:c.bestProfit,name:c.cardName}));
   row.appendChild(right);return row;
 }
+function sellerRadarMap(){const m=new Map();for(const s of ((ALERTS&&ALERTS.sellerRadar)||[]))m.set(String(s.source||"")+"|"+String(s.sellerId||""),s);return m;}
+function renderSellerRadarPanel(){
+  const rows=((ALERTS&&ALERTS.sellerRadar)||[]).filter(s=>s&&s.sellerId&&s.rank!=="危険").slice(0,6);if(!rows.length)return null;
+  const box=document.createElement("section");box.className="seller-radar";const hd=document.createElement("div");hd.className="seller-radar-head";
+  hd.innerHTML='<div><h3>🛰 利益出品者追跡AI</h3><p>相場より20%以上安い商品を繰り返した公開出品者を優先監視。商品・評価・公開プロフィールだけで集計します。</p></div><span class="seller-radar-count">追跡 '+rows.length+'人</span>';box.appendChild(hd);
+  const grid=document.createElement("div");grid.className="seller-radar-grid";for(const s of rows){const a=document.createElement(s.sellerUrl?"a":"div");a.className="seller-person";if(s.sellerUrl){a.href=s.sellerUrl;a.target="_blank";a.rel="noopener";}const rk=document.createElement("span");rk.className="seller-rank "+s.rank;rk.textContent=s.rank;const tx=document.createElement("div"),name=document.createElement("b");name.textContent=s.sellerName||"公開出品者";const sm=document.createElement("small");sm.innerHTML='<strong>安値販売率 '+Number(s.underRate||0).toFixed(1)+'%</strong>・20%以上安い '+Number(s.under20||0)+'件<br>利益3万円候補 '+Number(s.profit30||0)+'件・観測 '+Number(s.observations||0)+'件';tx.append(name,sm);a.append(rk,tx);grid.appendChild(a);}box.appendChild(grid);return box;
+}
 function render(){
   if(!DATA)return;
   const {rows,cards}=compute(DATA);
@@ -1376,7 +1384,7 @@ function render(){
     const cp=document.createElement("section");cp.className="profit-cockpit";
     const potential=all.reduce((n,a)=>n+Math.max(0,Number(a.adjProfit||0)),0),quick=all.filter(a=>Number((a.detail||{}).pc||99)<=14&&a.adjProfit>=3000).length,instant=all.filter(a=>a.source==="ヤフオク"&&Number((a.detail||{}).bn)===1&&a.adjProfit>=3000).length,ebayN=all.filter(a=>a.detail&&a.detail.eb&&a.detail.eb.profitJpy>=10000).length;
     const pendingN=all.filter(a=>a.detail&&Number(a.detail.marketPending)===1).length;
-    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>候補（再確認 '+pendingN+'件）</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>確認済み利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+ebayN+'</strong><span>eBay輸出利益1万円以上</span></div></div>';
+    cp.innerHTML='<div class="cockpit-head"><div><div class="cockpit-kicker">PROFIT OPPORTUNITY ENGINE</div><div class="cockpit-title">いま狙える収益機会</div></div><div class="cockpit-live">● 1分ごとに更新</div></div><div class="cockpit-grid"><div class="cockpit-metric"><strong>'+all.length+'</strong><span>候補（再確認 '+pendingN+'件）</span></div><div class="cockpit-metric"><strong>'+yen(potential)+'</strong><span>確認済み利益ポテンシャル</span></div><div class="cockpit-metric"><strong>'+instant+' / '+quick+'</strong><span>即決可能 / 14日以内</span></div><div class="cockpit-metric"><strong>'+ebayN+'</strong><span>eBayへ輸出して利益1万円以上</span></div></div>';
     list.appendChild(cp);
     // 集計ボックス
     const st=document.createElement("div");st.className="astat";
@@ -1411,13 +1419,14 @@ function render(){
     categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));
     if(brandGroup){brandGroup.appendChild(mk("すべて","brandName","all"));[["LOUIS VUITTON","ルイ・ヴィトン","vuitton"],["HERMÈS","エルメス","hermes"],["CHANEL","シャネル","chanel"],["GUCCI","グッチ","gucci"],["PRADA","プラダ","prada"],["DIOR","ディオール","dior"],["CELINE","セリーヌ","celine"],["LOEWE","ロエベ","loewe"],["BOTTEGA VENETA","ボッテガ・ヴェネタ","bottega"],["SAINT LAURENT","サンローラン","saintlaurent"],["BALENCIAGA","バレンシアガ","balenciaga"],["FENDI","フェンディ","fendi"],["BURBERRY","バーバリー","burberry"],["GOYARD","ゴヤール","goyard"],["COACH","コーチ","coach"],["MIU MIU","ミュウミュウ","miumiu"],["VALENTINO","ヴァレンティノ","valentino"],["GIVENCHY","ジバンシィ","givenchy"],["VERSACE","ヴェルサーチェ","versace"],["FERRAGAMO","フェラガモ","ferragamo"],["TORY BURCH","トリー・バーチ","toryburch"],["MCM","エムシーエム","mcm"],["MARC JACOBS","マーク・ジェイコブス","marcjacobs"],["ROLEX","ロレックス","rolex"],["OMEGA","オメガ","omega"],["CARTIER","カルティエ","cartier"],["BVLGARI","ブルガリ","bvlgari"],["TIFFANY & CO.","ティファニー","tiffany"],["VAN CLEEF & ARPELS","ヴァン・クリーフ＆アーペル","vancleef"],["TAG HEUER","タグ・ホイヤー","tagheuer"],["IWC","アイ・ダブリュー・シー","iwc"],["PATEK PHILIPPE","パテック・フィリップ","patek"],["AUDEMARS PIGUET","オーデマ・ピゲ","audemars"],["CHOPARD","ショパール","chopard"],["HARRY WINSTON","ハリー・ウィンストン","harrywinston"]].forEach(x=>brandGroup.appendChild(mkBrand(x[0],x[1],x[2])));}
     if(brandTypeGroup){[["すべて","all"],["👜 バッグ","bag"],["👛 財布","wallet"],["💳 小物・カード","small"],["⌚ 時計","watch"],["💎 ジュエリー","jewelry"]].forEach(x=>brandTypeGroup.appendChild(mk(x[0],"brandType",x[1])));}
-    {const fc=document.createElement("button");fc.className="fchip";fc.type="button";fc.textContent="🌍 海外市場が厚い";fc.title="eBay現在出品の同型候補が5件以上・市場厚み35/70以上・輸出参考利益がプラスの商品（売却済み需要ではありません）";fc.setAttribute("aria-pressed",state.foreignMarketOnly?"true":"false");fc.addEventListener("click",()=>{state.foreignMarketOnly=!state.foreignMarketOnly;if(state.foreignMarketOnly){state.exportProfitOnly=false;state.ebayOnly=false;state.src="all";state.sort="foreign"}render();});categoryGroup.appendChild(fc);}
-    {const xp=document.createElement("button");xp.className="fchip";xp.type="button";xp.textContent="🚀 海外高利益";xp.title="eBay現在出品を基準に、手数料・国際送料・梱包・返品リスク・為替余裕を引いても参考利益1万円以上、ROI30%以上の商品";xp.setAttribute("aria-pressed",state.exportProfitOnly?"true":"false");xp.addEventListener("click",()=>{state.exportProfitOnly=!state.exportProfitOnly;if(state.exportProfitOnly){state.foreignMarketOnly=false;state.ebayOnly=false;state.src="all";state.sort="exportProfit"}render();});categoryGroup.appendChild(xp);}
+    {const fc=document.createElement("button");fc.className="fchip";fc.type="button";fc.textContent="🌍 eBayで売りやすい";fc.title="eBayの同型出品が5件以上あり、価格帯が安定している商品。売却済み件数ではなく、海外販売先の多さを示します";fc.setAttribute("aria-pressed",state.foreignMarketOnly?"true":"false");fc.addEventListener("click",()=>{state.foreignMarketOnly=!state.foreignMarketOnly;if(state.foreignMarketOnly){state.exportProfitOnly=false;state.ebayOnly=false;state.src="all";state.sort="foreign"}render();});categoryGroup.appendChild(fc);}
+    {const xp=document.createElement("button");xp.className="fchip";xp.type="button";xp.textContent="💰 eBay輸出利益";xp.title="国内で仕入れてeBayで販売。手数料・国際送料・梱包・返品・為替余裕を引いても参考利益1万円以上、ROI30%以上の商品";xp.setAttribute("aria-pressed",state.exportProfitOnly?"true":"false");xp.addEventListener("click",()=>{state.exportProfitOnly=!state.exportProfitOnly;if(state.exportProfitOnly){state.foreignMarketOnly=false;state.ebayOnly=false;state.src="all";state.sort="exportProfit"}render();});categoryGroup.appendChild(xp);}
     {const wc=document.createElement("button");wc.className="fchip";wc.type="button";
      wc.textContent="⭐ウォッチ"+(WATCHITEMS.length?"("+WATCHITEMS.length+")":"");
      wc.setAttribute("aria-pressed",state.watchOnly?"true":"false");
      wc.addEventListener("click",()=>{state.watchOnly=!state.watchOnly;render();});specialGroup.appendChild(wc);}
     {const ic=document.createElement("button");ic.className="fchip";ic.type="button";ic.textContent="⚡ 即決可能";ic.setAttribute("aria-pressed",state.instantOnly?"true":"false");ic.addEventListener("click",()=>{state.instantOnly=!state.instantOnly;render();});specialGroup.appendChild(ic);}
+    {const sr=document.createElement("button");sr.className="fchip";sr.type="button";sr.textContent="🛰 利益出品者追跡";sr.title="過去に相場より20%以上安い利益候補を繰り返した公開出品者の商品";sr.setAttribute("aria-pressed",state.sellerRadarOnly?"true":"false");sr.addEventListener("click",()=>{state.sellerRadarOnly=!state.sellerRadarOnly;render();});specialGroup.appendChild(sr);}
     list.appendChild(board);
     // 並び替えチップ
     const sc2=document.createElement("div");sc2.className="fchips";
@@ -1426,8 +1435,9 @@ function render(){
       c.setAttribute("aria-pressed",state.sort===val?"true":"false");
       c.addEventListener("click",()=>{state.sort=val;render();});return c;};
     sc2.appendChild(mkS("✨状態が良い順","quality"));sc2.appendChild(mkS("新着順","new"));sc2.appendChild(mkS("⏳残り短い順","end"));
-    sc2.appendChild(mkS("利益順","profit"));sc2.appendChild(mkS("月間換算順","mp"));sc2.appendChild(mkS("🌍海外市場順","foreign"));sc2.appendChild(mkS("🚀輸出利益順","exportProfit"));
+    sc2.appendChild(mkS("利益順","profit"));sc2.appendChild(mkS("月間換算順","mp"));sc2.appendChild(mkS("🌍eBay販売先数順","foreign"));sc2.appendChild(mkS("💰eBay輸出利益順","exportProfit"));
     list.appendChild(sc2);
+    const sellerPanel=renderSellerRadarPanel();if(sellerPanel)list.appendChild(sellerPanel);
     let rowsA=all;
     // 保険フィルタ: ケース・付属品・ジャンク類は過去の検知でも表示しない(GAS側と同じ判定)
     const accWords=["ケース","取扱説明書","説明書","カタログ","元箱","空箱","箱のみ","フードのみ","フード単体","キャップのみ","フィルターのみ","充電器のみ","バッテリーのみ","リモコン","レリーズ","液晶保護","三脚座のみ","グリップ","アイカップ","ホットシュー","レンズペン","ブロアー","防湿庫"];
@@ -1453,6 +1463,7 @@ function render(){
     if(state.ebayOnly)rowsA=rowsA.filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.profitJpy)>0);
     if(state.foreignMarketOnly)rowsA=rowsA.filter(a=>{const e=a.detail&&a.detail.eb;if(!e)return false;const depth=Math.min(70,Number(e.marketDepth||e.demand||0));return Number(e.n||0)>=5&&depth>=35&&Number(e.profitJpy||0)>0;});
     if(state.exportProfitOnly)rowsA=rowsA.filter(a=>{const e=a.detail&&a.detail.eb;if(!e)return false;return Number(e.profitJpy||0)>=10000&&Number(e.roi||0)>=30&&Number(e.n||0)>=3;});
+    if(state.sellerRadarOnly){const sm=sellerRadarMap();rowsA=rowsA.filter(a=>{const d=a.detail||{},s=sm.get(String(a.source||"")+"|"+String(d.sid||""));return s&&s.rank!=="危険"&&Number(s.under20||0)>=1;});}
     if(state.acat!=="all"){
       const acatOf=a=>{
         const k=(a.detail&&a.detail.k)||"";
@@ -1525,6 +1536,7 @@ function render(){
       }
       if(a.adjProfit<3000){const dev=document.createElement("span");dev.className="schip";dev.textContent="育成候補";dev.title="利益1,000〜2,999円。通知せずサイト内で追跡";top.appendChild(dev);}
       if(Number(d.marketPending)===1){const pv=document.createElement("span");pv.className="schip";pv.style.cssText="background:#fff3cd;color:#7a5200;border-color:#f0cf72";pv.textContent="🔄 相場再確認中";pv.title="売却済みを確認できた完全一致実例が3件未満。古い利益は無効化しています";top.appendChild(pv);}
+      if(d.sid){const sr0=sellerRadarMap().get(String(a.source||"")+"|"+String(d.sid));if(sr0){const sv=document.createElement("span");sv.className="seller-badge";sv.textContent="🛰 出品者"+sr0.rank+"・安値率"+Number(sr0.underRate||0).toFixed(0)+"%";sv.title="公開出品履歴から算出。相場より20%以上安い商品 "+Number(sr0.under20||0)+"件";top.appendChild(sv);}}
       // オークションの残り期間
       // ★全画面共通のお気に入り（GAS＋端末内へ即時保存）
       if(a.url&&a.url!=="#")top.appendChild(favoriteButton({...a,price:a.buy,profit:a.adjProfit,image:(d&&d.img)||a.image},false));
@@ -1540,6 +1552,8 @@ function render(){
           ac.innerHTML='<div class="auction-clock-top"><span>⏳ ヤフオク終了まで</span><span>'+(Number(d.bn)===1?'⚡ 即決あり':'🔨 入札形式')+'</span></div><div class="auction-clock-time"><strong>計算中…</strong></div><div class="auction-clock-meta"><span>終了 '+endText+'</span><span>現在 '+yen(a.buy)+'</span></div>';
           card.appendChild(ac);updateAuctionClocks();
         }
+      }else if(a.source==="ヤフオク"){
+        const ac=document.createElement("section");ac.className="auction-clock";ac.innerHTML='<div class="auction-clock-top"><span>⏳ ヤフオク終了まで</span><span>'+(Number(d.bn)===1?'⚡ 即決あり':'🔨 入札形式')+'</span></div><div class="auction-clock-time"><strong>終了時刻を商品ページから再取得中</strong></div><div class="auction-clock-meta"><span>次回更新で自動補完</span><span>現在 '+yen(a.buy)+'</span></div>';card.appendChild(ac);
       }
       if(a._stored){const ws=document.createElement("div");ws.className="wstored";ws.textContent="⭐ ウォッチ保存分(いまは検知一覧に無い商品)— AI診断で最新の判定を確認できます";card.appendChild(ws);}
       const hero=document.createElement("div");hero.className="alert-hero";
