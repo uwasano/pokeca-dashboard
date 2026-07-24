@@ -292,6 +292,7 @@ header{align-items:center;margin-bottom:14px}
 .source-pill:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
 .source-pill img{width:24px;height:24px;border-radius:7px;object-fit:contain;background:#fff;padding:2px}
 .source-pill small{display:block;color:var(--ink-3);font-size:9px;font-weight:650;line-height:1.1;margin-top:1px}.source-pill small.connected{color:#059669}.source-pill small.error{color:#d97706}
+.market-portal{position:fixed;inset:0;z-index:5100;overflow-y:auto;background:linear-gradient(145deg,rgba(241,245,249,.98),rgba(238,242,255,.98));backdrop-filter:blur(18px);padding:18px 12px 42px}.market-portal[hidden]{display:none}.market-portal-shell{max-width:980px;margin:0 auto}.market-portal-nav{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:10px 0;background:linear-gradient(rgba(241,245,249,.98) 72%,transparent)}.market-portal-back{border:1px solid var(--border);border-radius:12px;padding:9px 12px;background:#fff;color:#172554;font-weight:900;cursor:pointer}.market-portal-nav strong{font-size:14px;color:#172554}.market-portal-head{position:relative;overflow:hidden;padding:20px;border-radius:22px;color:#fff;background:linear-gradient(125deg,#111e43,#284ea4 58%,#7c3aed);box-shadow:0 18px 44px rgba(30,64,175,.22)}.market-portal-head.ebay{background:linear-gradient(125deg,#111e43,#3730a3 55%,#0369a1)}.market-portal-head.mercari{background:linear-gradient(125deg,#7f1d1d,#dc2626 55%,#fb7185)}.market-portal-head h2{margin:0;font-size:23px}.market-portal-head p{margin:7px 0 0;max-width:680px;color:rgba(255,255,255,.78);font-size:11px;line-height:1.65}.market-portal-head a{display:inline-flex;margin-top:12px;padding:8px 11px;border-radius:10px;background:#fff;color:#1e3a8a;text-decoration:none;font-size:10px;font-weight:900}.market-portal-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:12px 0}.market-portal-kpi{padding:13px;border:1px solid var(--border);border-radius:15px;background:#fff}.market-portal-kpi small{display:block;color:#64748b;font-size:8.5px}.market-portal-kpi strong{display:block;margin-top:4px;color:#0f172a;font-size:19px}.market-portal-section{margin-top:12px;padding:15px;border:1px solid var(--border);border-radius:18px;background:#fff}.market-portal-section h3{margin:0 0 10px;color:#172554;font-size:14px}.market-portal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.market-data-card{display:grid;grid-template-columns:72px minmax(0,1fr);gap:11px;padding:11px;border:1px solid #e2e8f0;border-radius:14px;background:#fff;text-decoration:none;color:inherit}.market-data-card img{width:72px;height:72px;border-radius:12px;object-fit:cover;background:#eef2f7}.market-data-card b{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:11px;line-height:1.45}.market-data-card small{display:block;margin-top:4px;color:#64748b;font-size:8.5px}.market-data-card .money{display:block;margin-top:6px;color:#059669;font-size:13px;font-weight:950}.market-evidence{margin-top:7px;padding-top:7px;border-top:1px solid #e2e8f0;font-size:8.5px;color:#475569;line-height:1.55}.market-empty{padding:15px;border-radius:13px;background:#f8fafc;color:#64748b;font-size:10px;line-height:1.65}@media(max-width:700px){.market-portal-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.market-portal-grid{grid-template-columns:1fr}.market-portal-head{padding:17px}.market-portal-head h2{font-size:20px}}
 .market-ticker{overflow:hidden;border:1px solid var(--border);border-radius:999px;background:color-mix(in srgb,var(--surface) 88%,transparent);height:28px;margin:-5px 0 14px;display:flex;align-items:center;box-shadow:0 4px 14px rgba(16,24,40,.035)}
 .market-ticker-track{display:flex;width:max-content;animation:mini-market-flow 34s linear infinite;will-change:transform}
 .market-ticker-group{display:flex;align-items:center;white-space:nowrap;padding-right:28px;font-size:10.5px;font-weight:700;color:var(--ink-2)}
@@ -337,12 +338,12 @@ header{align-items:center;margin-bottom:14px}
   <nav class="source-rail" aria-label="対応マーケット">
     <div class="source-track">
       <div class="source-group">
-        <a class="source-pill" href="https://netmall.hardoff.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=netmall.hardoff.co.jp&sz=64" alt=""><span>オフモール<small>優先1・店舗在庫</small></span></a>
-        <a class="source-pill" href="https://jp.mercari.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt=""><span>メルカリ<small>仕入れ・成約</small></span></a>
-        <a class="source-pill" href="https://auctions.yahoo.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=auctions.yahoo.co.jp&sz=64" alt=""><span>ヤフオク<small>出品・落札</small></span></a>
-        <a class="source-pill" href="https://jmty.jp/all/sale-sab" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=jmty.jp&sz=64" alt=""><span>ジモティー<small>現物確認専用</small></span></a>
-        <a class="source-pill" href="https://paypayfleamarket.yahoo.co.jp/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=paypayfleamarket.yahoo.co.jp&sz=64" alt=""><span>Yahoo!フリマ<small>新着出品</small></span></a>
-        <a class="source-pill" href="https://www.ebay.com/" target="_blank" rel="noopener"><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt=""><span>eBay<small id="ebayStatus">接続確認中</small></span></a>
+        <a class="source-pill" href="#market-offmall" data-market="offmall"><img src="https://www.google.com/s2/favicons?domain=netmall.hardoff.co.jp&sz=64" alt=""><span>オフモール<small>取得情報を見る</small></span></a>
+        <a class="source-pill" href="#market-mercari" data-market="mercari"><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt=""><span>メルカリ<small>出品・成約データ</small></span></a>
+        <a class="source-pill" href="#market-yahoo" data-market="yahoo"><img src="https://www.google.com/s2/favicons?domain=auctions.yahoo.co.jp&sz=64" alt=""><span>ヤフオク<small>出品・落札データ</small></span></a>
+        <a class="source-pill" href="#market-jmty" data-market="jmty"><img src="https://www.google.com/s2/favicons?domain=jmty.jp&sz=64" alt=""><span>ジモティー<small>取得情報を見る</small></span></a>
+        <a class="source-pill" href="#market-fleamarket" data-market="fleamarket"><img src="https://www.google.com/s2/favicons?domain=paypayfleamarket.yahoo.co.jp&sz=64" alt=""><span>Yahoo!フリマ<small>取得情報を見る</small></span></a>
+        <a class="source-pill" href="#market-ebay" data-market="ebay"><img src="https://www.google.com/s2/favicons?domain=ebay.com&sz=64" alt=""><span>eBay<small id="ebayStatus">接続確認中</small></span></a>
       </div>
       <div class="source-group" aria-hidden="true">
         <a class="source-pill" tabindex="-1" href="https://jp.mercari.com/"><img src="https://www.google.com/s2/favicons?domain=jp.mercari.com&sz=64" alt=""><span>メルカリ<small>仕入れ・成約</small></span></a>
@@ -419,6 +420,10 @@ header{align-items:center;margin-bottom:14px}
     <div class="auth-previews" id="authPreviews"></div><div class="auth-result" id="authResult"></div>
     <div class="auth-warning">織り密度・糸の太さ・刻印深さの絶対測定には、ピントの合ったマクロ写真と定規が必要です。高額品はメーカーまたは専門鑑定の現物確認を併用してください。比較画像は出所が確認できる参照データだけを使用します。</div>
   </section></div>
+
+  <div class="market-portal" id="marketPortal" hidden aria-modal="true" role="dialog" aria-labelledby="marketPortalTitle">
+    <div class="market-portal-shell"><div class="market-portal-nav"><button class="market-portal-back" id="marketPortalBack" type="button">← トップへ戻る</button><strong id="marketPortalNavTitle">取得情報</strong></div><div id="marketPortalBody"></div></div>
+  </div>
 
   <div class="tabs workspace-tabs" role="tablist" aria-label="分析画面">
     <button class="tab" role="tab" data-view="alerts" aria-selected="true"><span class="tab-main">🔔 自動監視</span><small>新着の利益候補</small></button>
@@ -1398,7 +1403,8 @@ function renderEbayDataCenter(alerts){
   const grid=document.createElement("div");grid.className="ebay-center-items";
   const usd=x=>Number(x||0).toLocaleString(undefined,{maximumFractionDigits:2});
   rows.slice(0,20).forEach(a=>{const e=a.detail.eb,ok=!!e.soldVerified&&Number(e.soldN||0)>0,item=document.createElement("details");item.className="ebay-center-item";const sm=document.createElement("summary"),basis=e.basis==="sold"&&Number(e.soldN||0)>=3?"売却済み基準":"現在出品の保守値";
-    sm.innerHTML='<div class="ebay-center-item-top"><div class="ebay-center-item-title"><b></b><small>'+escAuth(a.source||"国内仕入れ")+' → eBay輸出</small></div><span class="ebay-center-profit">+'+yen(e.profitJpy)+'</span></div><div class="ebay-center-badges"><span class="ebay-center-badge '+(ok?'verified':'pending')+'">'+(ok?'✓ 完全一致の売却済み '+Number(e.soldN||0)+'件':'売却済み 未取得')+'</span><span class="ebay-center-badge">'+basis+'</span></div><div class="ebay-center-facts"><span class="ebay-center-fact"><small>ROI</small><b>'+Number(e.roi||0)+'%</b></span><span class="ebay-center-fact"><small>現在同型出品</small><b>'+Number(e.n||0)+'件</b></span><span class="ebay-center-fact"><small>30日成約</small><b>'+(ok&&e.sold30!==null&&e.sold30!==undefined?Number(e.sold30)+'件':'未取得')+'</b></span><span class="ebay-center-fact"><small>月平均成約</small><b>'+(ok&&e.soldMonthlyAvg!==null&&e.soldMonthlyAvg!==undefined?Number(e.soldMonthlyAvg).toFixed(1)+'件':'未取得')+'</b></span></div>';sm.querySelector(".ebay-center-item-title b").textContent=a.name;item.appendChild(sm);
+    const soldSource=e.soldSource==="insights_api"?"eBay売却履歴API":e.soldSource==="sold_search"||e.soldSource==="public_html"?"eBay売却済み検索":e.soldSource==="sold_search_text"||e.soldSource==="jina_text"?"eBay売却済み検索（代替取得）":"売却済み再取得中";
+    sm.innerHTML='<div class="ebay-center-item-top"><div class="ebay-center-item-title"><b></b><small>'+escAuth(a.source||"国内仕入れ")+' → eBay輸出</small></div><span class="ebay-center-profit">+'+yen(e.profitJpy)+'</span></div><div class="ebay-center-badges"><span class="ebay-center-badge '+(ok?'verified':'pending')+'">'+(ok?'✓ 完全一致の売却済み '+Number(e.soldN||0)+'件':'売却済み 未取得（0件ではありません）')+'</span><span class="ebay-center-badge">'+basis+'</span><span class="ebay-center-badge">'+soldSource+'</span></div><div class="ebay-center-facts"><span class="ebay-center-fact"><small>ROI</small><b>'+Number(e.roi||0)+'%</b></span><span class="ebay-center-fact"><small>現在同型出品</small><b>'+Number(e.n||0)+'件</b></span><span class="ebay-center-fact"><small>30日成約</small><b>'+(ok&&e.sold30!==null&&e.sold30!==undefined?Number(e.sold30)+'件':'未取得')+'</b></span><span class="ebay-center-fact"><small>月平均成約</small><b>'+(ok&&e.soldMonthlyAvg!==null&&e.soldMonthlyAvg!==undefined?Number(e.soldMonthlyAvg).toFixed(1)+'件':'未取得')+'</b></span></div>';sm.querySelector(".ebay-center-item-title b").textContent=a.name;item.appendChild(sm);
     const detail=document.createElement("div");detail.className="ebay-center-detail";const cols=document.createElement("div");cols.className="ebay-center-cols";
     const active=document.createElement("section");active.className="ebay-center-col";active.innerHTML='<h4>現在出品（比較用・成約証拠ではない）</h4><div class="ebay-center-row"><span>中央値</span><b>$'+usd(e.medUSD)+' / '+yen(e.medJpy||Math.round(Number(e.medUSD||0)*Number(e.fx||0)))+'</b></div><div class="ebay-center-row"><span>価格幅</span><b>$'+usd(e.loUSD)+'〜$'+usd(e.hiUSD)+'</b></div>';
     (e.samples||[]).slice(0,5).forEach(s=>{const r=document.createElement("div");r.className="ebay-center-row";r.innerHTML='<a target="_blank" rel="noopener"></a><b>$'+usd(s.itemUSD||s.p)+(Number(s.shipUSD||0)?' +送料$'+usd(s.shipUSD):'')+'</b>';r.querySelector("a").textContent=s.t||"eBay出品";r.querySelector("a").href=s.u||e.activeSearchUrl||"#";active.appendChild(r)});
@@ -1407,6 +1413,50 @@ function renderEbayDataCenter(alerts){
     const acts=document.createElement("div");acts.className="ebay-center-actions";acts.innerHTML='<a class="sold" target="_blank" rel="noopener">売却済みをさらに確認 →</a><a class="active" target="_blank" rel="noopener">現在出品を比較 →</a>';acts.querySelector(".sold").href=e.soldSearchUrl||"#";acts.querySelector(".active").href=e.activeSearchUrl||"#";detail.appendChild(acts);item.appendChild(detail);grid.appendChild(item);
   });body.appendChild(grid);shell.appendChild(body);shell.addEventListener("toggle",()=>{try{sessionStorage.setItem("ebayCenterOpen",shell.open?"1":"0")}catch(_){}});return shell;
 }
+const MARKET_PAGES={
+  offmall:{title:"オフモール",source:"オフモール",official:"https://netmall.hardoff.co.jp/",desc:"全国店舗在庫から取得した仕入れ候補・価格・利益判定"},
+  mercari:{title:"メルカリ",source:"メルカリ",official:"https://jp.mercari.com/",desc:"取得した現在出品と、商品ページでSOLDを確認できた成約実績"},
+  yahoo:{title:"Yahoo!オークション",source:"ヤフオク",official:"https://auctions.yahoo.co.jp/",desc:"現在出品・残り時間・即決価格・落札実績"},
+  jmty:{title:"ジモティー",source:"ジモティー",official:"https://jmty.jp/all/sale-sab",desc:"現物確認を前提に取得した地域別の仕入れ候補"},
+  fleamarket:{title:"Yahoo!フリマ",source:"ヤフーフリマ",official:"https://paypayfleamarket.yahoo.co.jp/",desc:"取得できた新着出品と利益判定"},
+  ebay:{title:"eBay",source:"eBay",official:"https://www.ebay.com/",desc:"国内仕入れ→eBay輸出の成約根拠・輸出見込利益と、eBay輸入候補"}
+};
+function marketDataCard_(x,mode){
+  const d=x.detail||{},e=d.eb||{},a=document.createElement("a");a.className="market-data-card";a.target="_blank";a.rel="noopener";a.href=x.url||x.u||"#";
+  const img=document.createElement("img");img.loading="lazy";img.alt="";img.src=x.image||d.img||e.image||"https://www.google.com/s2/favicons?domain="+(mode==="ebay"?"ebay.com":"jp.mercari.com")+"&sz=128";
+  const tx=document.createElement("div"),title=document.createElement("b");title.textContent=x.name||x.title||x.t||"取得商品";const meta=document.createElement("small");
+  const price=Number(x.buy||x.price||x.p||0),profit=mode==="ebay"?Number(e.profitJpy||x.adjProfit||0):Number(x.adjProfit||x.profit||0);
+  meta.textContent=(x.source||mode||"")+(price?"・仕入れ "+yen(price):"");const money=document.createElement("span");money.className="money";if(profit){const label=mode==="ebay"?"輸出見込利益":mode==="ebayImport"?"輸入後の国内見込利益":"見込利益";money.textContent=label+" "+(profit>=0?"+":"−")+yen(Math.abs(profit))}else money.textContent=price?yen(price):"利益計算待ち";
+  const ev=document.createElement("div");ev.className="market-evidence";
+  if(mode==="ebay")ev.textContent=e.soldVerified?"完全一致の売却済み "+Number(e.soldN||0)+"件・月平均 "+(e.soldMonthlyAvg==null?"日付未取得":Number(e.soldMonthlyAvg).toFixed(1)+"件")+"・ROI "+Number(e.roi||0)+"%":"現在同型出品 "+Number(e.n||0)+"件・売却済みを再取得中・ROI "+Number(e.roi||0)+"%";
+  else if(mode==="ebayImport"){const im=d.importData||{};ev.textContent="$"+Number(im.itemUSD||0).toLocaleString()+"＋送料$"+Number(im.shipUSD||0).toLocaleString()+"・着地 "+yen(im.landedJpy||price)+"・ROI "+Number(im.roi||0)+"%"}
+  else if(mode==="sold")ev.textContent="商品ページSOLD確認済み"+(x.soldAt?"・"+new Date(x.soldAt).toLocaleDateString("ja-JP"):"");
+  else ev.textContent="同一商品成約 "+Number(d.n||x.soldN||0)+"件"+(profit?"・全費用控除後":"");
+  tx.append(title,meta,money,ev);a.append(img,tx);return a;
+}
+function portalKpis_(body,items){const k=document.createElement("div");k.className="market-portal-kpis";items.forEach(x=>{const d=document.createElement("div");d.className="market-portal-kpi";d.innerHTML='<small>'+x[0]+'</small><strong>'+x[1]+'</strong>';k.appendChild(d)});body.appendChild(k)}
+function portalSection_(body,title,rows,mode,empty){const s=document.createElement("section");s.className="market-portal-section";const h=document.createElement("h3");h.textContent=title;s.appendChild(h);if(!rows.length){const e=document.createElement("div");e.className="market-empty";e.textContent=empty||"取得データはまだありません。次回巡回後にここへ表示されます。";s.appendChild(e)}else{const g=document.createElement("div");g.className="market-portal-grid";rows.slice(0,24).forEach(x=>g.appendChild(marketDataCard_(x,mode)));s.appendChild(g)}body.appendChild(s)}
+function openMarketPortal(key,pushHash=true){
+  const cfg=MARKET_PAGES[key];if(!cfg)return;const portal=document.getElementById("marketPortal"),body=document.getElementById("marketPortalBody"),all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit),sourceRows=all.filter(a=>a.source===cfg.source),profits=sourceRows.map(a=>Number(a.adjProfit||0)).filter(x=>x>0);body.textContent="";
+  const head=document.createElement("section");head.className="market-portal-head "+key;head.innerHTML='<h2 id="marketPortalTitle"></h2><p></p><a target="_blank" rel="noopener">公式サイトを開く ↗</a>';head.querySelector("h2").textContent=cfg.title+" 取得情報";head.querySelector("p").textContent=cfg.desc;head.querySelector("a").href=cfg.official;body.appendChild(head);document.getElementById("marketPortalNavTitle").textContent=cfg.title+"の取得情報";
+  if(key==="ebay"){
+    const ebayRows=all.filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.profitJpy)>0),importRows=all.filter(a=>a.source==="eBay輸入"||a.detail&&a.detail.importData),verified=ebayRows.filter(a=>a.detail.eb.soldVerified),soldN=verified.reduce((n,a)=>n+Number(a.detail.eb.soldN||0),0),avg=ebayRows.length?Math.round(ebayRows.reduce((n,a)=>n+Number(a.detail.eb.profitJpy||0),0)/ebayRows.length):0;
+    portalKpis_(body,[["輸出利益候補",ebayRows.length+"件"],["eBay輸入候補",importRows.length+"件"],["売却済み確認商品",verified.length+"件"],["完全一致の売却済み",soldN+"件"],["平均輸出見込利益",ebayRows.length?yen(avg):"—"]]);
+    portalSection_(body,"輸出見込利益の高い商品",ebayRows,"ebay","現在出品と売却済みを照合中です。取得完了後に輸出見込利益を表示します。");
+    portalSection_(body,"eBayから仕入れる輸入利益候補",importRows,"ebayImport","eBayの価格・送料・税・為替を含む輸入候補を取得中です。");
+    const dc=renderEbayDataCenter(all);dc.removeAttribute("id");dc.open=true;body.appendChild(dc);
+  }else if(key==="mercari"){
+    const listings=(DATA&&DATA.listings||[]).filter(x=>!x.soldOut),sold=(DATA&&DATA.sold||[]).filter(x=>x.saleVerified===true||x.verification==="item_page_sold_out"),avgSold=sold.length?Math.round(sold.reduce((n,x)=>n+Number(x.price||0),0)/sold.length):0,avgProfit=profits.length?Math.round(profits.reduce((a,b)=>a+b,0)/profits.length):0;
+    portalKpis_(body,[["現在出品",listings.length+"件"],["SOLD確認済み",sold.length+"件"],["成約平均価格",sold.length?yen(avgSold):"取得中"],["平均見込利益",profits.length?yen(avgProfit):"算定中"]]);
+    portalSection_(body,"メルカリの利益候補",sourceRows,"mercari","メルカリの仕入れ候補を取得中です。");portalSection_(body,"商品ページでSOLD確認済み",sold.map(x=>({name:x.cardName||x.title,url:x.url,price:x.price,image:x.image,soldAt:x.soldAt})),"sold","売却済み検索と商品ページ確認を続けています。0件とは断定しません。");portalSection_(body,"取得した現在出品",listings.map(x=>({name:x.cardName||x.title,url:x.url,price:x.price,image:x.image,source:"メルカリ"})),"mercari");
+  }else{
+    const avg=profits.length?Math.round(profits.reduce((a,b)=>a+b,0)/profits.length):0,top=profits.length?Math.max.apply(null,profits):0;portalKpis_(body,[["取得候補",sourceRows.length+"件"],["利益あり",profits.length+"件"],["平均見込利益",profits.length?yen(avg):"算定中"],["最高見込利益",top?yen(top):"算定中"]]);portalSection_(body,cfg.title+"から取得した商品",sourceRows,key);
+  }
+  portal.hidden=false;document.body.style.overflow="hidden";if(pushHash&&location.hash!=="#market-"+key)history.pushState({market:key},"","#market-"+key);
+}
+function closeMarketPortal(){const p=document.getElementById("marketPortal");p.hidden=true;document.body.style.overflow="";if(/^#market-/.test(location.hash))history.pushState({},"",location.pathname+location.search)}
+function activeMarketKey_(){const m=String(location.hash||"").match(/^#market-(offmall|mercari|yahoo|jmty|fleamarket|ebay)$/);return m?m[1]:""}
+function refreshMarketPortal_(){const key=activeMarketKey_();if(key&&!document.getElementById("marketPortal").hidden)openMarketPortal(key,false)}
 function render(){
   if(!DATA)return;
   document.querySelectorAll("#catRow .chip").forEach(x=>x.setAttribute("aria-pressed",(VIEW==="alerts"?state.acat:state.cat)===x.dataset.cat?"true":"false"));
@@ -1890,7 +1940,7 @@ function setFresh(){const b=$("#freshBadge");if(!DATA){b.textContent="";return;}
 async function loadAlerts(){
   try{if(!DATA_URL||DATA_URL.indexOf("__")===0||DATA_URL==="")return;
     const res=await fetch(DATA_URL+"?type=alerts",{cache:"no-store"});const j=await res.json();
-    if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;if(VIEW==="alerts")render();showInstantBuyToasts(j.alerts);showEbayProfitToasts(j.alerts);}
+    if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;if(VIEW==="alerts")render();refreshMarketPortal_();showInstantBuyToasts(j.alerts);showEbayProfitToasts(j.alerts);}
     try{
       const rw=await fetch(DATA_URL+"?type=watchlist");
       const jw=await rw.json();
@@ -1900,7 +1950,7 @@ async function loadAlerts(){
 }
 async function loadEbayStatus(){
  const el=$("#ebayStatus");if(!el||!DATA_URL)return;
- try{const r=await fetch(DATA_URL+"?type=ebaystatus",{cache:"no-store"}),j=await r.json();if(j&&j.tokenOk){el.textContent="● 監視接続中";el.className="connected";}else{el.textContent=j&&j.configured?"OAuth確認エラー":"キー設定待ち";el.className="error";}}catch(e){el.textContent="接続確認待ち";el.className="error";}
+  try{const r=await fetch(DATA_URL+"?type=ebaystatus",{cache:"no-store"}),j=await r.json();if(j&&j.tokenOk){el.textContent=j.insightsAccess?"● 出品・売却履歴 接続中":"● 出品接続・売却済み代替取得";el.className="connected";}else{el.textContent=j&&j.configured?"OAuth確認エラー":"キー設定待ち";el.className="error";}}catch(e){el.textContent="接続確認待ち";el.className="error";}
 }
 async function load(){
   $("#hsub").textContent="読み込み中…";
@@ -1910,7 +1960,7 @@ async function load(){
     const res=await fetch(DATA_URL,{cache:"no-store"});const j=await res.json();
     if(!j||!Array.isArray(j.listings))throw 0;DATA=j;
   }catch(e){DATA=EMBED&&Array.isArray(EMBED.listings)?EMBED:SAMPLE;}
-  setFresh();render();
+  setFresh();render();refreshMarketPortal_();
   if(window.renderQuickSearchResults)window.renderQuickSearchResults("");
 }
 setInterval(loadAlerts,60*1000); // 監視結果は1分ごとに自動更新
@@ -2095,6 +2145,12 @@ document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
   document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
   t.setAttribute("aria-selected","true");VIEW=t.dataset.view;render();
 }));
+/* top marketplace buttons -> acquired-information pages */
+document.querySelectorAll('.source-pill[data-market]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();openMarketPortal(a.dataset.market,true)}));
+document.getElementById("marketPortalBack").addEventListener("click",closeMarketPortal);
+document.getElementById("marketPortal").addEventListener("click",e=>{if(e.target===e.currentTarget)closeMarketPortal()});
+window.addEventListener("popstate",()=>{const key=activeMarketKey_();if(key)openMarketPortal(key,false);else{document.getElementById("marketPortal").hidden=true;document.body.style.overflow=""}});
+window.addEventListener("hashchange",()=>{const key=activeMarketKey_();if(key)openMarketPortal(key,false)});
 /* presets */
 const pc=$("#presets");PRESETS.forEach((p,i)=>{const b=document.createElement("button");b.className="chip";b.type="button";b.textContent=p.label;b.setAttribute("aria-pressed",i===0?"true":"false");b.addEventListener("click",()=>{PRESET=p.k;document.querySelectorAll("#presets .chip").forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");render();});pc.appendChild(b);});
 /* filters */
@@ -2109,14 +2165,15 @@ const cl=document.getElementById("critLink");if(cl)cl.addEventListener("click",e
 $("#foot").textContent="PCが取得したメルカリ相場データを表示。判定は判断書§27準拠。真贋・状態の確定は現物確認が必要です。";
 /* precision authentication lab */
 let AUTH_PHOTOS=[];
-const authModal=document.getElementById("authModal");document.getElementById("authOpen").addEventListener("click",()=>{authModal.hidden=false;document.body.style.overflow="hidden"});function closeAuthLab(){authModal.hidden=true;document.body.style.overflow=""}document.getElementById("authClose").addEventListener("click",closeAuthLab);authModal.addEventListener("click",e=>{if(e.target===authModal)closeAuthLab()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!authModal.hidden)closeAuthLab()});
+  const authModal=document.getElementById("authModal");document.getElementById("authOpen").addEventListener("click",()=>{authModal.hidden=false;document.body.style.overflow="hidden"});function closeAuthLab(){authModal.hidden=true;document.body.style.overflow=""}document.getElementById("authClose").addEventListener("click",closeAuthLab);authModal.addEventListener("click",e=>{if(e.target===authModal)closeAuthLab()});document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!authModal.hidden)closeAuthLab();else if(!document.getElementById("marketPortal").hidden)closeMarketPortal()});
 const escAuth=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function authCompress(file){return new Promise((resolve,reject)=>{const rd=new FileReader();rd.onerror=reject;rd.onload=()=>{const im=new Image();im.onerror=reject;im.onload=()=>{let w=im.width,h=im.height,max=1500;if(Math.max(w,h)>max){const z=max/Math.max(w,h);w=Math.round(w*z);h=Math.round(h*z)}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(im,0,0,w,h);resolve(c.toDataURL("image/jpeg",.78))};im.src=rd.result};rd.readAsDataURL(file)})}
 function renderAuthPhotos(){const box=document.getElementById("authPreviews");box.innerHTML="";AUTH_PHOTOS.forEach((src,i)=>{const d=document.createElement("div");d.className="auth-preview";d.dataset.photo=String(i);d.innerHTML='<img src="'+src+'"><span>写真 '+(i+1)+'</span>';box.appendChild(d)});document.querySelectorAll("#authShotGuide .shot-chip").forEach((e,i)=>e.classList.toggle("done",i<AUTH_PHOTOS.length))}
 document.getElementById("authFiles").addEventListener("change",async e=>{const fs=[...e.target.files].slice(0,12);AUTH_PHOTOS=[];for(const f of fs){if(!f.type.startsWith("image/"))continue;try{AUTH_PHOTOS.push(await authCompress(f))}catch(_){}}renderAuthPhotos()});
 function authRows(items){return (items||[]).map(x=>'<div>• <b>'+escAuth(x.feature||x.field||x.key||"")+'</b> — '+escAuth(x.status||"")+(x.observation?'：'+escAuth(x.observation):"")+'</div>').join("")||'<div>確認可能な情報がありません</div>'}
 document.getElementById("authRun").addEventListener("click",async()=>{const b=document.getElementById("authRun"),out=document.getElementById("authResult");if(!AUTH_PHOTOS.length){out.className="auth-result show";out.innerHTML='<div class="auth-details">写真を1枚以上選んでください。</div>';return}b.disabled=true;b.textContent="画像を精密検査中…";out.className="auth-result show";out.innerHTML='<div class="auth-details">刻印・縫製・素材・年代の整合を確認しています。</div>';try{const r=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,photoAppraise:{photos:AUTH_PHOTOS,note:document.getElementById("authNote").value}})}),j=await r.json();if(j.error)throw new Error(j.error);const risk=Number(j.authenticity_risk||0),cov=Number((j.capture_coverage||{}).score||0),quality=Number(j.evidence_quality||0);out.innerHTML='<div class="auth-metrics"><div class="auth-metric"><small>総合判定</small><strong>'+escAuth(j.authenticity_verdict||"要確認")+'</strong></div><div class="auth-metric"><small>疑義リスク</small><strong>'+risk+'%</strong></div><div class="auth-metric"><small>撮影カバー率</small><strong>'+cov+'%</strong></div><div class="auth-metric"><small>証拠品質</small><strong>'+quality+'点</strong></div></div><div class="auth-details"><b>商品候補</b><br>'+escAuth(j.item_name||"未特定")+' '+escAuth(j.model_number||"")+'<br><br><b>微細特徴</b>'+authRows(j.micro_features)+'<br><b>文字・書類・年代</b>'+authRows(j.document_checks)+'<br><b>ブランド固有チェック</b>'+authRows(j.brand_specific_checks)+'<br><b>追加撮影</b><br>'+escAuth((j.missing_shots||[]).join(" / ")||"なし")+'<br><br>'+escAuth(j.comment||"")+'</div>';(j.anomaly_regions||[]).forEach(a=>{const d=document.querySelector('.auth-preview[data-photo="'+Number(a.photo_index||0)+'"]');if(!d||!a.bbox_pct)return;const q=a.bbox_pct,x=document.createElement("i");x.className="anomaly-box";x.title=a.label||a.reason||"要確認";x.style.cssText='left:'+q.x+'%;top:'+q.y+'%;width:'+q.w+'%;height:'+q.h+'%';d.appendChild(x)})}catch(e){out.innerHTML='<div class="auth-details" style="color:#c62828">鑑定できませんでした：'+escAuth(e.message||e)+'</div>'}finally{b.disabled=false;b.textContent="精密鑑定を開始"}});
-load();
+  const initialMarket=activeMarketKey_();if(initialMarket)openMarketPortal(initialMarket,false);
+  load();
 </script>
 </body>
 </html>
