@@ -64,8 +64,11 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .search-cat-card:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)}
 .search-cat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;font-size:13px;font-weight:750}
 .search-cat-card textarea{width:100%;min-height:66px;resize:vertical;border:1px solid var(--border);background:var(--surface);color:var(--ink);border-radius:9px;padding:8px 10px;font:inherit;font-size:12px;line-height:1.55}
+.search-config-title{display:flex;align-items:center;gap:10px}.search-config-title i{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:var(--hero-grad);color:#fff;font-style:normal;box-shadow:0 8px 20px rgba(67,56,202,.22)}
+.search-config-title small{display:block;margin-top:3px;color:var(--ink-3);font-size:10px;font-weight:650}.search-config-status{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.search-config-status span{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--ink-2);font-size:11px;font-weight:750}.search-config-status b{color:var(--ink)}
+.search-runtime{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 12px;padding:12px;border-radius:14px;background:var(--wash);border:1px solid var(--border)}.search-runtime label{display:flex;flex-direction:column;gap:5px;font-size:10px;font-weight:800;color:var(--ink-2)}.search-runtime .chkline{flex-direction:row;align-items:center;font-size:12px;color:var(--ink)}.search-runtime select{width:100%;padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink);font:inherit;font-size:12px}.search-config-summary{grid-column:1/-1;padding-top:8px;border-top:1px dashed var(--border);font-size:11px;color:var(--ink-2);line-height:1.6}.search-cat-card.cfg-wide{grid-column:span 2}.search-config-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px}.search-config-actions .secondary{background:var(--surface);color:var(--ink-2)}
 .search-cat-hint{font-size:10.5px;color:var(--ink-3);margin-top:5px;line-height:1.45}
-@media(max-width:680px){.search-cat-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.search-cat-grid{grid-template-columns:1fr}.search-runtime{grid-template-columns:repeat(2,minmax(0,1fr))}.search-cat-card.cfg-wide{grid-column:auto}.search-config-status{grid-template-columns:1fr}}
 .chkline{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2)}
 .chkline input{accent-color:var(--series-1);width:16px;height:16px}
 .rv{font-size:12.5px;font-weight:700;color:var(--ink);min-width:56px}
@@ -331,7 +334,11 @@ header{align-items:center;margin-bottom:14px}
   .store-scan-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.store-scan-head strong{display:block;font-size:14px}.store-scan-head p{margin:4px 0 0;color:var(--ink-3);font-size:10px;line-height:1.55}.store-status{flex:0 0 auto;padding:6px 9px;border-radius:999px;background:#eef2ff;color:#3b5bcc;font-size:10px;font-weight:900}.store-status.ok{background:#dcfce7;color:#087443}.store-status.legacy_data{background:#e0f2fe;color:#075985}.store-status.empty{background:#fff7df;color:#9a6500}.store-status.blocked,.store-status.error{background:#fee2e2;color:#b42318}
   .store-scan-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:12px}.store-scan-form input{min-width:0;padding:12px;border:1px solid #d7ddec;border-radius:13px;background:#fff;color:var(--ink);font:inherit;font-size:13px}.store-scan-form button{padding:0 16px;border:0;border-radius:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:900;box-shadow:0 8px 20px rgba(79,70,229,.2)}.store-scan-form button:disabled{opacity:.55}
   .store-scan-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:11px}.store-scan-meta span{padding:9px;border:1px solid #e8ecf5;border-radius:11px;background:#fff;color:var(--ink-3);font-size:9px}.store-scan-meta b{display:block;margin-top:3px;color:var(--ink);font-size:11px}.store-scan-message{margin:10px 0 0;padding:9px 10px;border-radius:10px;background:#f8fafc;color:var(--ink-2);font-size:10px;line-height:1.55}
-  @media(max-width:520px){.store-scan-form{grid-template-columns:1fr}.store-scan-form button{min-height:46px}.store-scan-meta{grid-template-columns:1fr 1fr}.store-scan-meta span:last-child{grid-column:1/-1}}
+  .brand-focus{grid-column:1/-1;padding:14px;border:1px solid #d9defe;border-radius:17px;background:linear-gradient(145deg,#f7f8ff,#fff 62%,#f5f0ff);box-shadow:0 10px 28px rgba(79,70,229,.08)}
+  .brand-focus-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand-focus-head b{font-size:14px}.brand-focus-head span{padding:6px 9px;border-radius:999px;background:#e8eaff;color:#4338ca;font-size:10px;font-weight:900}
+  .brand-role-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.brand-role-grid div{padding:9px;border:1px solid #e5e7ff;border-radius:12px;background:rgba(255,255,255,.86)}.brand-role-grid strong{display:block;font-size:11px}.brand-role-grid small{display:block;margin-top:3px;color:var(--ink-3);font-size:9px;line-height:1.45}
+  .brand-model-fold{margin-top:10px;border-top:1px solid #e3e6f7}.brand-model-fold summary{padding:10px 2px 4px;cursor:pointer;color:#34405b;font-size:11px;font-weight:900}.brand-model-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:7px}.brand-model-grid div{padding:9px 10px;border-radius:11px;background:#fff;border:1px solid #e8eaf4;font-size:9px;line-height:1.55}.brand-model-grid b{display:block;font-size:10px;color:#25304b}.brand-focus-note{margin:9px 0 0;color:var(--ink-3);font-size:9px;line-height:1.55}
+  @media(max-width:520px){.store-scan-form{grid-template-columns:1fr}.store-scan-form button{min-height:46px}.store-scan-meta{grid-template-columns:1fr 1fr}.store-scan-meta span:last-child{grid-column:1/-1}.brand-role-grid,.brand-model-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -412,25 +419,35 @@ header{align-items:center;margin-bottom:14px}
 
   <div class="card" id="searchCfg" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-      <div class="card-t" style="margin:0">⚙ 次回の検索設定(PCがこの設定で取得します)</div>
-      <button class="mini-btn" id="cfgToggle" type="button">開く</button>
+      <div class="search-config-title"><i>⚙</i><div><div class="card-t" style="margin:0">検索設定</div><small>カテゴリ・検索語・巡回頻度をまとめて管理</small></div></div>
+      <button class="mini-btn" id="cfgToggle" type="button" aria-expanded="false">設定を開く</button>
     </div>
     <div id="cfgBody" hidden style="margin-top:10px">
-      <div style="font-size:12px;color:var(--ink-2);line-height:1.65">探したいカテゴリをONにして、カテゴリごとに検索語を入力できます。空欄のカテゴリは、これまでどおり自動の定番検索を続けます。</div>
-      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0;padding:11px 13px;border-radius:13px;background:var(--wash);border:1px solid var(--border)"><label class="chkline"><input type="checkbox" id="cfg_batAuto" checked> PC自動巡回</label><label style="font-size:12px;font-weight:750">更新間隔 <select id="cfg_batInterval" style="margin-left:5px;padding:7px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink)"><option value="5">5分</option><option value="15">15分</option><option value="30">30分</option><option value="60">60分</option></select></label><span style="font-size:10px;color:var(--ink-3)">5分設定は12検索語ずつ自動ローテーションします</span></div>
+      <div style="font-size:12px;color:var(--ink-2);line-height:1.65">探したいカテゴリをONにし、1行に1つずつ検索語を追加します。空欄でも定番商品の自動検索は継続します。</div>
+      <div class="search-config-status"><span>🖥 <b>メルカリ</b> PC自動巡回で新着・SOLD確認</span><span>☁️ <b>その他の仕入れ先</b> GASクラウド巡回で取得</span></div>
+      <div class="search-runtime">
+        <label class="chkline"><input type="checkbox" id="cfg_batAuto" checked> 自動巡回を有効にする</label>
+        <label>新着の更新間隔<select id="cfg_batInterval"><option value="5">5分</option><option value="15">15分</option><option value="30">30分</option><option value="60">60分</option></select></label>
+        <label>1回の検索語数<select id="cfg_termLimit"><option value="6">6語（軽量）</option><option value="12">12語（推奨）</option><option value="24">24語（広く検索）</option><option value="0">全検索語</option></select></label>
+        <label>SOLDの再確認<select id="cfg_soldInterval"><option value="30">30分ごと</option><option value="60">1時間ごと</option><option value="120">2時間ごと</option></select></label>
+        <div class="search-config-summary" id="cfgSummary">設定内容を読み込んでいます…</div>
+      </div>
       <div class="search-cat-grid">
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_camera" checked> 📷 カメラ</label><span>CAMERA</span></div><textarea id="cfg_terms_camera" placeholder="例: SONY α7 III&#10;例: Nikon D850&#10;例: RICOH GR III"></textarea><div class="search-cat-hint">カメラ本体だけの検索語。レンズ語とは混ざりません。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_lens" checked> 🔭 レンズ</label><span>LENS</span></div><textarea id="cfg_terms_lens" placeholder="例: Canon RF 24-70mm F2.8&#10;例: SONY 24-70 GM II"></textarea><div class="search-cat-hint">焦点距離・マウント・世代を含めて指定できます。</div></section>
-        <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_brand" checked> 👜 ブランド</label><span>BRAND</span></div><textarea id="cfg_terms_brand" placeholder="例: HERMES バーキン 30&#10;例: CHANEL マトラッセ 25&#10;例: LOUIS VUITTON M40995"></textarea><div class="search-cat-hint">ヴィトン以外も対象。ブランド名・モデル・サイズ・色まで指定すると照合が正確です。</div></section>
+        <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_brand" checked> 👜 ブランド</label><span>BRAND</span></div><textarea id="cfg_terms_brand" placeholder="追加で絞る時だけ入力&#10;例: HERMES ピコタンロック 18 ブラック&#10;例: DIOR レディディオール ミディアム"></textarea><div class="search-cat-hint">初期監視の30モデルは空欄でも自動巡回。追加語はモデル・サイズ・素材・色まで書くと照合が正確です。</div></section>
+        <section class="brand-focus" aria-label="初期監視ブランドとモデル"><div class="brand-focus-head"><b>🎯 初期監視プログラム</b><span>5ブランド / 30モデル</span></div><div class="brand-role-grid"><div><strong>高利益枠</strong><small>HERMÈS・DIOR・CHANEL<br>絶対利益と真贋確認を重視</small></div><div><strong>データ量・回転枠</strong><small>LOUIS VUITTON<br>出品数と同一商品照合を蓄積</small></div><div><strong>ヴィンテージ価格差枠</strong><small>CELINE<br>マカダム・旧型の評価差を検出</small></div></div><details class="brand-model-fold"><summary>対象30モデルを確認する</summary><div class="brand-model-grid"><div><b>1. HERMÈS（エルメス）9</b>ピコタンロック / ガーデンパーティ / エヴリン / ボリード / リンディ / エールバッグ / コンスタンス / バーキン / ケリー</div><div><b>2. DIOR（ディオール）8</b>レディディオール / サドルバッグ / ブックトート / ボビー / 30モンテーニュ / カロ / ディオラマ / トロッター・オブリーク</div><div><b>3. CHANEL（シャネル）6</b>クラシックフラップ / マトラッセ / ミニフラップ / ボーイシャネル / ココハンドル / ヴィンテージチェーンショルダー</div><div><b>4. LOUIS VUITTON（ルイ・ヴィトン）5</b>ネヴァーフル / スピーディ / アルマ / ノエ / ポシェット・アクセソワール</div><div><b>5. CELINE（セリーヌ）2</b>トリオンフ / マカダム・ヴィンテージショルダー</div></div></details><p class="brand-focus-note">後回し: PRADA / GUCCI / FENDI / BALENCIAGA / BOTTEGA VENETA / SAINT LAURENT。次期候補: LOEWE / GOYARD。過去データは削除せず、初期の自動監視だけを絞ります。</p></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_pokeca" checked> 🎴 ポケカ</label><span>POKÉCA</span></div><textarea id="cfg_terms_pokeca" placeholder="例: ギラティナV SA&#10;例: 205/172 PSA10"></textarea><div class="search-cat-hint">カード名・カード番号・鑑定グレードを指定できます。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_bundle" checked> 📦 まとめ売り</label><span>BUNDLE</span></div><textarea id="cfg_terms_bundle" placeholder="例: カメラ まとめ売り&#10;例: レンズ 一式"></textarea><div class="search-cat-hint">単品相場には混ぜず、まとめ売り枠として探します。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_sold" checked> 🕒 売れた実績</label><span>MARKET</span></div><div style="font-size:12px;color:var(--ink-2);line-height:1.65">ONにすると、各カテゴリの売り切れ・落札実績も同時取得します。時間は増えますが、相場精度が上がります。</div></section>
+        <section class="search-cat-card cfg-wide"><div class="search-cat-head"><label class="chkline">🚫 検索を休止する語</label><span>EXCLUDE</span></div><textarea id="cfg_disabledTerms" placeholder="例: 故障品 まとめ売り&#10;例: 検索を一時停止したい完全一致の語"></textarea><div class="search-cat-hint">1行に1語。定番検索語と完全一致したものだけを一時停止します。削除すれば再開します。</div></section>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
-        <button class="mini-btn" id="cfgSave" type="button" style="background:var(--hero-grad);color:#fff;border-color:transparent;font-weight:700">保存</button>
+      <div class="search-config-actions">
+        <button class="mini-btn" id="cfgSave" type="button" style="background:var(--hero-grad);color:#fff;border-color:transparent;font-weight:700">設定を保存</button>
+        <button class="mini-btn secondary" id="cfgReset" type="button">推奨設定に戻す</button>
         <span id="cfgMsg" style="font-size:12px;color:var(--ink-3)"></span>
       </div>
-      <div style="font-size:11px;color:var(--ink-3);margin-top:8px;line-height:1.7">保存すると、次回の自動巡回から反映されます。自動で探す機能は停止せず、ONのカテゴリだけをカテゴリ別に検索します。</div>
+      <div style="font-size:11px;color:var(--ink-3);margin-top:8px;line-height:1.7">保存後、クラウド取得は次の巡回、メルカリは次のPC自動巡回から反映されます。カテゴリをOFFにしても保存済みデータは削除しません。</div>
     </div>
   </div>
 
@@ -810,12 +827,14 @@ function modelKeyJS(title,cat){
   const brand=brandOf(t);
   if(cat==="brand"){
     if(!/ヴィトン|ビトン|VUITTON/.test(t)){
-      if(/エルメス|HERM[EÈ]S/.test(t)){
-        const hs=[[/ファーストシューズ|FIRST SHOES?|ベビーシューズ/,"FIRSTSHOES"],[/カシミヤ.*マフラー|CASHMERE.*SCARF/,"CASHMERESCARF"],[/ディスカバリー.*セット|DISCOVERY.*SET/,"DISCOVERYSET"],[/CHEVAL DE COEUR|シュヴァル.*クール/,"CHEVALDECOEUR"],[/ジャンボ.*チョーカー|JUMBO.*CHOKER/,"JUMBOCHOKER"]];
-        for(const [re,key] of hs)if(re.test(t))return "BR HERMES "+key;
-      }
-      const bm=[[/エルメス|HERM[EÈ]S/,"HERMES",[[/バーキン|BIRKIN/,"BIRKIN"],[/ケリー|KELLY/,"KELLY"],[/ピコタン|PICOTIN/,"PICOTIN"],[/エヴリン|エブリン|EVELYNE/,"EVELYNE"]]],[/シャネル|CHANEL/,"CHANEL",[[/マトラッセ|MATELASSE/,"MATELASSE"],[/ボーイシャネル|BOY CHANEL/,"BOY"],[/ココハンドル|COCO HANDLE/,"COCOHANDLE"]]],[/グッチ|GUCCI/,"GUCCI",[[/GG\s*マーモント|GG\s*MARMONT/,"GGMARMONT"],[/オフィディア|OPHIDIA/,"OPHIDIA"]]],[/プラダ|PRADA/,"PRADA",[[/ガレリア|GALLERIA/,"GALLERIA"],[/サフィアーノ|SAFFIANO/,"SAFFIANO"]]],[/ディオール|DIOR/,"DIOR",[[/レディ\s*ディオール|LADY\s*DIOR/,"LADYDIOR"],[/サドル|SADDLE/,"SADDLE"]]],[/セリーヌ|CELINE/,"CELINE",[[/ラゲージ|LUGGAGE/,"LUGGAGE"],[/トリオンフ|TRIOMPHE/,"TRIOMPHE"]]],[/ロエベ|LOEWE/,"LOEWE",[[/パズル|PUZZLE/,"PUZZLE"],[/ハンモック|HAMMOCK/,"HAMMOCK"]]],[/ボッテガ|BOTTEGA/,"BOTTEGA",[[/カセット|CASSETTE/,"CASSETTE"],[/ジョディ|JODIE/,"JODIE"]]]];
-      for(const [bre,bn,models] of bm)if(bre.test(t)){let mn="";for(const [mr,n] of models)if(mr.test(t)){mn=n;break}if(!mn)return "";const code=bn==="CHANEL"?((t.match(/(?:^|[^A-Z0-9])((?:AP|AS)\d{4}|A\d{5})(?![A-Z0-9])/)||[])[1]||""):"";if(code)return `BR ${bn} ${code}`;const sm=t.match(/(?:^|[^A-Z0-9])(MINI|NANO|MICRO|PM|MM|GM|TPM|BB|XS|SMALL|MEDIUM|LARGE|25|28|30|32|35|40)(?![A-Z0-9])/),kind=/長財布|LONG\s*WALLET/.test(t)?"LONGWALLET":/二つ折り|2つ折り|BIFOLD|BI-FOLD/.test(t)?"BIFOLD":/三つ折り|3つ折り|TRIFOLD|TRI-FOLD/.test(t)?"TRIFOLD":/カードケース|CARD\s*(?:CASE|HOLDER)/.test(t)?"CARDCASE":/コインケース|小銭入れ|COIN\s*(?:CASE|PURSE)/.test(t)?"COINCASE":/クラッチ|CLUTCH/.test(t)?"CLUTCH":/バニティ|VANITY/.test(t)?"VANITY":"",sizeRequired=/^(BIRKIN|KELLY|PICOTIN|EVELYNE|MATELASSE|BOY|COCOHANDLE|GGMARMONT|OPHIDIA|GALLERIA|LADYDIOR|SADDLE|LUGGAGE|TRIOMPHE|PUZZLE|HAMMOCK|CASSETTE|JODIE)$/.test(mn);if(sizeRequired&&!sm){if(kind&&/WALLET|BIFOLD|TRIFOLD|CARDCASE|COINCASE/.test(kind))return `BR ${bn} ${mn} ${kind}`;return ""}return `BR ${bn} ${mn}${sm?" "+sm[1]:kind?" "+kind:""}`}
+      const bm=[
+        [/エルメス|HERM[EÈ]S/,"HERMES",[[/ピコタン(?:ロック)?|PICOTIN(?:\s*LOCK)?/,"PICOTINLOCK"],[/ガーデンパーティ|GARDEN\s*PARTY/,"GARDENPARTY"],[/エヴリン|エブリン|EVELYNE/,"EVELYNE"],[/ボリード|BOLIDE/,"BOLIDE"],[/リンディ|LINDY/,"LINDY"],[/エールバッグ|HERBAG/,"HERBAG"],[/コンスタンス|CONSTANCE/,"CONSTANCE"],[/バーキン|BIRKIN/,"BIRKIN"],[/ケリー|KELLY/,"KELLY"]]],
+        [/ディオール|DIOR/,"DIOR",[[/レディ\s*ディオール|LADY\s*DIOR/,"LADYDIOR"],[/サドル(?:バッグ)?|SADDLE(?:\s*BAG)?/,"SADDLE"],[/ブックトート|BOOK\s*TOTE/,"BOOKTOTE"],[/DIOR\s*BOBBY|ディオール\s*ボビー|\bBOBBY\b|ボビー/,"BOBBY"],[/30\s*モンテーニュ|30\s*MONTAIGNE/,"30MONTAIGNE"],[/DIOR\s*CARO|ディオール\s*カロ|\bCARO\b|カロ/,"CARO"],[/ディオラマ|DIORAMA/,"DIORAMA"],[/トロッター|オブリーク|TROTTER|OBLIQUE/,"TROTTEROBLIQUE"]]],
+        [/シャネル|CHANEL/,"CHANEL",[[/ミニ\s*(?:フラップ|マトラッセ)|MINI\s*(?:FLAP|MATELASSE)/,"MINIFLAP"],[/クラシック.*フラップ|CLASSIC.*FLAP|ダブルフラップ|シングルフラップ/,"CLASSICFLAP"],[/(?:ヴィンテージ|VINTAGE).*(?:チェーン|CHAIN).*(?:ショルダー|SHOULDER)|(?:チェーン|CHAIN).*(?:ショルダー|SHOULDER).*(?:ヴィンテージ|VINTAGE)/,"VINTAGECHAIN"],[/マトラッセ|MATELASSE/,"MATELASSE"],[/ボーイシャネル|BOY\s*CHANEL/,"BOY"],[/ココハンドル|COCO\s*HANDLE/,"COCOHANDLE"]]],
+        [/セリーヌ|C[EÉ]LINE/,"CELINE",[[/トリオンフ|TRIOMPHE/,"TRIOMPHE"],[/マカダム|MACADAM|(?:ヴィンテージ|VINTAGE).*(?:ショルダー|SHOULDER)/,"MACADAMVINTAGE"]]],
+        [/グッチ|GUCCI/,"GUCCI",[[/GG\s*マーモント|GG\s*MARMONT/,"GGMARMONT"],[/オフィディア|OPHIDIA/,"OPHIDIA"]]],[/プラダ|PRADA/,"PRADA",[[/ガレリア|GALLERIA/,"GALLERIA"],[/サフィアーノ|SAFFIANO/,"SAFFIANO"]]],[/ロエベ|LOEWE/,"LOEWE",[[/パズル|PUZZLE/,"PUZZLE"],[/ハンモック|HAMMOCK/,"HAMMOCK"]]],[/ボッテガ|BOTTEGA/,"BOTTEGA",[[/カセット|CASSETTE/,"CASSETTE"],[/ジョディ|JODIE/,"JODIE"]]]
+      ];
+      for(const [bre,bn,models] of bm)if(bre.test(t)){let mn="";for(const [mr,n] of models)if(mr.test(t)){mn=n;break}if(!mn)return "";const code=bn==="CHANEL"?((t.match(/(?:^|[^A-Z0-9])((?:AP|AS)\d{4}|A\d{5})(?![A-Z0-9])/)||[])[1]||""):"";if(code)return `BR ${bn} ${code}`;const sm=t.match(/(?:^|[^A-Z0-9])(MINI|NANO|MICRO|PM|MM|GM|TPM|BB|XS|SMALL|MEDIUM|LARGE|25|28|30|32|35|40)(?![A-Z0-9])/),kind=/長財布|LONG\s*WALLET/.test(t)?"LONGWALLET":/二つ折り|2つ折り|BIFOLD|BI-FOLD/.test(t)?"BIFOLD":/三つ折り|3つ折り|TRIFOLD|TRI-FOLD/.test(t)?"TRIFOLD":/カードケース|CARD\s*(?:CASE|HOLDER)/.test(t)?"CARDCASE":/コインケース|小銭入れ|COIN\s*(?:CASE|PURSE)/.test(t)?"COINCASE":/クラッチ|CLUTCH/.test(t)?"CLUTCH":/バニティ|VANITY/.test(t)?"VANITY":"",sizeRequired=/^(PICOTINLOCK|GARDENPARTY|EVELYNE|BOLIDE|LINDY|HERBAG|CONSTANCE|BIRKIN|KELLY|LADYDIOR|SADDLE|BOOKTOTE|BOBBY|30MONTAIGNE|CARO|DIORAMA|TROTTEROBLIQUE|CLASSICFLAP|MATELASSE|MINIFLAP|BOY|COCOHANDLE|VINTAGECHAIN|TRIOMPHE|MACADAMVINTAGE)$/.test(mn);if(sizeRequired&&!sm){if(kind&&/WALLET|BIFOLD|TRIFOLD|CARDCASE|COINCASE/.test(kind))return `BR ${bn} ${mn} ${kind}`;return ""}return `BR ${bn} ${mn}${sm?" "+sm[1]:kind?" "+kind:""}`}
       return "";
     }
     const lvm=t.match(/[MNE]\d{5}/);
@@ -1429,7 +1448,7 @@ function cardRow(c){
   row.appendChild(right);return row;
 }
 function sellerRadarMap(){const m=new Map();for(const s of ((ALERTS&&ALERTS.sellerRadar)||[]))m.set(String(s.source||"")+"|"+String(s.sellerId||""),s);return m;}
-const SELLER_BRAND_OPTIONS=[["all","全ブランド",""],["vuitton","LOUIS VUITTON","ルイ・ヴィトン"],["hermes","HERMÈS","エルメス"],["chanel","CHANEL","シャネル"],["gucci","GUCCI","グッチ"],["prada","PRADA","プラダ"],["dior","DIOR","ディオール"],["celine","CELINE","セリーヌ"],["loewe","LOEWE","ロエベ"],["bottega","BOTTEGA VENETA","ボッテガ・ヴェネタ"],["saintlaurent","SAINT LAURENT","サンローラン"],["balenciaga","BALENCIAGA","バレンシアガ"],["fendi","FENDI","フェンディ"],["burberry","BURBERRY","バーバリー"],["goyard","GOYARD","ゴヤール"],["coach","COACH","コーチ"],["miumiu","MIU MIU","ミュウミュウ"],["valentino","VALENTINO","ヴァレンティノ"],["givenchy","GIVENCHY","ジバンシィ"],["versace","VERSACE","ヴェルサーチェ"],["ferragamo","FERRAGAMO","フェラガモ"],["toryburch","TORY BURCH","トリー・バーチ"],["mcm","MCM","エムシーエム"],["marcjacobs","MARC JACOBS","マーク・ジェイコブス"],["rolex","ROLEX","ロレックス"],["omega","OMEGA","オメガ"],["cartier","CARTIER","カルティエ"],["bvlgari","BVLGARI","ブルガリ"],["tiffany","TIFFANY & CO.","ティファニー"],["vancleef","VAN CLEEF & ARPELS","ヴァン・クリーフ＆アーペル"],["tagheuer","TAG HEUER","タグ・ホイヤー"],["iwc","IWC","アイ・ダブリュー・シー"],["patek","PATEK PHILIPPE","パテック・フィリップ"],["audemars","AUDEMARS PIGUET","オーデマ・ピゲ"],["chopard","CHOPARD","ショパール"],["harrywinston","HARRY WINSTON","ハリー・ウィンストン"]];
+const SELLER_BRAND_OPTIONS=[["all","初期5ブランド",""],["hermes","HERMÈS","エルメス"],["dior","DIOR","ディオール"],["chanel","CHANEL","シャネル"],["vuitton","LOUIS VUITTON","ルイ・ヴィトン"],["celine","CELINE","セリーヌ"]];
 const SELLER_GENRE_OPTIONS=[["all","すべての商品"],["bag","👜 バッグ"],["wallet","👛 財布"],["small","💳 小物・カード"],["watch","⌚ 時計"],["jewelry","💎 ジュエリー"],["camera","📷 カメラ"],["lens","🔭 レンズ"],["pokeca","🎴 ポケカ"],["bundle","📦 まとめ売り"]];
 function sellerRadarSearchLabel(){
   const brand=(SELLER_BRAND_OPTIONS.find(x=>x[0]===state.sellerBrand)||SELLER_BRAND_OPTIONS[0])[1],genre=(SELLER_GENRE_OPTIONS.find(x=>x[0]===state.sellerGenre)||SELLER_GENRE_OPTIONS[0])[1].replace(/^[^\s]+\s/,"");return brand+" "+genre;
@@ -1790,7 +1809,7 @@ function render(){
     sourceGroup.appendChild(mk("🏪 オフモール","src","オフモール"));sourceGroup.appendChild(mk("🔴 メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("🔨 ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("🤝 ジモティー","src","ジモティー"));sourceGroup.appendChild(mk("🟣 Yahoo!フリマ","src","ヤフーフリマ"));sourceGroup.appendChild(mk("📦 eBay輸入","src","eBay輸入"));
     {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;if(state.ebayOnly)state.src="all";render();});sourceGroup.appendChild(ec);}
     categoryGroup.appendChild(mk("🌐 すべて","acat","all"));categoryGroup.appendChild(mk("🎴 ポケカ","acat","pokeca"));categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));categoryGroup.appendChild(mk("📦 まとめ売り","acat","bundle"));
-    if(brandGroup){brandGroup.appendChild(mk("すべて","brandName","all"));[["LOUIS VUITTON","ルイ・ヴィトン","vuitton"],["HERMÈS","エルメス","hermes"],["CHANEL","シャネル","chanel"],["GUCCI","グッチ","gucci"],["PRADA","プラダ","prada"],["DIOR","ディオール","dior"],["CELINE","セリーヌ","celine"],["LOEWE","ロエベ","loewe"],["BOTTEGA VENETA","ボッテガ・ヴェネタ","bottega"],["SAINT LAURENT","サンローラン","saintlaurent"],["BALENCIAGA","バレンシアガ","balenciaga"],["FENDI","フェンディ","fendi"],["BURBERRY","バーバリー","burberry"],["GOYARD","ゴヤール","goyard"],["COACH","コーチ","coach"],["MIU MIU","ミュウミュウ","miumiu"],["VALENTINO","ヴァレンティノ","valentino"],["GIVENCHY","ジバンシィ","givenchy"],["VERSACE","ヴェルサーチェ","versace"],["FERRAGAMO","フェラガモ","ferragamo"],["TORY BURCH","トリー・バーチ","toryburch"],["MCM","エムシーエム","mcm"],["MARC JACOBS","マーク・ジェイコブス","marcjacobs"],["ROLEX","ロレックス","rolex"],["OMEGA","オメガ","omega"],["CARTIER","カルティエ","cartier"],["BVLGARI","ブルガリ","bvlgari"],["TIFFANY & CO.","ティファニー","tiffany"],["VAN CLEEF & ARPELS","ヴァン・クリーフ＆アーペル","vancleef"],["TAG HEUER","タグ・ホイヤー","tagheuer"],["IWC","アイ・ダブリュー・シー","iwc"],["PATEK PHILIPPE","パテック・フィリップ","patek"],["AUDEMARS PIGUET","オーデマ・ピゲ","audemars"],["CHOPARD","ショパール","chopard"],["HARRY WINSTON","ハリー・ウィンストン","harrywinston"]].forEach(x=>brandGroup.appendChild(mkBrand(x[0],x[1],x[2])));}
+    if(brandGroup){brandGroup.appendChild(mk("初期5ブランド","brandName","all"));[["HERMÈS","エルメス","hermes"],["DIOR","ディオール","dior"],["CHANEL","シャネル","chanel"],["LOUIS VUITTON","ルイ・ヴィトン","vuitton"],["CELINE","セリーヌ","celine"]].forEach(x=>brandGroup.appendChild(mkBrand(x[0],x[1],x[2])));}
     if(brandTypeGroup){[["すべて","all"],["👜 バッグ","bag"],["👛 財布","wallet"],["💳 小物・カード","small"],["⌚ 時計","watch"],["💎 ジュエリー","jewelry"]].forEach(x=>brandTypeGroup.appendChild(mk(x[0],"brandType",x[1])));}
     {const fc=document.createElement("button");fc.className="fchip";fc.type="button";fc.textContent="🌍 eBay同型出品が多い";fc.title="eBayで同じ型番の現在出品が多い商品です。売れた件数や需要ではなく、比較できる販売先データの多さを示します";fc.setAttribute("aria-pressed",state.foreignMarketOnly?"true":"false");fc.addEventListener("click",()=>{state.foreignMarketOnly=!state.foreignMarketOnly;if(state.foreignMarketOnly){state.exportProfitOnly=false;state.ebayOnly=false;state.src="all";state.sort="foreign"}render();});categoryGroup.appendChild(fc);}
     {const xp=document.createElement("button");xp.className="fchip";xp.type="button";xp.textContent="💰 eBay輸出利益";xp.title="国内で仕入れてeBayで販売。手数料・国際送料・梱包・返品・為替余裕を引いても参考利益1万円以上、ROI30%以上の商品";xp.setAttribute("aria-pressed",state.exportProfitOnly?"true":"false");xp.addEventListener("click",()=>{state.exportProfitOnly=!state.exportProfitOnly;if(state.exportProfitOnly){state.foreignMarketOnly=false;state.ebayOnly=false;state.src="all";state.sort="exportProfit"}render();});categoryGroup.appendChild(xp);}
@@ -2371,7 +2390,9 @@ function guessCat(t){const s=t.toLowerCase();
   return"pokeca";}
 if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   $("#searchCfg").style.display="";
-  $("#cfgToggle").addEventListener("click",()=>{const b=$("#cfgBody");b.hidden=!b.hidden;$("#cfgToggle").textContent=b.hidden?"開く":"閉じる";});
+  const cfgCats=["camera","lens","brand","pokeca","bundle"];
+  const cfgSummary=()=>{const on=cfgCats.filter(k=>$("#cfg_"+k).checked).length,extra=cfgCats.reduce((n,k)=>n+($("#cfg_terms_"+k).value.split("\n").filter(x=>x.trim()).length),0),limit=Number($("#cfg_termLimit").value||0),sold=$("#cfg_sold").checked?"SOLD確認あり":"新着のみ";$("#cfgSummary").textContent="有効カテゴリ "+on+"/5 ・ 追加検索語 "+extra+"件 ・ 1巡回 "+(limit?limit+"語":"全検索語")+" ・ "+sold;};
+  $("#cfgToggle").addEventListener("click",()=>{const b=$("#cfgBody"),btn=$("#cfgToggle");b.hidden=!b.hidden;btn.textContent=b.hidden?"設定を開く":"設定を閉じる";btn.setAttribute("aria-expanded",String(!b.hidden));if(!b.hidden)cfgSummary();});
   // 現在の設定を読み込む
   fetch(DATA_URL+"?type=config",{cache:"no-store"}).then(r=>r.json()).then(c=>{
     if(!c||typeof c!=="object")return;
@@ -2379,25 +2400,32 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
     ["pokeca","camera","lens","brand","bundle","sold"].forEach(k=>{if(typeof c[k]==="boolean")$("#cfg_"+k).checked=c[k];});
     if(typeof c.batAuto==="boolean")$("#cfg_batAuto").checked=c.batAuto;
     $("#cfg_batInterval").value=String(Number(c.batIntervalMin||5));
+    $("#cfg_termLimit").value=String(c.termLimit===0?0:Number(c.termLimit||12));
+    $("#cfg_soldInterval").value=String(Number(c.soldIntervalMin||60));
+    if(Array.isArray(c.disabledTerms))$("#cfg_disabledTerms").value=c.disabledTerms.join("\n");
     if(Array.isArray(c.extraTerms)){
       ["camera","lens","brand","pokeca","bundle"].forEach(cat=>{
         const el=$("#cfg_terms_"+cat);if(el)el.value=c.extraTerms.filter(x=>x&&x.cat===cat).map(x=>x.t).join("\n");
       });
     }
+    cfgSummary();
   }).catch(()=>{});
+  $("#cfgBody").addEventListener("input",cfgSummary);
+  $("#cfgReset").addEventListener("click",()=>{["pokeca","camera","lens","brand","bundle","sold","batAuto"].forEach(k=>$("#cfg_"+k).checked=true);$("#cfg_batInterval").value="5";$("#cfg_termLimit").value="12";$("#cfg_soldInterval").value="60";$("#cfg_disabledTerms").value="";cfgCats.forEach(k=>$("#cfg_terms_"+k).value="");$("#cfgMsg").textContent="推奨値を反映しました。『設定を保存』で確定します。";cfgSummary();});
   $("#cfgSave").addEventListener("click",async()=>{
     const extra=[];
     ["camera","lens","brand","pokeca","bundle"].forEach(cat=>{
       const el=$("#cfg_terms_"+cat);if(!el)return;
       el.value.split("\n").map(s=>s.trim()).filter(Boolean).forEach(t=>extra.push({t,cat}));
     });
-    const config={...REMOTE_CFG,pokeca:$("#cfg_pokeca").checked,camera:$("#cfg_camera").checked,lens:$("#cfg_lens").checked,bundle:$("#cfg_bundle").checked,brand:$("#cfg_brand").checked,sold:$("#cfg_sold").checked,batAuto:$("#cfg_batAuto").checked,batIntervalMin:Number($("#cfg_batInterval").value||5),extraTerms:extra,disabledTerms:[]};
+    const disabledTerms=$("#cfg_disabledTerms").value.split("\n").map(s=>s.trim()).filter(Boolean);
+    const config={...REMOTE_CFG,pokeca:$("#cfg_pokeca").checked,camera:$("#cfg_camera").checked,lens:$("#cfg_lens").checked,bundle:$("#cfg_bundle").checked,brand:$("#cfg_brand").checked,sold:$("#cfg_sold").checked,batAuto:$("#cfg_batAuto").checked,batIntervalMin:Number($("#cfg_batInterval").value||5),termLimit:Number($("#cfg_termLimit").value||0),soldIntervalMin:Number($("#cfg_soldInterval").value||60),extraTerms:extra,disabledTerms};
     $("#cfgMsg").textContent="保存中…";
     try{
       // content-typeを指定しない(=text/plain)ことでCORSのpreflightを避ける。GAS側はJSON.parseで読む。
       const res=await fetch(DATA_URL,{method:"POST",body:JSON.stringify({token:GAS_TOKEN,config})});
       const j=await res.json().catch(()=>({}));
-      $("#cfgMsg").textContent = j&&j.ok ? "保存しました。次回のPC取得から反映されます。" : "保存できませんでした(GASのコード更新がまだの可能性)。";
+      if(j&&j.ok){REMOTE_CFG=config;$("#cfgMsg").textContent="保存しました。次の自動巡回から反映されます。";cfgSummary();}else $("#cfgMsg").textContent="保存できませんでした(GASのコード更新がまだの可能性)。";
     }catch(e){$("#cfgMsg").textContent="保存に失敗しました。通信を確認してください。";}
   });
 }
