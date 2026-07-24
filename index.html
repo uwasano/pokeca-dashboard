@@ -164,6 +164,7 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:12p
 .srcb.mer{background:color-mix(in srgb,#e2264d 12%,transparent);color:#c01f42}
 .srcb.fri{background:color-mix(in srgb,#0ea5a5 14%,transparent);color:#0b7285}
 .source-corner-logo{display:inline-flex;width:25px;height:25px;flex:0 0 25px;align-items:center;justify-content:center;border:1px solid #e5e7eb;border-radius:8px;background:#fff;box-shadow:0 4px 10px rgba(15,23,42,.08)}.source-corner-logo img{width:17px;height:17px;object-fit:contain;border-radius:4px}.source-corner-logo.fallback{color:#475569;font-size:10px;font-weight:950}.source-logo-chip{display:inline-flex!important;align-items:center;gap:5px}.source-logo-chip img{width:15px;height:15px;object-fit:contain;border-radius:4px;background:#fff}
+.discovery-source-strip{display:flex;align-items:center;gap:7px;margin:12px 0 4px;padding:9px 10px;overflow-x:auto;scrollbar-width:none;border:1px solid rgba(79,70,229,.1);border-radius:14px;background:rgba(255,255,255,.68);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}.discovery-source-strip::-webkit-scrollbar{display:none}.discovery-source-label{position:sticky;left:-10px;z-index:2;flex:0 0 auto;padding:4px 7px;background:rgba(255,255,255,.96);color:#64748b;font-size:9px;font-weight:900;letter-spacing:.08em}.discovery-source-strip .source-logo-chip{flex:0 0 auto;min-height:30px;padding:5px 9px;border:1px solid rgba(15,23,42,.08);border-radius:10px;background:#fff;color:#26334d;font-size:10px;font-weight:900;box-shadow:0 4px 10px rgba(15,23,42,.05)}.discovery-source-strip .source-logo-chip img{width:19px;height:19px;border-radius:6px}.direct-opportunity-head .source-logo-chip{min-height:29px;padding:4px 9px 4px 5px;border:1px solid rgba(15,23,42,.08);border-radius:999px;background:#fff;color:#26334d;font-weight:900;box-shadow:0 4px 12px rgba(15,23,42,.06)}.direct-opportunity-head .source-logo-chip img{width:20px;height:20px;border-radius:6px}
 .schip.m{background:color-mix(in srgb,#e2264d 12%,transparent);color:#c01f42}
 .schip.y{background:color-mix(in srgb,#f5a300 20%,transparent);color:#8a6100}
 .astrip{display:flex;gap:12px;align-items:baseline;margin-top:8px;font-size:12px;color:var(--ink-2);flex-wrap:wrap}
@@ -323,6 +324,12 @@ header{align-items:center;margin-bottom:14px}
 .seller-scan{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:11px;padding:12px 13px;margin-bottom:12px;border-radius:16px;background:linear-gradient(120deg,#0f172a,#172554 56%,#312e81);color:#fff;box-shadow:0 12px 25px rgba(30,41,100,.18)}.seller-scan-pulse{width:12px;height:12px;border-radius:50%;background:#38f2a5;box-shadow:0 0 0 0 rgba(56,242,165,.65);animation:sellerPulse 1.8s infinite}.seller-scan b{display:block;font-size:12px;letter-spacing:.01em}.seller-scan small{display:block;margin-top:4px;color:#cbd5e1;font-size:8.5px;line-height:1.45}.seller-scan-metrics{white-space:nowrap;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,.1);font-size:8px;font-weight:850}@keyframes sellerPulse{70%{box-shadow:0 0 0 9px rgba(56,242,165,0)}100%{box-shadow:0 0 0 0 rgba(56,242,165,0)}}
 .image-loading{background:linear-gradient(110deg,#eef2f7 30%,#f8fafc 45%,#eef2f7 60%);background-size:240% 100%;animation:imageShimmer 1.5s linear infinite}@keyframes imageShimmer{to{background-position:-240% 0}}
 @media(max-width:700px){.category-nav{grid-template-columns:repeat(3,minmax(0,1fr));top:5px}.workspace-tabs{grid-template-columns:repeat(4,minmax(78px,1fr));overflow-x:auto}.workspace-tabs .tab-main{font-size:10.5px}.seller-scan{grid-template-columns:auto minmax(0,1fr)}.seller-scan-metrics{grid-column:2;justify-self:start}.seller-radar-head{flex-direction:column}.seller-radar-count{align-self:flex-start}}
+  /* ===== 店別取得コントロール ===== */
+  .store-scan-panel{margin:14px 0;padding:16px;border:1px solid #dbe5f5;border-radius:20px;background:linear-gradient(145deg,#fff,#f5f8ff);box-shadow:0 12px 34px rgba(30,64,175,.08)}
+  .store-scan-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.store-scan-head strong{display:block;font-size:14px}.store-scan-head p{margin:4px 0 0;color:var(--ink-3);font-size:10px;line-height:1.55}.store-status{flex:0 0 auto;padding:6px 9px;border-radius:999px;background:#eef2ff;color:#3b5bcc;font-size:10px;font-weight:900}.store-status.ok{background:#dcfce7;color:#087443}.store-status.empty{background:#fff7df;color:#9a6500}.store-status.blocked,.store-status.error{background:#fee2e2;color:#b42318}
+  .store-scan-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:12px}.store-scan-form input{min-width:0;padding:12px;border:1px solid #d7ddec;border-radius:13px;background:#fff;color:var(--ink);font:inherit;font-size:13px}.store-scan-form button{padding:0 16px;border:0;border-radius:13px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:900;box-shadow:0 8px 20px rgba(79,70,229,.2)}.store-scan-form button:disabled{opacity:.55}
+  .store-scan-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:11px}.store-scan-meta span{padding:9px;border:1px solid #e8ecf5;border-radius:11px;background:#fff;color:var(--ink-3);font-size:9px}.store-scan-meta b{display:block;margin-top:3px;color:var(--ink);font-size:11px}.store-scan-message{margin:10px 0 0;padding:9px 10px;border-radius:10px;background:#f8fafc;color:var(--ink-2);font-size:10px;line-height:1.55}
+  @media(max-width:520px){.store-scan-form{grid-template-columns:1fr}.store-scan-form button{min-height:46px}.store-scan-meta{grid-template-columns:1fr 1fr}.store-scan-meta span:last-child{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -472,6 +479,7 @@ header{align-items:center;margin-bottom:14px}
 
   <section class="quick-search" aria-label="今すぐ商品検索">
     <div class="quick-search-head"><div><span class="qs-kicker">LIVE MARKET DISCOVERY</span><strong>⚡ 収益商品ディスカバリー</strong><p>複数市場の価格・成約証拠・ROIを一画面で比較</p></div><span class="qs-live">4市場＋専門店を横断</span></div>
+    <div class="discovery-source-strip" id="discoverySourceLogos" aria-label="収益商品ディスカバリーの取得先"><span class="discovery-source-label">取得先</span></div>
     <div class="quick-search-form">
       <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="brand" selected>👜 ブランドバッグ</option><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
       <input id="quickSearchTerm" type="search" maxlength="100" placeholder="例: HERMES バーキン 30 トゴ 黒" autocomplete="off">
@@ -576,12 +584,31 @@ function conditionInfo(text,cat){const has=w=>(text||"").includes(w);const t=(te
 function stockFromTitle(t){const m=(t||"").match(/在庫\s*(\d+)/);return m?+m[1]:null;}
 function median(a){const b=a.slice().sort((x,y)=>x-y),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):0;}
 function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
-function sourceLogo(src){
+function sourceInfo_(src){
  const s=String(src||"");
- const domain=s.includes("メルカリ")?"jp.mercari.com":s.includes("eBay")?"ebay.com":s.includes("ジモティー")?"jmty.jp":s.includes("ヤフオク")?"auctions.yahoo.co.jp":s.includes("フリマ")?"paypayfleamarket.yahoo.co.jp":"netmall.hardoff.co.jp";
- return "https://www.google.com/s2/favicons?domain="+domain+"&sz=128";
+ if(/メルカリ|MERCARI/i.test(s))return{label:"メルカリ",mark:"M",bg:"#ff2f4f",fg:"#fff"};
+ if(/EBAY/i.test(s))return{label:"eBay",mark:"e",bg:"#fff",fg:"#e53238",ring:"#0064d2"};
+ if(/ジモティー|JIMOTY/i.test(s))return{label:"ジモティー",mark:"J",bg:"#16a34a",fg:"#fff"};
+ if(/ヤフオク|YAHOO.*(オークション|AUCTION)/i.test(s))return{label:"ヤフオク",mark:"Y!",bg:"#ff0033",fg:"#fff"};
+ if(/フリマ|PAYPAY/i.test(s))return{label:"Yahoo!フリマ",mark:"Y!",bg:"#7c3aed",fg:"#fff"};
+ if(/KOMEHYO|コメ兵/i.test(s))return{label:"KOMEHYO",mark:"K",bg:"#b8860b",fg:"#fff"};
+ if(/BRAND\s*OFF|ブランドオフ/i.test(s))return{label:"BRAND OFF",mark:"B",bg:"#0891b2",fg:"#fff"};
+ if(/大黒屋/i.test(s))return{label:"大黒屋",mark:"大",bg:"#c58b00",fg:"#fff"};
+ if(/セカンドストリート|2ND/i.test(s))return{label:"セカンドストリート",mark:"2",bg:"#16803a",fg:"#fff"};
+ if(/キタムラ/i.test(s))return{label:"カメラのキタムラ",mark:"K",bg:"#e11d48",fg:"#fff"};
+ if(/マップカメラ/i.test(s))return{label:"マップカメラ",mark:"M",bg:"#1d4ed8",fg:"#fff"};
+ if(/フジヤ/i.test(s))return{label:"フジヤカメラ",mark:"F",bg:"#334155",fg:"#fff"};
+ if(/オフモール|ハードオフ|HARD\s*OFF/i.test(s))return{label:"オフモール",mark:"H",bg:"#1256a0",fg:"#ffd43b"};
+ return{label:s||"取得元",mark:(s||"?").slice(0,1).toUpperCase(),bg:"#475569",fg:"#fff"};
+}
+function sourceLogo(src){
+ const i=sourceInfo_(src),mark=String(i.mark||"?").replace(/[<>&\"']/g,""),ring=i.ring?' stroke="'+i.ring+'" stroke-width="2"':'';
+ const svg='<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect x="2" y="2" width="60" height="60" rx="15" fill="'+i.bg+'"'+ring+'/><text x="32" y="40" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="'+(mark.length>1?22:31)+'" font-weight="900" fill="'+i.fg+'">'+mark+'</text></svg>';
+ return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
 }
 function sourceMark_(src,withLabel){const mark=document.createElement("span"),img=document.createElement("img"),name=String(src||"取得元");mark.className=withLabel?"platform-chip source-logo-chip":"source-corner-logo";mark.title=name+"の商品";mark.setAttribute("aria-label",name+"の商品");img.src=sourceLogo(name);img.alt="";img.loading="lazy";img.referrerPolicy="no-referrer";img.addEventListener("error",()=>{img.remove();mark.classList.add("fallback");if(!withLabel)mark.textContent=name.slice(0,1)});mark.appendChild(img);if(withLabel)mark.appendChild(document.createTextNode(name));return mark}
+function renderDiscoverySourceLogos_(){const box=document.getElementById("discoverySourceLogos");if(!box||box.dataset.ready)return;box.dataset.ready="1";["メルカリ","eBay","ヤフオク","オフモール","Yahoo!フリマ","ジモティー"].forEach(name=>box.appendChild(sourceMark_(name,true)));}
+renderDiscoverySourceLogos_();
 function alertImage(a,d){
   const candidates=[];const add=u=>{u=String(u||"").replace(/&amp;/g,"&");if(/^https?:\/\//i.test(u)&&!candidates.includes(u))candidates.push(u)};
   add(d.img);add(d.image);add(d.importData&&d.importData.image);add(a.image);
@@ -1452,13 +1479,14 @@ const MARKET_PAGES={
   fleamarket:{title:"Yahoo!フリマ",source:"ヤフーフリマ",official:"https://paypayfleamarket.yahoo.co.jp/",desc:"取得できた新着出品と利益判定"},
   komehyo:{title:"KOMEHYO",source:"KOMEHYO",official:"https://komehyo.jp/",desc:"取得した鑑定中古在庫・状態・国内成約相場・利益比較"},
   brandoff:{title:"BRAND OFF",source:"BRAND OFF",official:"https://www.brandoff-store.com/",desc:"取得したブランド専門店在庫・状態ランク・利益比較"},
-  daikokuya:{title:"大黒屋",source:"大黒屋",official:"https://www.daikokuya78.com/",desc:"取得した質店在庫・鑑定情報・国内外相場との比較"},
+  daikokuya:{title:"大黒屋",source:"大黒屋",official:"https://www.rakuten.co.jp/daikokuya78/",desc:"大黒屋公式オンラインモールから取得した質店在庫・国内外相場との比較"},
   secondstreet:{title:"セカンドストリート",source:"セカンドストリート",sources:["セカンドストリート","2nd STREET","2ndStreet"],official:"https://www.2ndstreet.jp/",desc:"取得した大手中古在庫・安値候補・利益比較"},
   ebay:{title:"eBay",source:"eBay",official:"https://www.ebay.com/",desc:"国内仕入れ→eBay輸出の成約根拠・輸出見込利益と、eBay輸入候補"}
 };
 function marketSourceMatches_(x,cfg){const src=String(x&&x.source||"").toLowerCase(),names=(cfg.sources||[cfg.source]).map(v=>String(v||"").toLowerCase());return names.some(n=>n&&src===n)}
 function acquiredRowsForMarket_(key,cfg,all){
-  let rows=[...DIRECT_RESULTS,...all].filter(x=>marketSourceMatches_(x,cfg));
+  const saved=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key],inventory=saved&&Array.isArray(saved.items)?saved.items:[];
+  let rows=[...inventory,...DIRECT_RESULTS,...all].filter(x=>marketSourceMatches_(x,cfg));
   if(key==="mercari"&&DATA){const sold=(DATA.sold||[]).filter(x=>x.saleVerified===true||x.verification==="item_page_sold_out"),list=(DATA.listings||[]).filter(x=>!x.soldOut);rows.push(...mercariListingPortalRows_(list,mercariSoldPortalRows_(sold)))}
   if(key==="ebay")rows.push(...all.filter(x=>x&&((x.detail&&x.detail.eb)||(x.detail&&x.detail.importData)||x.source==="eBay輸入")),...ebayImportRows_(all));
   return rows.filter((x,i,a)=>{const k=marketItemUrl_(x)||String(x.itemId||x.name||x.title||x.t||"");return k&&a.findIndex(y=>(marketItemUrl_(y)||String(y.itemId||y.name||y.title||y.t||""))===k)===i});
@@ -1541,9 +1569,25 @@ function portalKpis_(body,items){const k=document.createElement("div");k.classNa
 function portalSection_(body,title,rows,mode,empty,sub){const s=document.createElement("section");s.className="market-portal-section";const h=document.createElement("h3");h.textContent=title;s.appendChild(h);if(sub){const p=document.createElement("p");p.className="market-section-sub";p.textContent=sub;s.appendChild(p)}if(!rows.length){const e=document.createElement("div");e.className="market-empty";e.textContent=empty||"取得データはまだありません。次回巡回後にここへ表示されます。";s.appendChild(e)}else{const g=document.createElement("div");g.className="market-portal-grid";rows.slice(0,24).forEach(x=>g.appendChild(marketDataCard_(x,mode)));s.appendChild(g)}body.appendChild(s)}
 function portalPurpose_(body,key){const box=document.createElement("section");box.className="market-portal-purpose";const title=document.createElement("strong");title.textContent="この画面だけで仕入れ判断まで進めます";const text=document.createElement("p");text.textContent=key==="mercari"?"SOLD確認済みは購入候補ではなく、現在出品の売価・回転率・利益・ROIを計算するための成約証拠です。現在出品と完全一致の成約を対比し、全費用を引いてから買い判断します。":"現在出品と成約・落札実績を同一商品単位で比較し、全費用控除後の利益とROIを表示します。";const flow=document.createElement("div");flow.className="purpose-flow";["① 現在出品","② 同一商品成約","③ 手数料・送料控除","④ 純利益・ROI","⑤ AI買い判断"].forEach(v=>{const s=document.createElement("span");s.textContent=v;flow.appendChild(s)});box.append(title,text,flow);body.appendChild(box)}
 function portalSourceActions_(body,key){if(key!=="jmty")return;const term=String(DIRECT_SEARCH_META.term||"ブランドバッグ"),q=encodeURIComponent(term),box=document.createElement("section");box.className="source-compare";box.innerHTML='<h4>🤝 ジモティー商品と販売相場を直接確認</h4><p>商品リンクが取得できた商品は各カードから開けます。取得制限時も公式検索と、同じ検索語のメルカリSOLD・ヤフオク落札相場を開けます。</p><div class="source-links"></div>';const links=box.querySelector(".source-links"),rows=[["ジモティー現在出品","商品を確認",DIRECT_SEARCH_META.jimotySearchUrl||("https://jmty.jp/all/sale-sab-kw-"+q)],["メルカリ売り切れ","国内成約相場","https://jp.mercari.com/search?keyword="+q+"&status=sold_out"],["ヤフオク落札実績","国内落札相場","https://auctions.yahoo.co.jp/closedsearch/closedsearch?p="+q],["eBay販売済み","海外成約相場","https://www.ebay.com/sch/i.html?_nkw="+q+"&LH_Sold=1&LH_Complete=1"]];rows.forEach(v=>{const a=document.createElement("a");a.className="source-link";a.href=v[2];a.target="_blank";a.rel="noopener";a.innerHTML='<span>'+v[0]+'</span><small>'+v[1]+' →</small>';links.appendChild(a)});body.appendChild(box)}
+async function legacyStoreFetch_(key,cfg,term,cat){
+  if(!new Set(["offmall","yahoo","fleamarket","jmty"]).has(key))throw new Error("この店の専用取得にはGAS最新版の再デプロイが必要です");
+  const res=await fetch(DATA_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({token:GAS_TOKEN,scanAllNonMercari:true,term,cat,includeSold:true})}),j=await res.json();if(j.ok===false)throw new Error(j.error||"一括取得にも失敗しました");
+  const all=Array.isArray(j.results)?j.results:[],items=all.filter(x=>marketSourceMatches_(x,cfg)),now=new Date().toISOString();saveDirectResults_(all,term,cat,j.jimotySearchUrl||"");
+  return {key,source:cfg.source,status:items.length?"ok":"empty",at:now,term,searchUrl:"",message:items.length?"互換取得で"+items.length+"件取得しました":"互換取得は成功しましたが、この店の商品は今回0件でした",fetchedCount:items.length,count:items.length,items};
+}
+function portalStoreControl_(body,key,cfg){
+  const supported=new Set(["offmall","yahoo","fleamarket","jmty","komehyo","brandoff","daikokuya","secondstreet"]);if(!supported.has(key))return;
+  const rec=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key]||{},status=String(rec.status||"not_run"),statusLabel={ok:"取得成功",empty:"今回0件",blocked:"取得制限中",error:"取得エラー",not_run:"未取得"}[status]||status;
+  const box=document.createElement("section");box.className="store-scan-panel";box.innerHTML='<div class="store-scan-head"><div><strong></strong><p>利益条件に通らない商品も含め、この店から取得した在庫を店別に保存します。</p></div><span class="store-status"></span></div><div class="store-scan-form"><input maxlength="100" aria-label="この店で検索する商品名"><button type="button"></button></div><div class="store-scan-meta"><span>今回取得<b data-fetched></b></span><span>保存在庫<b data-total></b></span><span>最終取得<b data-at></b></span></div><p class="store-scan-message"></p>';
+  box.querySelector("strong").textContent=cfg.title+"だけ今すぐ取得";const badge=box.querySelector(".store-status");badge.classList.add(status);badge.textContent=statusLabel;
+  const input=box.querySelector("input"),btn=box.querySelector("button"),msg=box.querySelector(".store-scan-message");input.value=String(rec.term||DIRECT_SEARCH_META.term||"LOUIS VUITTON バッグ");btn.textContent=cfg.title+"を取得";
+  box.querySelector("[data-fetched]").textContent=Number(rec.fetchedCount||0)+"件";box.querySelector("[data-total]").textContent=Number(rec.count||(rec.items||[]).length||0)+"件";box.querySelector("[data-at]").textContent=rec.at?new Date(rec.at).toLocaleString("ja-JP"):"まだありません";msg.textContent=rec.message||"検索語を入れて、この店専用の取得を実行してください。";
+  btn.addEventListener("click",async()=>{const term=input.value.trim(),cat=state.acat==="camera"?"camera":state.acat==="lens"?"lens":"brand";if(term.length<2){msg.textContent="商品名・ブランド名・型番を2文字以上入力してください。";return}if(!DATA_URL){msg.textContent="GASの接続URLが未設定です。";return}btn.disabled=true;btn.textContent="取得中…";badge.className="store-status";badge.textContent="取得中";msg.textContent=cfg.title+"の在庫を取得し、同一商品の成約相場を照合しています。";try{let store=null,primaryError="";try{const res=await fetch(DATA_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({token:GAS_TOKEN,scanStore:{key,term,cat,maxMarketFetch:6}})}),j=await res.json();if(j.ok&&j.store)store=j.store;else primaryError=String(j.error||"専用取得APIが未反映")}catch(e1){primaryError=String(e1.message||e1)}if(!store){msg.textContent="公開中GASが旧版のため互換取得へ切り替えています…";store=await legacyStoreFetch_(key,cfg,term,cat);store.message+=(primaryError?"／専用API: "+primaryError:"")}ALERTS=ALERTS||{};ALERTS.sourceInventory=ALERTS.sourceInventory||{};ALERTS.sourceInventory[key]=store;openMarketPortal(key,false);updatePrioritySourceStats_()}catch(e){badge.classList.add("error");badge.textContent="取得エラー";msg.textContent="取得できませんでした："+(e.message||e)+"。GAS全文を置き換え、新しいデプロイとして公開してください。"}finally{btn.disabled=false;btn.textContent=cfg.title+"を取得"}});
+  body.appendChild(box);
+}
 function openMarketPortal(key,pushHash=true){
   const cfg=MARKET_PAGES[key];if(!cfg)return;const portal=document.getElementById("marketPortal"),body=document.getElementById("marketPortalBody"),all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit),sourceRows=acquiredRowsForMarket_(key,cfg,all),profits=sourceRows.map(a=>priorityProfitOf_(a,key)).filter(x=>x>0);body.textContent="";
-  const head=document.createElement("section");head.className="market-portal-head "+key;head.innerHTML='<h2 id="marketPortalTitle"></h2><p></p><a target="_blank" rel="noopener">公式サイトを開く ↗</a>';head.querySelector("h2").textContent=cfg.title+" 取得情報";head.querySelector("p").textContent=cfg.desc;head.querySelector("a").href=cfg.official;body.appendChild(head);portalPurpose_(body,key);portalSourceActions_(body,key);document.getElementById("marketPortalNavTitle").textContent=cfg.title+"の取得情報";
+  const head=document.createElement("section");head.className="market-portal-head "+key;head.innerHTML='<h2 id="marketPortalTitle"></h2><p></p><a target="_blank" rel="noopener">公式サイトを開く ↗</a>';head.querySelector("h2").textContent=cfg.title+" 取得情報";head.querySelector("p").textContent=cfg.desc;head.querySelector("a").href=cfg.official;body.appendChild(head);portalPurpose_(body,key);portalSourceActions_(body,key);portalStoreControl_(body,key,cfg);document.getElementById("marketPortalNavTitle").textContent=cfg.title+"の取得情報";
   if(key==="ebay"){
     const ebayRows=all.filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.profitJpy)>0),importRows=ebayImportRows_(all),verified=ebayRows.filter(a=>a.detail.eb.soldVerified),soldN=verified.reduce((n,a)=>n+Number(a.detail.eb.soldN||0),0),avg=ebayRows.length?Math.round(ebayRows.reduce((n,a)=>n+Number(a.detail.eb.profitJpy||0),0)/ebayRows.length):0;
     portalKpis_(body,[["輸出利益候補",ebayRows.length+"件"],["eBay輸入候補",importRows.length+"件"],["売却済み確認商品",verified.length+"件"],["完全一致の売却済み",soldN+"件"],["平均輸出見込利益",ebayRows.length?yen(avg):"—"]]);
@@ -1561,7 +1605,7 @@ function openMarketPortal(key,pushHash=true){
     portalKpis_(body,[["ジモティー現在出品",sourceRows.length+"件"],["成約相場確認済み",verified.length+"件"],["完全一致成約証拠",evidenceN+"件"],["成約中央値",marketMed?yen(marketMed):"取得中"],["現物確認へ進む候補",ready+"件"]]);
     portalSection_(body,"ジモティー現在出品（国内成約相場と対比済み）",sourceRows,"jmty","ブランドカテゴリで『一括取得＋安い仕入れ先比較』を実行すると、取得結果と商品リンクがここへ保存されます。","各商品名からジモティーの商品ページを開けます。メルカリ成約・ヤフオク落札の完全一致実績、純利益、ROI、回転率を商品ごとに表示します。");
   }else{
-    const avg=profits.length?Math.round(profits.reduce((a,b)=>a+b,0)/profits.length):0,top=profits.length?Math.max.apply(null,profits):0,ready=sourceRows.filter(x=>{const d=marketDecision_(x,key);return d.cls==="now"||d.cls==="candidate"}).length;portalKpis_(body,[["取得候補",sourceRows.length+"件"],["すぐ確認",ready+"件"],["利益あり",profits.length+"件"],["平均見込利益",profits.length?yen(avg):"算定中"],["最高見込利益",top?yen(top):"算定中"]]);portalSection_(body,cfg.title+"から取得した商品",sourceRows,key,"取得データはまだありません。次回巡回後にここへ表示されます。","各商品に成約相場・回転率・純利益・ROI・AI診断を付けて表示します。");
+    const rec=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key]||{},avg=profits.length?Math.round(profits.reduce((a,b)=>a+b,0)/profits.length):0,top=profits.length?Math.max.apply(null,profits):0,ready=sourceRows.filter(x=>{const d=marketDecision_(x,key);return d.cls==="now"||d.cls==="candidate"}).length,emptyText=rec.status==="blocked"?(cfg.title+"は現在取得制限中です。0件ではなく未取得として記録しました。"):rec.status==="error"?(cfg.title+"の取得でエラーが発生しました："+(rec.message||"詳細不明")):rec.status==="empty"?"ページ取得には成功しましたが、今回の検索語では商品を解析できませんでした。検索語を短くして再取得してください。":"上の『この店だけ今すぐ取得』から商品を取得してください。";portalKpis_(body,[["保存在庫",sourceRows.length+"件"],["今回取得",Number(rec.fetchedCount||0)+"件"],["利益あり",profits.length+"件"],["平均見込利益",profits.length?yen(avg):"相場照合中"],["最高見込利益",top?yen(top):"相場照合中"]]);portalSection_(body,cfg.title+"から取得した商品",sourceRows,key,emptyText,"店別に保存した全在庫へ、成約相場・回転率・純利益・ROI・AI診断を付けて表示します。");
   }
   portal.hidden=false;document.body.style.overflow="hidden";if(pushHash&&location.hash!=="#market-"+key)history.pushState({market:key},"","#market-"+key);
 }
