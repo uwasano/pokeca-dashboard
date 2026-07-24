@@ -1501,9 +1501,36 @@ const MARKET_PAGES={
 };
 function marketSourceMatches_(x,cfg){const src=String(x&&x.source||"").toLowerCase(),names=(cfg.sources||[cfg.source]).map(v=>String(v||"").toLowerCase());return names.some(n=>n&&src===n)}
 function storeInventoryApiReady_(){return !!(ALERTS&&ALERTS.apiVersion==="store_inventory_v2"&&ALERTS.sourceInventory)}
+function marketIntentMatches_(x,term){
+  const q=String(term||"").toUpperCase(),t=String(x&&((x.name||x.title||x.t))||"").toUpperCase();
+  if(!q)return true;
+  const brands=[
+    [/HERM[EÈ]S|エルメス/,/HERM[EÈ]S|エルメス/],
+    [/LOUIS\s*VUITTON|ルイ[・\s]?ヴィトン|\bLV\b/,/LOUIS\s*VUITTON|ルイ[・\s]?ヴィトン|\bLV\b/],
+    [/CHANEL|シャネル/,/CHANEL|シャネル/],
+    [/CELINE|CÉLINE|セリーヌ/,/CELINE|CÉLINE|セリーヌ/],
+    [/GUCCI|グッチ/,/GUCCI|グッチ/],
+    [/LOEWE|ロエベ/,/LOEWE|ロエベ/],
+    [/FENDI|フェンディ/,/FENDI|フェンディ/],
+    [/PRADA|プラダ/,/PRADA|プラダ/],
+    [/DIOR|ディオール/,/DIOR|ディオール/],
+    [/BOTTEGA|ボッテガ/,/BOTTEGA|ボッテガ/],
+    [/GOYARD|ゴヤール/,/GOYARD|ゴヤール/],
+    [/BALENCIAGA|バレンシアガ/,/BALENCIAGA|バレンシアガ/]
+  ];
+  const wanted=brands.find(pair=>pair[0].test(q));
+  if(wanted&&!wanted[1].test(t))return false;
+  const wantsBag=/バッグ|BAG|トート|ショルダー|ハンドバッグ|ボストン|リュック|クラッチ|ポーチ|キャリー(?:ケース)?|スーツケース|バニティ|メッセンジャー|サコッシュ/i.test(q);
+  if(wantsBag){
+    const bagLike=/バッグ|BAG|トート|ショルダー|ハンドバッグ|ボストン|リュック|クラッチ|ポーチ|キャリー(?:ケース)?|スーツケース|バニティ|メッセンジャー|サコッシュ/i.test(t);
+    const smallGoods=/財布|WALLET|カードケース|CARD\s*CASE|キーケース|KEY\s*CASE|コインケース|COIN\s*(?:CASE|PURSE)|名刺入れ|パスケース|ベルト|靴|シューズ|スニーカー|サンダル/i.test(t);
+    if(!bagLike||smallGoods)return false;
+  }
+  return true;
+}
 function acquiredRowsForMarket_(key,cfg,all){
-  const saved=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key],inventory=saved&&Array.isArray(saved.items)?saved.items:[];
-  let rows=[...inventory,...DIRECT_RESULTS,...all].filter(x=>marketSourceMatches_(x,cfg));
+  const saved=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key],inventory=saved&&Array.isArray(saved.items)?saved.items.filter(x=>marketIntentMatches_(x,saved.term)):[];
+  let rows=[...inventory,...DIRECT_RESULTS,...all].filter(x=>marketSourceMatches_(x,cfg)).filter(x=>marketIntentMatches_(x,saved&&saved.term));
   if(key==="offmall"&&DATA&&Array.isArray(DATA.hardoff))rows.push(...DATA.hardoff.map(x=>({...x,source:"オフモール",title:x.title||x.name||"",name:x.name||x.title||"",buy:marketNumber_(x.buy,x.price),url:x.url||"",image:x.image||""})));
   if(key==="mercari"&&DATA){const sold=(DATA.sold||[]).filter(x=>x.saleVerified===true||x.verification==="item_page_sold_out"),list=(DATA.listings||[]).filter(x=>!x.soldOut);rows.push(...mercariListingPortalRows_(list,mercariSoldPortalRows_(sold)))}
   if(key==="ebay")rows.push(...all.filter(x=>x&&((x.detail&&x.detail.eb)||(x.detail&&x.detail.importData)||x.source==="eBay輸入")),...ebayImportRows_(all));
@@ -1625,11 +1652,16 @@ function openMarketPortal(key,pushHash=true){
   }else{
     const rec=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key]||{},avg=profits.length?Math.round(profits.reduce((a,b)=>a+b,0)/profits.length):0,top=profits.length?Math.max.apply(null,profits):0,ready=sourceRows.filter(x=>{const d=marketDecision_(x,key);return d.cls==="now"||d.cls==="candidate"}).length,shownFetched=Number(rec.fetchedCount||(sourceRows.length&&!rec.status?sourceRows.length:0)),emptyText=rec.status==="blocked"?(cfg.title+"は現在取得制限中です。0件ではなく未取得として記録しました。"):rec.status==="error"?(cfg.title+"の取得でエラーが発生しました："+(rec.message||"詳細不明")):rec.status==="empty"?"ページ取得には成功しましたが、今回の検索語では商品を解析できませんでした。検索語を短くして再取得してください。":storeInventoryApiReady_()?"上の『この店だけ今すぐ取得』から商品を取得してください。":"公開中GASは旧版のため、この店の専用取得APIがまだ使えません。最新版GASを再デプロイしてください。既存取得データがある店は自動復元して表示します。";portalKpis_(body,[["表示できる取得在庫",sourceRows.length+"件"],["今回取得",shownFetched+"件"],["利益あり",profits.length+"件"],["平均見込利益",profits.length?yen(avg):"相場照合中"],["最高見込利益",top?yen(top):"相場照合中"]]);portalSection_(body,cfg.title+"から取得した商品",sourceRows,key,emptyText,"店別に保存した全在庫へ、成約相場・回転率・純利益・ROI・AI診断を付けて表示します。");
   }
-  portal.hidden=false;document.body.style.overflow="hidden";if(pushHash&&location.hash!=="#market-"+key)history.pushState({market:key},"","#market-"+key);
+  portal.hidden=false;document.body.style.overflow="hidden";if(pushHash&&location.hash!=="#market-"+key)history.pushState({market:key},"","#market-"+key);if(pushHash)refreshMarketInventory_(key);
 }
 function closeMarketPortal(){const p=document.getElementById("marketPortal");p.hidden=true;document.body.style.overflow="";if(/^#market-/.test(location.hash))history.pushState({},"",location.pathname+location.search)}
 function activeMarketKey_(){const m=String(location.hash||"").match(/^#market-(offmall|mercari|yahoo|jmty|fleamarket|komehyo|brandoff|daikokuya|secondstreet|ebay)$/);return m?m[1]:""}
 function refreshMarketPortal_(){const key=activeMarketKey_();if(key&&!document.getElementById("marketPortal").hidden)openMarketPortal(key,false)}
+let MARKET_INVENTORY_REFRESHING=false;
+async function refreshMarketInventory_(key){
+  if(MARKET_INVENTORY_REFRESHING||!DATA_URL)return;MARKET_INVENTORY_REFRESHING=true;
+  try{const r=await fetch(DATA_URL+"?type=alerts&_="+Date.now(),{cache:"no-store"}),j=await r.json();if(j&&Array.isArray(j.alerts)){j.alerts=j.alerts.map(verifyAlertProfit).filter(a=>a.adjProfit>=1000);ALERTS=j;updatePrioritySourceStats_();if(activeMarketKey_()===key&&!document.getElementById("marketPortal").hidden)openMarketPortal(key,false)}}catch(e){}finally{MARKET_INVENTORY_REFRESHING=false}
+}
 function render(){
   if(!DATA)return;
   updatePrioritySourceStats_();
