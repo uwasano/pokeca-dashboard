@@ -1561,7 +1561,7 @@ const MARKET_PAGES={
   ebay:{title:"eBay",source:"eBay",official:"https://www.ebay.com/",desc:"国内仕入れ→eBay輸出の成約根拠・輸出見込利益と、eBay輸入候補"}
 };
 function marketSourceMatches_(x,cfg){const src=String(x&&x.source||"").toLowerCase(),names=(cfg.sources||[cfg.source]).map(v=>String(v||"").toLowerCase());return names.some(n=>n&&src===n)}
-function storeInventoryApiReady_(){return !!(ALERTS&&ALERTS.apiVersion==="store_inventory_v2"&&ALERTS.sourceInventory)}
+function storeInventoryApiReady_(){return !!(ALERTS&&/^store_inventory_v\d+/.test(String(ALERTS.apiVersion||""))&&ALERTS.sourceInventory)}
 function marketIntentMatches_(x,term){
   const q=String(term||"").toUpperCase(),t=String(x&&((x.name||x.title||x.t))||"").toUpperCase();
   if(!q)return true;
@@ -1590,8 +1590,11 @@ function marketIntentMatches_(x,term){
   return true;
 }
 function acquiredRowsForMarket_(key,cfg,all){
-  const saved=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key],inventory=saved&&Array.isArray(saved.items)?saved.items.filter(x=>marketIntentMatches_(x,saved.term)):[];
-  let rows=[...inventory,...DIRECT_RESULTS,...all].filter(x=>marketSourceMatches_(x,cfg)).filter(x=>marketIntentMatches_(x,saved&&saved.term));
+  const saved=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key],inventory=saved&&Array.isArray(saved.items)?saved.items:[];
+  // 店別ページは複数回・複数ブランドで蓄積した全在庫を表示する。
+  // saved.term は「最後に店を検索した語」であり、個別相場照合の商品名へ変わる場合もあるため、
+  // ここで再フィルタすると取得済み商品が0件に見えてしまう。
+  let rows=[...inventory,...DIRECT_RESULTS,...all].filter(x=>marketSourceMatches_(x,cfg));
   if(key==="offmall"&&DATA&&Array.isArray(DATA.hardoff))rows.push(...DATA.hardoff.map(x=>({...x,source:"オフモール",title:x.title||x.name||"",name:x.name||x.title||"",buy:marketNumber_(x.buy,x.price),url:x.url||"",image:x.image||""})));
   if(key==="mercari"&&DATA){const sold=(DATA.sold||[]).filter(x=>x.saleVerified===true||x.verification==="item_page_sold_out"),list=(DATA.listings||[]).filter(x=>!x.soldOut);rows.push(...mercariListingPortalRows_(list,mercariSoldPortalRows_(sold)))}
   if(key==="ebay")rows.push(...all.filter(x=>x&&((x.detail&&x.detail.eb)||(x.detail&&x.detail.importData)||x.source==="eBay輸入")),...ebayImportRows_(all));
