@@ -341,7 +341,8 @@ header{align-items:center;margin-bottom:14px}
   .brand-focus-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand-focus-head b{font-size:14px}.brand-focus-head span{padding:6px 9px;border-radius:999px;background:#e8eaff;color:#4338ca;font-size:10px;font-weight:900}
   .brand-role-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}.brand-role-grid div{padding:9px;border:1px solid #e5e7ff;border-radius:12px;background:rgba(255,255,255,.86)}.brand-role-grid strong{display:block;font-size:11px}.brand-role-grid small{display:block;margin-top:3px;color:var(--ink-3);font-size:9px;line-height:1.45}
   .brand-model-fold{margin-top:10px;border-top:1px solid #e3e6f7}.brand-model-fold summary{padding:10px 2px 4px;cursor:pointer;color:#34405b;font-size:11px;font-weight:900}.brand-model-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:7px}.brand-model-grid div{padding:9px 10px;border-radius:11px;background:#fff;border:1px solid #e8eaf4;font-size:9px;line-height:1.55}.brand-model-grid b{display:block;font-size:10px;color:#25304b}.brand-focus-note{margin:9px 0 0;color:var(--ink-3);font-size:9px;line-height:1.55}
-  @media(max-width:520px){.store-scan-form{grid-template-columns:1fr}.store-scan-form button{min-height:46px}.store-scan-meta{grid-template-columns:1fr 1fr}.store-scan-meta span:last-child{grid-column:1/-1}.brand-role-grid,.brand-model-grid{grid-template-columns:1fr}.store-query-row{grid-template-columns:70px minmax(0,1fr)}.store-query-row em{grid-column:2}.store-query-breakdown-grid{grid-template-columns:1fr}}
+  .secondstreet-brand-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:16px 0 8px;padding-top:12px;border-top:1px solid #c7d2fe;color:#172554;font-size:12px;font-weight:950}.secondstreet-brand-title small{color:#64748b;font-size:8px;font-weight:800}.secondstreet-brand-tabs{display:flex;gap:8px;margin:0 -4px;padding:4px 4px 10px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none}.secondstreet-brand-tabs::-webkit-scrollbar{display:none}.secondstreet-brand-tab{position:relative;flex:0 0 142px;min-height:64px;padding:10px 36px 9px 12px;text-align:left;border:1px solid #dbeafe;border-radius:15px;background:rgba(255,255,255,.92);box-shadow:0 6px 18px rgba(30,64,175,.06);color:#334155;scroll-snap-align:start}.secondstreet-brand-tab strong,.secondstreet-brand-tab small{display:block}.secondstreet-brand-tab strong{font-size:10px;font-weight:950;letter-spacing:.02em}.secondstreet-brand-tab small{margin-top:3px;color:#64748b;font-size:8px;font-weight:800}.secondstreet-brand-tab em{position:absolute;top:50%;right:9px;display:grid;place-items:center;min-width:24px;height:24px;padding:0 5px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:9px;font-style:normal;font-weight:950;transform:translateY(-50%)}.secondstreet-brand-tab[aria-pressed="true"]{border-color:transparent;background:linear-gradient(135deg,#2563eb,#7c3aed);box-shadow:0 10px 24px rgba(79,70,229,.25);color:#fff}.secondstreet-brand-tab[aria-pressed="true"] small{color:#e0e7ff}.secondstreet-brand-tab[aria-pressed="true"] em{background:#fff;color:#4f46e5}.secondstreet-brand-results{min-height:120px}.secondstreet-brand-empty{margin:12px 0;padding:18px;border:1px dashed #c7d2fe;border-radius:16px;background:#f8faff;color:#64748b;text-align:center;font-size:10px;font-weight:800}
+  @media(max-width:520px){.store-scan-form{grid-template-columns:1fr}.store-scan-form button{min-height:46px}.store-scan-meta{grid-template-columns:1fr 1fr}.store-scan-meta span:last-child{grid-column:1/-1}.brand-role-grid,.brand-model-grid{grid-template-columns:1fr}.store-query-row{grid-template-columns:70px minmax(0,1fr)}.store-query-row em{grid-column:2}.store-query-breakdown-grid{grid-template-columns:1fr}.secondstreet-brand-tab{flex-basis:132px}}
 </style>
 </head>
 <body>
@@ -1761,8 +1762,42 @@ function secondStreetSearchPlanJS_(term){
 function renderSecondStreetPlan_(host,term,breakdown){
   const plan=secondStreetSearchPlanJS_(term),byId=new Map((breakdown||[]).map(x=>[String(x.id)+"|"+String(x.query),x]));host.textContent="";const title=document.createElement("div");title.className="store-query-plan-title";title.innerHTML='<span>🔎 項目別に独立検索</span><small>全文タイトルの一括一致は使いません</small>';host.appendChild(title);plan.forEach((p,i)=>{const b=byId.get(p.id+"|"+p.query),row=document.createElement("div");row.className="store-query-row";const label=document.createElement("b"),q=document.createElement("span"),count=document.createElement("em");label.textContent=(i+1)+". "+p.label;q.textContent=p.query;count.textContent=!b?"未実行":b.status==="blocked"?"取得制限":b.status==="empty"?"検索済み 0件":Number(b.count||0)+"件取得";if(b)count.className=b.status||"";row.append(label,q,count);host.appendChild(row)});return plan;
 }
+function secondStreetBrandKey_(item){
+  const t=String(item&&((item.name||item.title)||"")||"").toUpperCase().replace(/[・･]/g," ");
+  if(/HERM[EÈ]S|エルメス/.test(t))return"hermes";
+  if(/CHRISTIAN\s*DIOR|DIOR|ディオール/.test(t))return"dior";
+  if(/CHANEL|シャネル/.test(t))return"chanel";
+  if(/LOUIS\s*VUITTON|ルイ\s*ヴィトン|ルイヴィトン/.test(t))return"lv";
+  if(/C[EÉ]LINE|セリーヌ/.test(t))return"celine";
+  return"other";
+}
 function portalSecondStreetBreakdown_(body,rec,rows){
-  const plan=Array.isArray(rec.searchPlan)&&rec.searchPlan.length?rec.searchPlan:secondStreetSearchPlanJS_(rec.term||""),breakdown=Array.isArray(rec.queryBreakdown)?rec.queryBreakdown:[],box=document.createElement("section");box.className="store-query-breakdown";box.innerHTML='<h3>検索項目ごとの結果</h3><p>ブランド・モデル・型番・ライン／色を別検索し、各結果を混ぜずに表示します。</p><div class="store-query-breakdown-grid"></div>';const grid=box.querySelector(".store-query-breakdown-grid");plan.forEach(p=>{const b=breakdown.find(x=>String(x.id)===String(p.id)&&String(x.query)===String(p.query)),card=document.createElement("div");card.className="store-query-breakdown-card";const label=document.createElement("b"),query=document.createElement("span"),count=document.createElement("small");label.textContent=p.label;query.textContent=p.query;count.className=b&&b.status||"pending";count.textContent=!b?"未実行（最新版GAS反映後に取得）":b.status==="blocked"?"取得制限中（0件ではありません）":b.status==="empty"?"検索完了・該当0件":Number(b.count||0)+"件取得";card.append(label,query,count);grid.appendChild(card)});body.appendChild(box);let grouped=0;plan.forEach(p=>{const group=rows.filter(x=>(x.searchGroups||[]).some(g=>String(g.id)===String(p.id)&&String(g.query)===String(p.query)));if(!group.length)return;grouped+=group.length;portalSection_(body,p.label+"検索："+p.query,group,"secondstreet","","この検索項目に一致した在庫 "+group.length+"件。ほかの検索項目とは分けて表示しています。")});const rest=rows.filter(x=>!(x.searchGroups||[]).length);if(rest.length)portalSection_(body,"保存在庫・共通候補",rest,"secondstreet","","旧版で保存済み、または項目分類前の公式在庫です。");return grouped;
+  const plan=Array.isArray(rec.searchPlan)&&rec.searchPlan.length?rec.searchPlan:secondStreetSearchPlanJS_(rec.term||""),breakdown=Array.isArray(rec.queryBreakdown)?rec.queryBreakdown:[],box=document.createElement("section");
+  box.className="store-query-breakdown";
+  box.innerHTML='<h3>検索項目ごとの結果</h3><p>ブランド・モデル・型番・ライン／色を別検索し、各結果を混ぜずに表示します。</p><div class="store-query-breakdown-grid"></div><div class="secondstreet-brand-title"><span>🏷️ ブランド別にすぐ表示</span><small>押すだけで即切替</small></div><div class="secondstreet-brand-tabs" role="tablist" aria-label="セカンドストリートのブランド絞り込み"></div>';
+  const grid=box.querySelector(".store-query-breakdown-grid");
+  plan.forEach(p=>{const b=breakdown.find(x=>String(x.id)===String(p.id)&&String(x.query)===String(p.query)),card=document.createElement("div");card.className="store-query-breakdown-card";const label=document.createElement("b"),query=document.createElement("span"),count=document.createElement("small");label.textContent=p.label;query.textContent=p.query;count.className=b&&b.status||"pending";count.textContent=!b?"未実行（最新版GAS反映後に取得）":b.status==="blocked"?"取得制限中（0件ではありません）":b.status==="empty"?"検索完了・該当0件":Number(b.count||0)+"件取得";card.append(label,query,count);grid.appendChild(card)});
+  body.appendChild(box);
+  const resultHost=document.createElement("div");resultHost.className="secondstreet-brand-results";body.appendChild(resultHost);
+  const brands=[
+    {key:"all",main:"すべて",sub:"全ブランド"},
+    {key:"hermes",main:"HERMÈS",sub:"エルメス"},
+    {key:"dior",main:"DIOR",sub:"ディオール"},
+    {key:"chanel",main:"CHANEL",sub:"シャネル"},
+    {key:"lv",main:"LOUIS VUITTON",sub:"ルイ・ヴィトン"},
+    {key:"celine",main:"CELINE",sub:"セリーヌ"}
+  ];
+  const tabs=box.querySelector(".secondstreet-brand-tabs"),buttons=[];
+  function showBrand(key){
+    const def=brands.find(b=>b.key===key)||brands[0],filtered=key==="all"?rows:rows.filter(x=>secondStreetBrandKey_(x)===key);
+    buttons.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.brand===key)));
+    resultHost.textContent="";
+    if(filtered.length)portalSection_(resultHost,def.main+"（"+def.sub+"）の取得商品",filtered,"secondstreet","",filtered.length+"件をブランド一致で表示中。商品カードから相場・ROI・元ページを確認できます。");
+    else{const empty=document.createElement("div");empty.className="secondstreet-brand-empty";empty.textContent=def.main+"（"+def.sub+"）は現在の保存在庫にありません。5分巡回で取得後、このボタンに自動反映します。";resultHost.appendChild(empty)}
+  }
+  brands.forEach(def=>{const filtered=def.key==="all"?rows:rows.filter(x=>secondStreetBrandKey_(x)===def.key),btn=document.createElement("button");btn.type="button";btn.className="secondstreet-brand-tab";btn.dataset.brand=def.key;btn.setAttribute("role","tab");btn.setAttribute("aria-pressed",String(def.key==="all"));const main=document.createElement("strong"),sub=document.createElement("small"),count=document.createElement("em");main.textContent=def.main;sub.textContent=def.sub;count.textContent=String(filtered.length);btn.append(main,sub,count);btn.addEventListener("click",()=>showBrand(def.key));buttons.push(btn);tabs.appendChild(btn)});
+  showBrand("all");
+  return rows.length;
 }
 function portalStoreControl_(body,key,cfg){
   const supported=new Set(["offmall","yahoo","fleamarket","jmty","komehyo","brandoff","daikokuya","secondstreet"]);if(!supported.has(key))return;
