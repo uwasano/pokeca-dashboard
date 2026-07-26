@@ -2186,8 +2186,8 @@ function sortHermesByPopularity_(rows){
   const rank=new Map(HERMES_POPULAR_MODELS.map((x,i)=>[x.key,i]));
   return [...rows].sort((a,b)=>(rank.get(hermesModelKey_(a))??999)-(rank.get(hermesModelKey_(b))??999)||Number(b&&b.price||0)-Number(a&&a.price||0));
 }
-function renderHermesModelBrowser_(host,storeRows,storeKey="secondstreet"){
-  const allRows=allHermesInventoryRows_(),hasGlobal=allRows.length>storeRows.length;let scope=hasGlobal?"all":"store",activeModel="all";
+function renderHermesModelBrowser_(host,storeRows,storeKey="secondstreet",defaultScope="auto"){
+  const allRows=allHermesInventoryRows_(),hasGlobal=allRows.length>storeRows.length;let scope=defaultScope==="store"?"store":hasGlobal?"all":"store",activeModel="all";
   const panel=document.createElement("section");panel.className="hermes-model-panel";
   panel.innerHTML='<div class="hermes-model-head"><div><strong>🏆 HERMÈS 人気バッグ順</strong><small>バーキン・ケリー・エヴリンなどを全店舗横断でモデル別に表示</small></div><span class="hermes-model-rank">全モデル＋その他</span></div><div class="hermes-model-scope" role="group" aria-label="エルメス在庫の表示範囲"><button type="button" data-scope="all">🌐 全店舗の取得在庫</button><button type="button" data-scope="store">🏬 この店だけ</button></div><div class="hermes-model-source-strip" aria-label="店舗別のエルメス取得件数"></div><div class="hermes-model-api"><i></i><span></span></div><div class="hermes-model-tabs" role="tablist" aria-label="エルメスの人気バッグモデル絞り込み"></div><p class="hermes-model-note">取得済みの商品は1件も捨てません。モデル名が未記載の商品も「その他のエルメス」に残します。</p>';
   host.appendChild(panel);const tabs=panel.querySelector(".hermes-model-tabs"),list=document.createElement("div");host.appendChild(list);
@@ -2234,6 +2234,37 @@ function portalSecondStreetBreakdown_(body,rec,rows){
   showBrand("all");
   return rows.length;
 }
+function renderMercariMajorModelBrowser_(host,rows,brandKey){
+  const cfg=BRAND_RANK_CONFIG[brandKey];if(!cfg)return 0;const panel=document.createElement("section");panel.className="hermes-model-panel mercari-major-models";
+  panel.innerHTML='<div class="hermes-model-head"><div><strong></strong><small>主要モデルを完全分離し、別モデルを同じ相場へ混ぜません</small></div><span class="hermes-model-rank">メルカリ取得在庫</span></div><div class="hermes-model-tabs" role="tablist"></div><p class="hermes-model-note">モデル名が判定できないバッグも「その他」に残し、取得商品そのものは消しません。</p>';
+  panel.querySelector("strong").textContent="🏆 "+cfg.label+" 主要モデル";panel.querySelector(".hermes-model-tabs").setAttribute("aria-label",cfg.label+"の主要モデル絞り込み");host.appendChild(panel);const tabs=panel.querySelector(".hermes-model-tabs"),list=document.createElement("div");host.appendChild(list);
+  const defs=[...cfg.models.filter(m=>m.key!=="all"),{key:"other",en:"OTHER",jp:"その他のバッグ",re:null}],buttons=[];let active="all";
+  const modelKey=x=>brandRankModel_(x,brandKey)||"other",modelRows=key=>key==="all"?rows:rows.filter(x=>modelKey(x)===key);
+  function showModel(key){active=key;buttons.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.model===key)));list.textContent="";const def=key==="all"?{en:"ALL "+cfg.label,jp:"主要バッグすべて"}:defs.find(x=>x.key===key)||defs[defs.length-1],filtered=modelRows(key);if(filtered.length)portalSection_(list,cfg.label+"・"+def.jp,filtered,"mercari","",filtered.length+"件をモデル単位で表示。SOLD成約・純利益・ROI・回転率・AI診断を商品ごとに確認できます。");else{const empty=document.createElement("div");empty.className="secondstreet-brand-empty";empty.textContent=def.jp+"は現在のメルカリ保存在庫にありません。優先巡回または通常ローテーションの取得後、ここへ自動表示します。";list.appendChild(empty)}}
+  [{key:"all",en:"ALL "+cfg.label,jp:"すべて"},...defs].forEach((def,i)=>{const filtered=modelRows(def.key),btn=document.createElement("button");btn.type="button";btn.className="hermes-model-tab";btn.dataset.model=def.key;btn.setAttribute("role","tab");btn.setAttribute("aria-pressed",String(def.key===active));const main=document.createElement("strong"),sub=document.createElement("small"),count=document.createElement("em");main.textContent=(i&&def.key!=="other"?i+". ":"")+def.en;sub.textContent=def.jp;count.textContent=String(filtered.length);btn.append(main,sub,count);btn.addEventListener("click",()=>showModel(def.key));buttons.push(btn);tabs.appendChild(btn)});
+  showModel("all");return rows.length;
+}
+function portalMercariBrandBreakdown_(body,rows){
+  const box=document.createElement("section");box.className="store-query-breakdown mercari-brand-breakdown";
+  box.innerHTML='<div class="secondstreet-brand-title"><span>👜 メルカリ・ブランド取得在庫</span><small>HERMÈS主要8モデルを5分巡回で毎回優先</small></div><p>メルカリから取得した現在出品をブランド別に分離しています。エルメスはバッグのモデル別まで掘り下げ、財布・小物を混ぜません。</p><div class="secondstreet-brand-tabs" role="tablist" aria-label="メルカリ取得商品のブランド絞り込み"></div>';
+  body.appendChild(box);const resultHost=document.createElement("div");resultHost.className="secondstreet-brand-results";body.appendChild(resultHost);
+  const brands=[
+    {key:"all",main:"すべて",sub:"全ブランド"},{key:"hermes",main:"HERMÈS",sub:"エルメス"},
+    {key:"dior",main:"DIOR",sub:"ディオール"},{key:"chanel",main:"CHANEL",sub:"シャネル"},
+    {key:"lv",main:"LOUIS VUITTON",sub:"ルイ・ヴィトン"},{key:"celine",main:"CELINE",sub:"セリーヌ"},
+    {key:"other",main:"OTHER",sub:"その他"}
+  ],tabs=box.querySelector(".secondstreet-brand-tabs"),buttons=[];
+  const filterRows=key=>key==="all"?rows:rows.filter(x=>secondStreetBrandKey_(x)===key);
+  function showBrand(key){
+    const def=brands.find(b=>b.key===key)||brands[0],filtered=filterRows(key);buttons.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.brand===key)));resultHost.textContent="";
+    if(key==="hermes")renderHermesModelBrowser_(resultHost,filtered,"mercari","store");
+    else if(["dior","chanel","lv"].includes(key))renderMercariMajorModelBrowser_(resultHost,filtered,key);
+    else if(filtered.length)portalSection_(resultHost,def.main+"（"+def.sub+"）のメルカリ取得商品",filtered,"mercari","",filtered.length+"件を表示。各カードで仕入れ額・完全一致成約・純利益・ROI・回転率・AI診断を確認できます。");
+    else{const empty=document.createElement("div");empty.className="secondstreet-brand-empty";empty.textContent=def.main+"（"+def.sub+"）は現在の保存在庫にありません。固定巡回または次の5分巡回で取得後、このタブへ自動表示します。";resultHost.appendChild(empty)}
+  }
+  brands.forEach(def=>{const filtered=filterRows(def.key),btn=document.createElement("button");btn.type="button";btn.className="secondstreet-brand-tab";btn.dataset.brand=def.key;btn.setAttribute("role","tab");btn.setAttribute("aria-pressed",String(def.key==="hermes"));const main=document.createElement("strong"),sub=document.createElement("small"),count=document.createElement("em");main.textContent=def.main;sub.textContent=def.sub;count.textContent=String(filtered.length);btn.append(main,sub,count);btn.addEventListener("click",()=>showBrand(def.key));buttons.push(btn);tabs.appendChild(btn)});
+  showBrand(filterRows("hermes").length?"hermes":"all");return rows.length;
+}
 function portalStoreControl_(body,key,cfg){
   const supported=new Set(["offmall","yahoo","fleamarket","jmty","komehyo","brandoff","daikokuya","secondstreet"]);if(!supported.has(key))return;
   const rec=ALERTS&&ALERTS.sourceInventory&&ALERTS.sourceInventory[key]||{},all=((ALERTS&&ALERTS.alerts)||[]).map(verifyAlertProfit),fallbackRows=acquiredRowsForMarket_(key,cfg,all),hasSaved=Array.isArray(rec.items)&&rec.items.length>0,legacyData=!hasSaved&&fallbackRows.length>0,rawStatus=String(rec.status||"not_run"),status=legacyData?"legacy_data":hasSaved&&new Set(["empty","blocked","error"]).has(rawStatus)?"saved_data":rawStatus,statusLabel=status==="saved_data"?("保存在庫"+rec.items.length+"件・再取得待ち"):{ok:"取得成功",legacy_data:"既存取得データ",empty:"今回0件",blocked:"取得制限中",error:"取得エラー",not_run:storeInventoryApiReady_()?"未取得":"GAS更新待ち"}[status]||status;
@@ -2258,10 +2289,11 @@ function openMarketPortal(key,pushHash=true){
     portalSection_(body,"eBayから仕入れる輸入利益候補",importRows,"ebayImport","eBayの価格・送料・税・為替を含む輸入候補を取得中です。","商品価格・国際送料・税・通関費を含む着地原価と、国内成約相場を対比しています。");
     const dc=renderEbayDataCenter(all);dc.removeAttribute("id");dc.open=true;body.appendChild(dc);
   }else if(key==="mercari"){
-    const listings=(DATA&&DATA.listings||[]).filter(x=>!x.soldOut),sold=(DATA&&DATA.sold||[]).filter(x=>x.saleVerified===true||x.verification==="item_page_sold_out"),soldRows=mercariSoldPortalRows_(sold),listingRows=mercariListingPortalRows_(listings,soldRows),actionable=[...sourceRows,...listingRows.filter(x=>{const d=marketDecision_(x,"mercari");return d.cls==="now"||d.cls==="candidate"})].filter((x,i,a)=>{const k=marketItemUrl_(x)||String(x.itemId||x.name||x.title||"");return a.findIndex(y=>(marketItemUrl_(y)||String(y.itemId||y.name||y.title||""))===k)===i}),soldPrices=soldRows.map(x=>Number(x.price||0)).filter(n=>n>0),soldMedian=soldPrices.length?median(soldPrices):0,profitable=listingRows.map(x=>marketDecision_(x,"mercari")).filter(d=>d.reliable&&d.profit>0&&d.roi!==null),avgRoi=profitable.length?Math.round(profitable.reduce((n,d)=>n+d.roi,0)/profitable.length):null;
-    portalKpis_(body,[["現在出品",listingRows.length+"件"],["🔥 すぐ確認",actionable.length+"件"],["SOLD成約証拠",soldRows.length+"件"],["成約価格中央値",soldMedian?yen(soldMedian):"取得中"],["利益候補の平均ROI",avgRoi===null?"算定中":avgRoi+"%"]]);
+    const listings=(DATA&&DATA.listings||[]).filter(x=>!x.soldOut),sold=(DATA&&DATA.sold||[]).filter(x=>x.saleVerified===true||x.verification==="item_page_sold_out"),soldRows=mercariSoldPortalRows_(sold),listingRows=mercariListingPortalRows_(listings,soldRows),currentRows=[...sourceRows,...listingRows].filter((x,i,a)=>{const k=marketItemUrl_(x)||String(x.itemId||x.name||x.title||"");return a.findIndex(y=>(marketItemUrl_(y)||String(y.itemId||y.name||y.title||""))===k)===i}),actionable=currentRows.filter(x=>{const d=marketDecision_(x,"mercari");return d.cls==="now"||d.cls==="candidate"}),soldPrices=soldRows.map(x=>Number(x.price||0)).filter(n=>n>0),soldMedian=soldPrices.length?median(soldPrices):0,profitable=currentRows.map(x=>marketDecision_(x,"mercari")).filter(d=>d.reliable&&d.profit>0&&d.roi!==null),avgRoi=profitable.length?Math.round(profitable.reduce((n,d)=>n+d.roi,0)/profitable.length):null,hermesN=currentRows.filter(x=>secondStreetBrandKey_(x)==="hermes"&&isHermesBagRow_(x)).length;
+    portalKpis_(body,[["現在出品",currentRows.length+"件"],["HERMÈSバッグ",hermesN+"件"],["🔥 すぐ確認",actionable.length+"件"],["SOLD成約証拠",soldRows.length+"件"],["成約価格中央値",soldMedian?yen(soldMedian):"取得中"],["利益候補の平均ROI",avgRoi===null?"算定中":avgRoi+"%"]]);
+    portalMercariBrandBreakdown_(body,currentRows);
     portalSection_(body,"🔥 今すぐ確認する利益候補",actionable,"mercari","完全一致成約を対比できる利益候補を取得中です。","成約3件以上、純利益・ROI・回転率を満たす商品を優先。商品ページとAI診断で最終確認してください。");
-    portalSection_(body,"取得した現在出品（成約相場と対比済み）",listingRows,"mercari","現在出品を取得中です。","仕入れ総額と同一商品の成約中央値を並べ、手数料・送料控除後の純利益とROIを表示します。");
+    portalSection_(body,"取得した現在出品（成約相場と対比済み）",currentRows,"mercari","現在出品を取得中です。","仕入れ総額と同一商品の成約中央値を並べ、手数料・送料控除後の純利益とROIを表示します。");
     portalSection_(body,"成約相場・回転率の根拠（SOLD確認済み）",soldRows,"sold","売却済み検索と商品ページ確認を続けています。0件とは断定しません。","ここは購入候補ではありません。現在出品の売価・価格幅・回転率・ROIを計算するための実売証拠です。");
   }else if(key==="jmty"){
     const decisions=sourceRows.map(x=>marketDecision_(x,"jmty")),verified=decisions.filter(d=>d.soldN>=3),evidenceN=decisions.reduce((n,d)=>n+d.rows.length,0),meds=decisions.map(d=>d.market).filter(n=>n>0),marketMed=meds.length?median(meds):0,ready=decisions.filter(d=>d.cls==="now"||d.cls==="candidate").length;
