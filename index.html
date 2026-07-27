@@ -528,6 +528,7 @@ header{align-items:center;margin-bottom:14px}
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_camera" checked> 📷 カメラ</label><span>CAMERA</span></div><textarea id="cfg_terms_camera" placeholder="例: SONY α7 III&#10;例: Nikon D850&#10;例: RICOH GR III"></textarea><div class="search-cat-hint">カメラ本体だけの検索語。レンズ語とは混ざりません。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_lens" checked> 🔭 レンズ</label><span>LENS</span></div><textarea id="cfg_terms_lens" placeholder="例: Canon RF 24-70mm F2.8&#10;例: SONY 24-70 GM II"></textarea><div class="search-cat-hint">焦点距離・マウント・世代を含めて指定できます。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_brand" checked> 👜 ブランド</label><span>BRAND</span></div><textarea id="cfg_terms_brand" placeholder="追加で絞る時だけ入力&#10;例: HERMES ピコタンロック 18 ブラック&#10;例: DIOR レディディオール ミディアム"></textarea><div class="search-cat-hint">初期監視の81検索語は空欄でも自動巡回。追加語はモデル・サイズ・素材・色まで書くと照合が正確です。</div></section>
+        <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_brandy" checked> 🥃 高級ブランデー</label><span>BRANDY</span></div><textarea id="cfg_terms_brandy" placeholder="例: レミーマルタン ルイ13世 700ml 未開栓&#10;例: ヘネシー リシャール 700ml 未開栓"></textarea><div class="search-cat-hint">ルイ13世とリシャールを別商品として監視。容量・未開栓を照合し、空瓶・箱・替栓・ミニボトルは本体相場へ混ぜません。</div></section>
         <section class="brand-focus" aria-label="初期監視ブランドとモデル"><div class="brand-focus-head"><b>🎯 初期監視プログラム</b><span>5ブランド / 81検索語＋その他</span></div><div class="brand-role-grid"><div><strong>高利益枠</strong><small>HERMÈS・DIOR・CHANEL<br>絶対利益と真贋確認を重視</small></div><div><strong>データ量・回転枠</strong><small>LOUIS VUITTON<br>出品数と同一商品照合を蓄積</small></div><div><strong>ヴィンテージ価格差枠</strong><small>CELINE<br>マカダム・旧型の評価差を検出</small></div></div><details class="brand-model-fold"><summary>対象モデルを人気順で確認する</summary><div class="brand-model-grid"><div><b>1. HERMÈS（エルメス）24＋その他</b>バーキン / ケリー / コンスタンス / ピコタンロック / エヴリン（エブリン） / リンディ / ボリード / ガーデンパーティ / エールバッグ / ジプシエール / アルザン / ルリ / ヴェルー / プリュム / ヴィクトリア / ドゥブルセンス / デッラ・カヴァッレリア / イン・ザ・ループ / 24/24 / ゲタ / シルキーシティ / スティープル / マーケット / サック・ア・デペッシュ。名称不明も「その他」に保存</div><div><b>2. DIOR（ディオール）8</b>レディディオール / サドルバッグ / ブックトート / ボビー / 30モンテーニュ / カロ / ディオラマ / トロッター・オブリーク</div><div><b>3. CHANEL（シャネル）6</b>クラシックフラップ / マトラッセ / ミニフラップ / ボーイシャネル / ココハンドル / ヴィンテージチェーンショルダー</div><div><b>4. LOUIS VUITTON（ルイ・ヴィトン）41検索語</b>ネヴァーフル / スピーディ / アルマ / ネオノエ / ノエ / ポシェット・メティス / マルチ・ポシェット・アクセソワール / ポシェット・アクセソワール / オンザゴー / パームスプリングス / モンスリ / キーポル / サックプラ / ソミュール / ルーピング / トロカデロ / ブロワ / リポーター / ドーフィーヌ / カプシーヌ / ツイスト / オデオン / アマゾン / サンクルー / パピヨン / ミュゼット / バケット / バティニョール / アルツィー / グレースフル / ディライトフル / トータリー / カバ / プティット・マル / ロックミー。さらに6つのバッグ形状を巡回</div><div><b>5. CELINE（セリーヌ）2</b>トリオンフ / マカダム・ヴィンテージショルダー</div></div></details><p class="brand-focus-note">ヴィトンは最大200件の専用枠で保存し、35モデルと6つのバッグ形状から確認できます。他ブランドに件数を押し出されません。</p></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_pokeca" checked> 🎴 ポケカ</label><span>POKÉCA</span></div><textarea id="cfg_terms_pokeca" placeholder="例: ギラティナV SA&#10;例: 205/172 PSA10"></textarea><div class="search-cat-hint">カード名・カード番号・鑑定グレードを指定できます。</div></section>
         <section class="search-cat-card"><div class="search-cat-head"><label class="chkline"><input type="checkbox" id="cfg_bundle" checked> 📦 まとめ売り</label><span>BUNDLE</span></div><textarea id="cfg_terms_bundle" placeholder="例: カメラ まとめ売り&#10;例: レンズ 一式"></textarea><div class="search-cat-hint">単品相場には混ぜず、まとめ売り枠として探します。</div></section>
@@ -590,10 +591,11 @@ header{align-items:center;margin-bottom:14px}
     <div class="quick-search-head"><div><span class="qs-kicker">LIVE MARKET DISCOVERY</span><strong>⚡ 収益商品ディスカバリー</strong><p>複数市場の価格・成約証拠・ROIを一画面で比較</p></div><span class="qs-live">4市場＋専門店を横断</span></div>
     <div class="discovery-source-strip" id="discoverySourceLogos" aria-label="収益商品ディスカバリーの取得先"><span class="discovery-source-label">取得先</span></div>
     <div class="quick-search-form">
-      <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="brand" selected>👜 ブランドバッグ</option><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
+      <select id="quickSearchCat" aria-label="商品カテゴリ"><option value="brand" selected>👜 ブランドバッグ</option><option value="brandy">🥃 高級ブランデー</option><option value="camera">📷 カメラ</option><option value="lens">🔭 レンズ</option><option value="pokeca">🃏 ポケカ</option><option value="bundle">📦 まとめ商品</option></select>
       <input id="quickSearchTerm" type="search" maxlength="100" placeholder="例: HERMES バーキン 30 トゴ 黒" autocomplete="off">
       <button id="quickSearchBtn" type="button">一括取得＋安い仕入れ先比較</button>
     </div>
+    <details class="brand-model-fold" style="margin-top:10px"><summary>🥃 高級ブランデーをモデル別に探す</summary><div class="recent-model-grid" style="margin-top:10px"><button class="recent-model-chip brandy-search-chip" type="button" data-term="レミーマルタン ルイ13世 700ml 未開栓"><strong>RÉMY MARTIN LOUIS XIII</strong><small>レミーマルタン ルイ13世</small></button><button class="recent-model-chip brandy-search-chip" type="button" data-term="ヘネシー リシャール 700ml 未開栓"><strong>HENNESSY RICHARD</strong><small>ヘネシー リシャール</small></button></div><p class="brand-focus-note">本体（液体入り）・容量・未開栓状態が一致する成約だけで利益を計算します。酒類販売免許、20歳未満への販売禁止、配送条件も購入前に確認してください。</p></details>
     <div class="recent-model-search">
       <button id="recentModelBtn" class="recent-model-trigger" type="button" aria-expanded="false" aria-controls="recentModelPanel"><span><b>✨ 近年モデルを探す</b><small>最近登場したブランドバッグをモデル名から即検索</small></span><i>⌄</i></button>
       <div id="recentModelPanel" class="recent-model-panel" hidden>
@@ -887,7 +889,7 @@ function showInstantBuyToasts(alerts){
 }
 function showEbayProfitToasts(alerts){
  const priority=a=>{const e=a.detail.eb||{},sold=!!e.soldVerified?Math.min(10,Number(e.soldN||0))*2500:0;return sold+Number(e.profitJpy||0)+Math.min(200,Number(e.roi||0))*120};
- const deals=(alerts||[]).filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.strong)===1).sort((a,b)=>priority(b)-priority(a)).slice(0,1);
+ const deals=(alerts||[]).filter(a=>a.detail&&a.detail.eb&&Number(a.detail.eb.strong)===1&&!accessoryOnlyListingJS_(a.name||a.title)).sort((a,b)=>priority(b)-priority(a)).slice(0,1);
  if(!deals.length)return;let stack=document.querySelector(".deal-toast-stack");if(!stack){stack=document.createElement("div");stack.className="deal-toast-stack";stack.setAttribute("aria-live","polite");document.body.appendChild(stack);}
  for(const a of deals){const e=a.detail.eb,key="ebay:"+(a.url||a.name);if(TOASTED.has(key))continue;TOASTED.add(key);const t=document.createElement("aside");t.className="deal-toast ebay";
   const verified=!!e.soldVerified&&Number(e.soldN||0)>0;t.className="deal-toast ebay compact";
@@ -900,7 +902,9 @@ function discoveryBrandKey_(a){const d=a&&a.detail||{},br=String(d.br||"").toUpp
 function diversifyDiscoveryRows_(rows){const buckets=new Map(),other=[];(rows||[]).forEach(a=>{const k=discoveryBrandKey_(a);if(k==="OTHER"){other.push(a);return}if(!buckets.has(k))buckets.set(k,[]);buckets.get(k).push(a)});if(buckets.size<2)return rows;const out=[];while([...buckets.values()].some(v=>v.length)){const keys=[...buckets.keys()].filter(k=>buckets.get(k).length).sort((x,y)=>Number((buckets.get(y)[0]||{}).adjProfit||0)-Number((buckets.get(x)[0]||{}).adjProfit||0));keys.forEach(k=>out.push(buckets.get(k).shift()));}return out.concat(other);}
 // GAS更新前でも、検証済み即売価格から利益を再計算して古い保存利益の表示を止める。
 function verifyAlertProfit(a){
- const d=a.detail||{},saddle=diorSaddleVariantJS_(a.name,d.k);if(saddle==="unknown"){a.rank="C";a.adjProfit=0;d.pf=0;d.marketPending=1;d.saddleLabel="柄・素材確認待ち";a._profitVerified=false;return a}if(saddle==="vintage_canvas"&&!/SADDLEVINTAGECANVAS/.test(String(d.k||""))){if(!d._saddleLegacyAdjusted){d.q=Math.round(Number(d.q||0)*.70);d._saddleLegacyAdjusted=1;}d.saddleLabel="旧トロッター相場へ補正";}else if(saddle==="vintage_canvas")d.saddleLabel="旧トロッター／キャンバス";else if(saddle==="leather")d.saddleLabel="レザー系";if(!(Number(d.q)>0)||!(Number(a.buy)>0))return a;
+ const d=a.detail||{};
+ if(accessoryOnlyListingJS_(a.name||a.title)){a.rank="C";a.adjProfit=0;a.soldN=0;d.pf=0;d.q=0;d.n=0;d.accessoryOnly=1;d.exclusionReason="商品本体ではなく箱・付属品セット";if(d.eb){d.eb.profitJpy=0;d.eb.roi=0;d.eb.strong=0;d.eb.soldVerified=false;d.eb.soldN=0}a._profitVerified=false;return a}
+ const saddle=diorSaddleVariantJS_(a.name,d.k);if(saddle==="unknown"){a.rank="C";a.adjProfit=0;d.pf=0;d.marketPending=1;d.saddleLabel="柄・素材確認待ち";a._profitVerified=false;return a}if(saddle==="vintage_canvas"&&!/SADDLEVINTAGECANVAS/.test(String(d.k||""))){if(!d._saddleLegacyAdjusted){d.q=Math.round(Number(d.q||0)*.70);d._saddleLegacyAdjusted=1;}d.saddleLabel="旧トロッター相場へ補正";}else if(saddle==="vintage_canvas")d.saddleLabel="旧トロッター／キャンバス";else if(saddle==="leather")d.saddleLabel="レザー系";if(!(Number(d.q)>0)||!(Number(a.buy)>0))return a;
  const c=revenueCostJS(a.category||a.cat,a.name),feeRate=Number(d.fr||FEE_RATE),saleFee=Number(d.sf||Math.round(Number(d.q)*feeRate));
  const saleShip=Number(d.ss||c.ship),pack=Number(d.pk||c.pack),buyShip=Number(d.ps||(!d.psk?c.buyShip:0));
  const gross=Math.round(Number(d.q)-saleFee-saleShip-pack-Number(a.buy)-buyShip-Number(d.xrc||0));
@@ -954,7 +958,7 @@ function computeArbitrage(d){
   }
   return rows.sort((a,b)=>b.profit-a.profit);
 }
-const CATS=[{k:"all",label:"🌐 すべて"},{k:"pokeca",label:"🎴 ポケカ"},{k:"camera",label:"📷 カメラ"},{k:"lens",label:"🔭 レンズ"},{k:"brand",label:"👜 ブランド"},{k:"bundle",label:"📦 まとめ売り"}];
+const CATS=[{k:"all",label:"🌐 すべて"},{k:"pokeca",label:"🎴 ポケカ"},{k:"camera",label:"📷 カメラ"},{k:"lens",label:"🔭 レンズ"},{k:"brand",label:"👜 ブランド"},{k:"brandy",label:"🥃 ブランデー"},{k:"bundle",label:"📦 まとめ売り"}];
 
 /* 区分(相場を混ぜてはいけない軸)。
    ポケカ: 鑑定グレード / カメラ・レンズ: 動作区分(§3-3: 動作品・未確認・故障を同一相場にしない) */
@@ -1019,8 +1023,16 @@ function ricohGRKeyJS(t){
   if(/RICOH|リコー/.test(t)&&/(?:^|[^A-Z])GR(?![A-Z0-9])/.test(t))return "RICOH GR";
   return "";
 }
+function accessoryOnlyListingJS_(title){
+  const t=String(title||"").toUpperCase().replace(/\s+/g," ");
+  if(/\b(?:BOX|DUST\s*BAG|CLOCHETTE|PADLOCK|LOCK|KEYS?|RIBBON|FELT|RAIN\s*COVER|BOOKLET|SHOPPING\s*BAG)\s+ONLY\b|\bEMPTY\s+BOX\b|\bNO\s+BAG\b|\bBAG\s+NOT\s+INCLUDED\b|\bACCESSOR(?:Y|IES)\s+ONLY\b|付属品のみ|本体なし|バッグ本体なし|空箱|箱のみ|保存袋のみ|クロシェットのみ|カデナのみ|鍵のみ|リボンのみ|フェルトのみ/.test(t))return true;
+  const tokens=[/\bBOX\b/,/\bCLOCHETTE\b/,/\bRIBBON\b/,/\bFELT\b/,/\bDUST\s*BAG\b/,/\bRAIN\s*COVER\b/,/\bPADLOCK\b/,/\bKEYS?\b/,/\bBOOKLET\b/,/\bSHOPPING\s*BAG\b/].filter(re=>re.test(t)).length;
+  const bundle=/\bORIGINAL\s+SET\b|\bACCESSOR(?:Y|IES)\s+SET\b|\bPACKAGING\s+SET\b|\bSET\s+OF\b/.test(t),bodyProof=/\b(?:TOGO|EPSOM|CLEMENCE|SWIFT|LEATHER|CALFSKIN|LAMBSKIN|CROCODILE|ALLIGATOR|OSTRICH)\b|トゴ|エプソン|クレマンス|スイフト|レザー|カーフ|クロコ|アリゲーター|オーストリッチ/.test(t);
+  return bundle&&tokens>=3&&!bodyProof;
+}
 function modelKeyJS(title,cat){
   let t=(title||"").toUpperCase().replace(/[０-９]/g,d=>"０１２３４５６７８９".indexOf(d)).replace(/[Ａ-Ｚ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/Ⅳ/g,"IV").replace(/Ⅲ/g,"III").replace(/Ⅱ/g,"II").replace(/Ⅰ/g,"I").replace(/\s+/g," ");
+  if(cat==="brand"&&accessoryOnlyListingJS_(t))return "";
   const brand=brandOf(t);
   if(cat==="brand"){
     if(!/ヴィトン|ビトン|VUITTON/.test(t)){
@@ -1710,10 +1722,10 @@ async function pollSellerRadarScan_(requestId,startedAt){
 }
 function ebayImportRows_(alerts){
   const saved=ALERTS&&Array.isArray(ALERTS.ebayImports)?ALERTS.ebayImports:[],direct=DIRECT_RESULTS.filter(x=>x&&/^(?:eBay|eBay輸入)$/.test(String(x.source||""))&&(x.detail&&x.detail.importData||x.usd)),legacy=(alerts||[]).filter(x=>x&&(x.source==="eBay輸入"||x.detail&&x.detail.importData)),all=[...direct,...saved,...legacy];
-  return all.map(x=>{if(x.detail&&x.detail.importData)return x;const price=Number(x.price||x.buy||0),profit=x.profit==null?null:Number(x.profit),im={itemUSD:Number(x.usd||0),shipUSD:Number(x.shipUsd||0),image:x.image||"",landedJpy:price,domesticMedianJpy:Number(x.soldMedian||0),domesticEvidenceN:Number(x.soldN||0),profitJpy:profit,roi:price&&profit!==null?Math.round(profit/price*100):null,status:profit===null?"market_pending":profit>=5000?"candidate":profit>0?"low_margin":"no_profit"};return {...x,source:"eBay輸入",buy:price,adjProfit:profit,detail:{...(x.detail||{}),ebayImport:1,importData:im}}}).filter((x,i,a)=>{const k=marketItemUrl_(x)||String(x.name||"");return k&&a.findIndex(y=>(marketItemUrl_(y)||String(y.name||""))===k)===i}).sort((a,b)=>Number((b.detail.importData||{}).profitJpy??b.adjProfit??-999999)-Number((a.detail.importData||{}).profitJpy??a.adjProfit??-999999));
+  return all.map(x=>{if(x.detail&&x.detail.importData)return x;const price=Number(x.price||x.buy||0),profit=x.profit==null?null:Number(x.profit),im={itemUSD:Number(x.usd||0),shipUSD:Number(x.shipUsd||0),image:x.image||"",landedJpy:price,domesticMedianJpy:Number(x.soldMedian||0),domesticEvidenceN:Number(x.soldN||0),profitJpy:profit,roi:price&&profit!==null?Math.round(profit/price*100):null,status:profit===null?"market_pending":profit>=5000?"candidate":profit>0?"low_margin":"no_profit"};return {...x,source:"eBay輸入",buy:price,adjProfit:profit,detail:{...(x.detail||{}),ebayImport:1,importData:im}}}).filter(x=>!accessoryOnlyListingJS_(x.name||x.title)).filter((x,i,a)=>{const k=marketItemUrl_(x)||String(x.name||"");return k&&a.findIndex(y=>(marketItemUrl_(y)||String(y.name||""))===k)===i}).sort((a,b)=>Number((b.detail.importData||{}).profitJpy??b.adjProfit??-999999)-Number((a.detail.importData||{}).profitJpy??a.adjProfit??-999999));
 }
 function renderEbayDataCenter(alerts){
-  const rows=(alerts||[]).filter(a=>a&&a.detail&&a.detail.eb&&Number(a.detail.eb.profitJpy)>0).sort((a,b)=>Number(b.detail.eb.profitJpy||0)-Number(a.detail.eb.profitJpy||0)),importRows=ebayImportRows_(alerts),importCandidates=importRows.filter(x=>Number((x.detail.importData||{}).profitJpy||x.adjProfit||0)>=5000&&Number((x.detail.importData||{}).roi||0)>=20);
+  const rows=(alerts||[]).filter(a=>a&&a.detail&&a.detail.eb&&Number(a.detail.eb.profitJpy)>0&&!accessoryOnlyListingJS_(a.name||a.title)).sort((a,b)=>Number(b.detail.eb.profitJpy||0)-Number(a.detail.eb.profitJpy||0)),importRows=ebayImportRows_(alerts),importCandidates=importRows.filter(x=>Number((x.detail.importData||{}).profitJpy||x.adjProfit||0)>=5000&&Number((x.detail.importData||{}).roi||0)>=20);
   const verified=rows.filter(a=>a.detail.eb.soldVerified&&Number(a.detail.eb.soldN||0)>0),soldTotal=verified.reduce((n,a)=>n+Number(a.detail.eb.soldN||0),0);
   const monthly=verified.map(a=>a.detail.eb.soldMonthlyAvg).filter(x=>x!==null&&x!==undefined&&Number.isFinite(Number(x))),avgMonthly=monthly.length?monthly.reduce((n,x)=>n+Number(x),0)/monthly.length:null;
   const avgProfit=rows.length?Math.round(rows.reduce((n,a)=>n+Number(a.detail.eb.profitJpy||0),0)/rows.length):0,avgActive=rows.length?Math.round(rows.reduce((n,a)=>n+Number(a.detail.eb.n||0),0)/rows.length*10)/10:0;
@@ -1848,7 +1860,7 @@ function profitCertainty_(x,decision,mode){
   const exactN=decision.referenceOnly?0:Number(decision.soldN||0),validDates=rows.map(r=>{if(Number.isFinite(Number(r.age)))return Number(r.age);const t=Date.parse(r.soldAt||"");return Number.isFinite(t)?Math.max(0,Math.round((now-t)/86400000)):null}).filter(v=>v!==null),recentN=validDates.filter(v=>v<=90).length,datesKnown=validDates.length>0;
   const market=Number(decision.market||0),lo=Number(decision.lo||0),hi=Number(decision.hi||0),dispersion=market>0&&lo>0&&hi>0?(hi-lo)/market:null,stressSale=market>0?(lo>0?Math.min(market,lo):Math.round(market*(exactN>=5?.85:.78))):0,profit=decision.profit===null?null:Number(decision.profit),fee=Number.isFinite(Number(FEE_RATE))?Number(FEE_RATE):.1,downsideProfit=profit===null||market<=0?null:Math.round(profit-Math.max(0,market-stressSale)*(1-fee)),downsideRoi=downsideProfit===null||decision.price<=0?null:Math.round(downsideProfit/decision.price*100),riskReserve=profit===null||downsideProfit===null?null:Math.max(0,profit-downsideProfit),breakEven=profit===null||market<=0?null:Math.max(0,Math.round(market-profit/Math.max(.01,1-fee))),safeMaxBuy=downsideProfit===null?null:Math.max(0,Math.round(Number(decision.price||0)+downsideProfit-minProfit));
   const savedDiag=typeof savedProfitDiag_==="function"?savedProfitDiag_(x):null;if(savedDiag&&(x.authenticityRisk===null||x.authenticityRisk===undefined||String(x.authenticityRisk).trim()===""))x.authenticityRisk=savedDiag.authenticityRisk;
-  const identity=Boolean(String(x.modelKey||"").trim()||String(modelKeyJS(title,cat)||"").trim()),url=Boolean(marketItemUrl_(x)),freshListing=x.cacheState!=="cached",nonProduct=/空箱|箱のみ|元箱のみ|ケースのみ|フードのみ|レンズフード|キャップのみ|ボディキャップ|説明書|ユーザーガイド|マニュアル|ストラップのみ|付属品のみ|充電器のみ|バッテリーのみ|部品取り|パーツのみ/i.test(title)||/バッグインバッグ|バッグインバック|bag\s*in\s*bag/i.test(title),authRaw=x.authenticityRisk??x.authRisk??(x.detail&&x.detail.ar)??(x.detail&&x.detail.authenticityRisk),authKnown=authRaw!==null&&authRaw!==undefined&&String(authRaw).trim()!=="",authText=String(authRaw??"").toLowerCase(),authNum=Number(String(authRaw??"").replace(/[^0-9.]/g,"")),highAuth=/high|very high|高|危険/.test(authText)||(authKnown&&Number.isFinite(authNum)&&authNum>=60),mediumAuth=/medium|中/.test(authText)||(authKnown&&Number.isFinite(authNum)&&authNum>=35),authOk=!luxury||(authKnown&&!highAuth&&!mediumAuth);
+  const identity=Boolean(String(x.modelKey||"").trim()||String(modelKeyJS(title,cat)||"").trim()),url=Boolean(marketItemUrl_(x)),freshListing=x.cacheState!=="cached",nonProduct=accessoryOnlyListingJS_(title)||/空箱|箱のみ|元箱のみ|ケースのみ|フードのみ|レンズフード|キャップのみ|ボディキャップ|説明書|ユーザーガイド|マニュアル|ストラップのみ|付属品のみ|充電器のみ|バッテリーのみ|部品取り|パーツのみ/i.test(title)||/バッグインバッグ|バッグインバック|bag\s*in\s*bag/i.test(title),authRaw=x.authenticityRisk??x.authRisk??(x.detail&&x.detail.ar)??(x.detail&&x.detail.authenticityRisk),authKnown=authRaw!==null&&authRaw!==undefined&&String(authRaw).trim()!=="",authText=String(authRaw??"").toLowerCase(),authNum=Number(String(authRaw??"").replace(/[^0-9.]/g,"")),highAuth=/high|very high|高|危険/.test(authText)||(authKnown&&Number.isFinite(authNum)&&authNum>=60),mediumAuth=/medium|中/.test(authText)||(authKnown&&Number.isFinite(authNum)&&authNum>=35),authOk=!luxury||(authKnown&&!highAuth&&!mediumAuth);
   let score=0;score+=exactN>=10?28:exactN>=5?24:exactN>=3?18:exactN>0?8:0;score+=recentN>=3?12:recentN>=1?9:datesKnown?2:0;score+=identity?12:0;score+=dispersion===null?3:dispersion<=.25?12:dispersion<=.45?8:dispersion<=.65?3:0;score+=downsideProfit!==null&&downsideProfit>=minProfit?20:downsideProfit!==null&&downsideProfit>0?10:0;score+=decision.roi!==null&&Number(decision.roi)>=minRoi?8:decision.roi!==null&&Number(decision.roi)>0?4:0;score+=url?4:0;score+=freshListing?4:0;if(nonProduct)score-=40;if(highAuth)score-=25;else if(mediumAuth)score-=10;else if(luxury&&!authKnown)score-=8;score=Math.max(0,Math.min(100,Math.round(score)));
   const blockers=[];if(nonProduct)blockers.push("商品本体ではなく付属品");if(decision.referenceOnly)blockers.push("現在出品は成約証拠ではない");if(decision.provisional)blockers.push("完全一致成約が不足");if(exactN<3)blockers.push("完全一致成約3件未満");if(!datesKnown)blockers.push("成約日の鮮度未確認");else if(recentN<1)blockers.push("直近90日の成約なし");if(!identity)blockers.push("型番・モデル未確定");if(!freshListing)blockers.push("保存キャッシュのため在庫再確認");if(!url)blockers.push("元商品ページなし");if(dispersion!==null&&dispersion>.65)blockers.push("相場幅が大きい");if(highAuth)blockers.push("真贋リスク高");else if(mediumAuth&&!highAuth)blockers.push("真贋リスク中（低リスク確認が必要）");else if(luxury&&!authKnown)blockers.push("真贋判定未実施");if(profit===null)blockers.push("全費用控除後利益なし");else if(downsideProfit===null||downsideProfit<minProfit)blockers.push("下振れ利益が基準未達");if(downsideRoi===null||downsideRoi<minRoi)blockers.push("下振れROIが基準未達");
   let status="VERIFY",label="購入前確認",grade=score>=85?"S":score>=75?"A":score>=60?"B":"C";const ready=!nonProduct&&!decision.referenceOnly&&!decision.provisional&&exactN>=3&&datesKnown&&recentN>=1&&identity&&freshListing&&url&&authOk&&(dispersion===null||dispersion<=.65)&&downsideProfit!==null&&downsideProfit>=minProfit&&downsideRoi!==null&&downsideRoi>=minRoi;if(ready){status="BUY";label="購入条件クリア"}else if(nonProduct){status="PASS";label="対象外（付属品）"}else if(profit!==null&&(profit<=0||downsideProfit!==null&&downsideProfit<=0)){status="PASS";label="見送り"}else if(profit===null||market<=0){status="WAIT";label="成約証拠待ち"}
@@ -1909,7 +1921,7 @@ function brandRankBrand_(x){
  const t=String(x&&x.name||x&&x.title||"");for(const key of Object.keys(BRAND_RANK_CONFIG))if(BRAND_RANK_CONFIG[key].brand.test(t))return key;return"";
 }
 function brandRankModel_(x,brand){
- const cfg=BRAND_RANK_CONFIG[brand],t=String((x&&x.model)||"")+" "+String(x&&x.name||x&&x.title||"");if(!cfg||!cfg.brand.test(t))return"";
+ const cfg=BRAND_RANK_CONFIG[brand],t=String((x&&x.model)||"")+" "+String(x&&x.name||x&&x.title||"");if(!cfg||!cfg.brand.test(t)||accessoryOnlyListingJS_(t))return"";
  const bag=/バッグ|BAG|トート|ショルダー|ハンド|ボストン|リュック|ポシェット|クラッチ|バニティ|メッセンジャー|MESSENGER|ブリーフケース|BRIEFCASE/i.test(t),hardSmall=/バッグチェーン|チェーンのみ|ストラップのみ|ショルダーストラップ|交換用ストラップ/i.test(t),alwaysSmall=/サングラス|眼鏡|メガネ|財布|ウォレット|カードケース|キーケース|バッグチャーム|キーホルダー/i.test(t),small=/チャーム|ペンダント|ネックレス|時計|ベルト|財布|ウォレット|カードケース|キーケース|空箱|保存袋|スカーフ|リング|ピアス/i.test(t);if(hardSmall||alwaysSmall||small&&!bag)return"";
  for(const m of cfg.models)if(m.key!=="all"&&m.re.test(t))return m.key;return bag?"other":"";
 }
@@ -2158,7 +2170,7 @@ function hermesModelKey_(item){
 }
 function hermesFlowSource_(e){const u=String(e&&e.u||e&&e.url||"");if(/mercari\.com/i.test(u))return"mercari";if(/auctions\.yahoo\.co\.jp/i.test(u))return"yahoo";const s=String(e&&e.source||e&&e.src||"").toLowerCase();return /メルカリ|mercari|^m$/.test(s)?"mercari":/ヤフオク|yahoo|^y$/.test(s)?"yahoo":"other"}
 function hermesFlowAge_(e){if(Number.isFinite(Number(e&&e.a)))return Math.max(0,Number(e.a));const at=new Date(e&&e.soldAt||e&&e.seenAt||0).getTime();return at?Math.max(0,Math.floor((Date.now()-at)/86400000)):null}
-function hermesFlowEvidenceEligible_(title){const t=String(title||"");return !/バッグチャーム|チャームのみ|CHARM\s*ONLY|空箱|箱のみ|BOX\s*ONLY|保存袋|カデナのみ|クロシェットのみ|ストラップのみ|STRAP\s*ONLY|ショルダーストラップ|付属品のみ|部品取り|ジャンク|財布|ウォレット|WALLET|カードケース|CARD\s*CASE|キーケース/i.test(t)}
+function hermesFlowEvidenceEligible_(title){const t=String(title||"");return !accessoryOnlyListingJS_(t)&&!/バッグチャーム|チャームのみ|CHARM\s*ONLY|空箱|箱のみ|BOX\s*ONLY|保存袋|カデナのみ|クロシェットのみ|ストラップのみ|STRAP\s*ONLY|ショルダーストラップ|付属品のみ|部品取り|ジャンク|財布|ウォレット|WALLET|カードケース|CARD\s*CASE|キーケース/i.test(t)}
 function hermesFlowSpecDetailed_(title){const t=String(title||"").toUpperCase(),size=/\b(?:TPM|PM|MM|GM|MINI|SMALL|MEDIUM|LARGE|16|18|20|22|25|26|27|28|29|30|31|32|33|35|36|40|42|45|50)(?:CM)?\b|ミニ|スモール|ラージ/.test(t),material=/トゴ|エプソン|クレマンス|スイフト|ボックスカーフ|ヴォー|レザー|キャンバス|アリゲーター|クロコ|オーストリッチ|TOGO|EPSOM|CLEMENCE|SWIFT/.test(t),color=/ブラック|ノワール|ホワイト|エトゥープ|ゴールド|ブルー|レッド|ローズ|グリーン|ベージュ|BLACK|NOIR|WHITE|ETOUPE|BLUE|ROUGE/.test(t);return size&&(material||color)}
 function hermesFlowEvidenceRows_(){
  const out=[],seen=new Set(),add=(e,parent)=>{e=e||{};parent=parent||{};const title=String(e.t||e.title||""),combined=title+" "+String(parent.name||parent.title||"");if(!hermesFlowEvidenceEligible_(title)||!/HERM[EÈ]S|エルメス/i.test(combined)&&!isHermesBagRow_(parent))return;const model=hermesModelKey_({name:combined}),price=Number(e.p||e.price||0),source=hermesFlowSource_(e),url=String(e.u||e.url||"");if(model==="other"||!price||source==="other")return;const age=hermesFlowAge_(e),key=url||[source,title,price,age].join("|");if(seen.has(key))return;seen.add(key);out.push({model,source,title,url,price,age,specDetailed:hermesFlowSpecDetailed_(title)})};
@@ -2405,6 +2417,7 @@ function render(){
     const acatNames={all:"すべて",pokeca:"ポケカ",camera:"カメラ",lens:"レンズ",brand:"ブランド",bundle:"まとめ売り"};const overview=document.createElement("section");overview.className="filter-overview";const ovText=document.createElement("div");const ovTitle=document.createElement("strong");ovTitle.textContent="表示中："+(acatNames[state.acat]||"すべて")+(state.acat==="brand"?" / "+(activeTypeName[state.brandType]||"全商品"):"");const ovSub=document.createElement("small");ovSub.textContent=(state.acat==="brand"?(state.brandName!=="all"?(activeBrandName[state.brandName]||state.brandName):"全ブランド")+" ・ ":"")+(state.src!=="all"?state.src:"全仕入れ先")+" ・ "+(state.rank!=="all"?state.rank+"ランク":"全ランク");ovText.append(ovTitle,ovSub);const reset=document.createElement("button");reset.type="button";reset.className="filter-reset";reset.textContent="絞り込みをリセット";reset.addEventListener("click",()=>{Object.assign(state,{rank:"all",src:"all",acat:"brand",brandName:"all",brandType:"bag",watchOnly:false,instantOnly:false,ebayOnly:false,foreignMarketOnly:false,exportProfitOnly:false,sellerRadarOnly:false,sort:"profit"});render()});overview.append(ovText,reset);board.appendChild(overview);
     const group=(title,extra="")=>{const g=document.createElement("section");g.className="filter-group "+extra;const h=document.createElement("div");h.className="filter-label";h.textContent=title;const row=document.createElement("div");row.className="fchips";g.append(h,row);board.appendChild(g);return row;};
     const foldGroup=(title,extra,current)=>{const g=document.createElement("details");g.className="filter-group fold "+extra;const sm=document.createElement("summary");const ttl=document.createElement("span");ttl.className="fold-title";ttl.textContent=title;const cur=document.createElement("span");cur.className="fold-current";cur.textContent=current||"すべて";sm.append(ttl,cur);const row=document.createElement("div");row.className="fchips";g.append(sm,row);board.appendChild(g);return row;};
+    acatNames.brandy="高級ブランデー";
     const rankGroup=group("🏆 ランク","rank");const sourceGroup=foldGroup("🛒 仕入先・販売先","source source-fold",state.src!=="all"?state.src:"すべて");const categoryGroup=group("📦 商品カテゴリ","category");
     const brandGroup=state.acat==="brand"?foldGroup("🏷️ ブランドを選ぶ","brand-sub",activeBrandName[state.brandName]||"全ブランド"):null;
     const brandTypeGroup=state.acat==="brand"?foldGroup("👜 商品ジャンルを選ぶ","brand-type",activeTypeName[state.brandType]||"すべて"):null;
@@ -2417,7 +2430,7 @@ function render(){
     rankGroup.appendChild(mk("🥇 Sのみ","rank","S"));rankGroup.appendChild(mk("🏅 A以上","rank","SA"));
     sourceGroup.appendChild(mk("🏪 オフモール","src","オフモール"));sourceGroup.appendChild(mk("🔴 メルカリ","src","メルカリ"));sourceGroup.appendChild(mk("🔨 ヤフオク","src","ヤフオク"));sourceGroup.appendChild(mk("🤝 ジモティー","src","ジモティー"));sourceGroup.appendChild(mk("🟣 Yahoo!フリマ","src","ヤフーフリマ"));sourceGroup.appendChild(mk("📦 eBay輸入","src","eBay輸入"));
     {const ec=document.createElement("button");ec.className="fchip";ec.type="button";ec.textContent="🌍 eBay";ec.setAttribute("aria-pressed",state.ebayOnly?"true":"false");ec.addEventListener("click",()=>{state.ebayOnly=!state.ebayOnly;if(state.ebayOnly)state.src="all";render();});sourceGroup.appendChild(ec);}
-    categoryGroup.appendChild(mk("🌐 すべて","acat","all"));categoryGroup.appendChild(mk("🎴 ポケカ","acat","pokeca"));categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));categoryGroup.appendChild(mk("📦 まとめ売り","acat","bundle"));
+    categoryGroup.appendChild(mk("🌐 すべて","acat","all"));categoryGroup.appendChild(mk("🎴 ポケカ","acat","pokeca"));categoryGroup.appendChild(mk("📷 カメラ","acat","camera"));categoryGroup.appendChild(mk("🔭 レンズ","acat","lens"));categoryGroup.appendChild(mk("👜 ブランド","acat","brand"));categoryGroup.appendChild(mk("🥃 ブランデー","acat","brandy"));categoryGroup.appendChild(mk("📦 まとめ売り","acat","bundle"));
     if(brandGroup){brandGroup.appendChild(mk("初期5ブランド","brandName","all"));[["HERMÈS","エルメス","hermes"],["DIOR","ディオール","dior"],["CHANEL","シャネル","chanel"],["LOUIS VUITTON","ルイ・ヴィトン","vuitton"],["CELINE","セリーヌ","celine"]].forEach(x=>brandGroup.appendChild(mkBrand(x[0],x[1],x[2])));}
     if(brandTypeGroup){[["すべて","all"],["👜 バッグ","bag"],["👛 財布","wallet"],["💳 小物・カード","small"],["⌚ 時計","watch"],["💎 ジュエリー","jewelry"]].forEach(x=>brandTypeGroup.appendChild(mk(x[0],"brandType",x[1])));}
     {const fc=document.createElement("button");fc.className="fchip";fc.type="button";fc.textContent="🌍 eBay同型出品が多い";fc.title="eBayで同じ型番の現在出品が多い商品です。売れた件数や需要ではなく、比較できる販売先データの多さを示します";fc.setAttribute("aria-pressed",state.foreignMarketOnly?"true":"false");fc.addEventListener("click",()=>{state.foreignMarketOnly=!state.foreignMarketOnly;if(state.foreignMarketOnly){state.exportProfitOnly=false;state.ebayOnly=false;state.src="all";state.sort="foreign"}render();});categoryGroup.appendChild(fc);}
@@ -2470,6 +2483,7 @@ function render(){
         const k=(a.detail&&a.detail.k)||"";
         if(/まとめ売り|おまとめ|セット売り|一式|大量セット/i.test(a.name))return "bundle";
         if(/ポケモンカード|ポケカ|PSA\s*10|SAR|SR\b|AR\b/i.test(a.name)||/^PK /.test(k))return "pokeca";
+        if(/^BRANDY\s/.test(k)||/(?:レミー\s*マルタン.{0,20}ルイ\s*(?:13|十三)世?|R[EÉ]MY\s*MARTIN.{0,20}LOUIS\s*(?:XIII|13)|ヘネシー.{0,20}リシャール|HENNESSY.{0,20}RICHARD)/i.test(a.name))return "brandy";
         if(k.startsWith("LV ")||k.startsWith("BR ")||/ヴィトン|ビトン|VUITTON|エルメス|HERM[EÈ]S|シャネル|CHANEL|グッチ|GUCCI|プラダ|PRADA|ディオール|DIOR|セリーヌ|CELINE|ロエベ|LOEWE|ボッテガ|BOTTEGA/i.test(a.name))return "brand";
         if(/\dMM\b/.test(k)||/レンズ|LENS/i.test(a.name))return "lens";
         return "camera";
@@ -2861,6 +2875,12 @@ async function load(){
 setInterval(loadAlerts,60*1000); // 監視結果は1分ごとに自動更新
 /* ===== 近年モデルのワンタップ検索 ===== */
 {
+  document.querySelectorAll(".brandy-search-chip").forEach(chip=>chip.addEventListener("click",()=>{
+    const term=chip.dataset.term||"",qi0=$("#quickSearchTerm"),qc0=$("#quickSearchCat"),qb0=$("#quickSearchBtn"),qm0=$("#quickSearchMsg");
+    if(qi0)qi0.value=term;if(qc0)qc0.value="brandy";
+    if(qm0)qm0.textContent="🥃 「"+term+"」を本体・容量・未開栓まで照合して検索します。空瓶・箱・替栓・ミニボトルは利益相場から除外します。";
+    if(qb0)qb0.click();
+  }));
   const rb=$("#recentModelBtn"),rp=$("#recentModelPanel");
   if(rb&&rp){
     rb.addEventListener("click",()=>{const open=rp.hidden;rp.hidden=!open;rb.setAttribute("aria-expanded",String(open));});
@@ -3015,14 +3035,14 @@ function guessCat(t){const s=t.toLowerCase();
   return"pokeca";}
 if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
   $("#searchCfg").style.display="";
-  const cfgCats=["camera","lens","brand","pokeca","bundle"];
-  const cfgSummary=()=>{const on=cfgCats.filter(k=>$("#cfg_"+k).checked).length,extra=cfgCats.reduce((n,k)=>n+($("#cfg_terms_"+k).value.split("\n").filter(x=>x.trim()).length),0),limit=Number($("#cfg_termLimit").value||0),sold=$("#cfg_sold").checked?"SOLD確認あり":"新着のみ";$("#cfgSummary").textContent="有効カテゴリ "+on+"/5 ・ 追加検索語 "+extra+"件 ・ 1巡回 "+(limit?limit+"語":"全検索語")+" ・ "+sold;};
+  const cfgCats=["camera","lens","brand","brandy","pokeca","bundle"];
+  const cfgSummary=()=>{const on=cfgCats.filter(k=>$("#cfg_"+k).checked).length,extra=cfgCats.reduce((n,k)=>n+($("#cfg_terms_"+k).value.split("\n").filter(x=>x.trim()).length),0),limit=Number($("#cfg_termLimit").value||0),sold=$("#cfg_sold").checked?"SOLD確認あり":"新着のみ";$("#cfgSummary").textContent="有効カテゴリ "+on+"/6 ・ 追加検索語 "+extra+"件 ・ 1巡回 "+(limit?limit+"語":"全検索語")+" ・ "+sold;};
   $("#cfgToggle").addEventListener("click",()=>{const b=$("#cfgBody"),btn=$("#cfgToggle");b.hidden=!b.hidden;btn.textContent=b.hidden?"設定を開く":"設定を閉じる";btn.setAttribute("aria-expanded",String(!b.hidden));if(!b.hidden)cfgSummary();});
   // 現在の設定を読み込む
   fetch(DATA_URL+"?type=config",{cache:"no-store"}).then(r=>r.json()).then(c=>{
     if(!c||typeof c!=="object")return;
     REMOTE_CFG=c;
-    ["pokeca","camera","lens","brand","bundle","sold"].forEach(k=>{if(typeof c[k]==="boolean")$("#cfg_"+k).checked=c[k];});
+    ["pokeca","camera","lens","brand","brandy","bundle","sold"].forEach(k=>{if(typeof c[k]==="boolean")$("#cfg_"+k).checked=c[k];});
     if(typeof c.batAuto==="boolean")$("#cfg_batAuto").checked=c.batAuto;
     $("#cfg_batInterval").value=String(Number(c.batIntervalMin||5));
     $("#cfg_termLimit").value=String(c.termLimit===0?0:Number(c.termLimit||30));
@@ -3036,7 +3056,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
     cfgSummary();
   }).catch(()=>{});
   $("#cfgBody").addEventListener("input",cfgSummary);
-  $("#cfgReset").addEventListener("click",()=>{["pokeca","camera","lens","brand","bundle","sold","batAuto"].forEach(k=>$("#cfg_"+k).checked=true);$("#cfg_batInterval").value="5";$("#cfg_termLimit").value="30";$("#cfg_soldInterval").value="60";$("#cfg_disabledTerms").value="";cfgCats.forEach(k=>$("#cfg_terms_"+k).value="");$("#cfgMsg").textContent="推奨値を反映しました。『設定を保存』で確定します。";cfgSummary();});
+  $("#cfgReset").addEventListener("click",()=>{["pokeca","camera","lens","brand","brandy","bundle","sold","batAuto"].forEach(k=>$("#cfg_"+k).checked=true);$("#cfg_batInterval").value="5";$("#cfg_termLimit").value="30";$("#cfg_soldInterval").value="60";$("#cfg_disabledTerms").value="";cfgCats.forEach(k=>$("#cfg_terms_"+k).value="");$("#cfgMsg").textContent="推奨値を反映しました。『設定を保存』で確定します。";cfgSummary();});
   $("#cfgSave").addEventListener("click",async()=>{
     const extra=[];
     ["camera","lens","brand","pokeca","bundle"].forEach(cat=>{
@@ -3044,7 +3064,7 @@ if(DATA_URL&&DATA_URL.indexOf("__")!==0&&DATA_URL!==""){
       el.value.split("\n").map(s=>s.trim()).filter(Boolean).forEach(t=>extra.push({t,cat}));
     });
     const disabledTerms=$("#cfg_disabledTerms").value.split("\n").map(s=>s.trim()).filter(Boolean);
-    const config={...REMOTE_CFG,searchCapacityVersion:2,pokeca:$("#cfg_pokeca").checked,camera:$("#cfg_camera").checked,lens:$("#cfg_lens").checked,bundle:$("#cfg_bundle").checked,brand:$("#cfg_brand").checked,sold:$("#cfg_sold").checked,batAuto:$("#cfg_batAuto").checked,batIntervalMin:Number($("#cfg_batInterval").value||5),termLimit:Number($("#cfg_termLimit").value||0),soldIntervalMin:Number($("#cfg_soldInterval").value||60),extraTerms:extra,disabledTerms};
+    const config={...REMOTE_CFG,searchCapacityVersion:3,pokeca:$("#cfg_pokeca").checked,camera:$("#cfg_camera").checked,lens:$("#cfg_lens").checked,bundle:$("#cfg_bundle").checked,brand:$("#cfg_brand").checked,brandy:$("#cfg_brandy").checked,sold:$("#cfg_sold").checked,batAuto:$("#cfg_batAuto").checked,batIntervalMin:Number($("#cfg_batInterval").value||5),termLimit:Number($("#cfg_termLimit").value||0),soldIntervalMin:Number($("#cfg_soldInterval").value||60),extraTerms:extra,disabledTerms};
     $("#cfgMsg").textContent="保存中…";
     try{
       // content-typeを指定しない(=text/plain)ことでCORSのpreflightを避ける。GAS側はJSON.parseで読む。
