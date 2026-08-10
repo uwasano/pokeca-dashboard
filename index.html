@@ -3956,6 +3956,26 @@ initListingAssistant_();
   const initialMarket=activeMarketKey_();if(initialMarket)openMarketPortal(initialMarket,false);
   load();
 </script>
+<script>
+/* SITE_HEARTBEAT (2026-08-02): サイトを開いている時だけGAS監視を有効化する合図を送る。
+   GAS側はこの信号が12分途切れると自動で休止する（トリガーが残っていても即終了・フェッチ0）。 */
+(function(){
+try{
+  if(typeof DATA_URL==="undefined"||!DATA_URL)return;
+  function post(payload){
+    try{fetch(DATA_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(Object.assign({token:(typeof GAS_TOKEN!=="undefined"?GAS_TOKEN:"")},payload))}).catch(function(){})}catch(e){}
+  }
+  function beat(){if(document.visibilityState==="visible")post({heartbeat:1})}
+  function pulse(){if(document.visibilityState==="visible")post({monitorPulse:1})}
+  beat();
+  setInterval(beat,4*60*1000);          /* 4分ごと: 接続中の合図（軽量） */
+  setTimeout(pulse,20*1000);            /* 開いて20秒後に1回巡回 */
+  setInterval(pulse,10*60*1000);        /* 以後10分ごと（GAS側で8分未満は自動スキップ） */
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")beat()});
+}catch(e){}
+})();
+</script>
 <!-- LISTING_COPY_EMBED_START -->
 <style>
 #vtCopyFab{position:fixed;right:14px;bottom:14px;z-index:99998;min-height:50px;padding:12px 18px;border:0;border-radius:999px;
