@@ -3957,22 +3957,46 @@ initListingAssistant_();
   load();
 </script>
 <script>
-/* SITE_HEARTBEAT (2026-08-02): サイトを開いている時だけGAS監視を有効化する合図を送る。
-   GAS側はこの信号が12分途切れると自動で休止する（トリガーが残っていても即終了・フェッチ0）。 */
+/* SITE_HEARTBEAT v2 (2026-08-02): 完全手動ON/OFF・デフォルトOFF。
+   OFFの間は一切送信しない。ONでも「表示中」だけ送り、裏に回した瞬間に停止する。
+   → 閉じている間の送信ゼロ。GAS実行枠を無駄に食わないのでXPLOSIONに影響しない。 */
 (function(){
 try{
   if(typeof DATA_URL==="undefined"||!DATA_URL)return;
-  function post(payload){
-    try{fetch(DATA_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify(Object.assign({token:(typeof GAS_TOKEN!=="undefined"?GAS_TOKEN:"")},payload))}).catch(function(){})}catch(e){}
+  var KEY="vt_monitor_enabled";
+  var enabled=false; try{enabled=localStorage.getItem(KEY)==="1"}catch(_){}
+  var beatTimer=null,pulseTimer=null,pulseKick=null;
+  function post(payload){try{fetch(DATA_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(Object.assign({token:(typeof GAS_TOKEN!=="undefined"?GAS_TOKEN:"")},payload))}).catch(function(){})}catch(e){}}
+  function stopSending(){if(beatTimer)clearInterval(beatTimer);if(pulseTimer)clearInterval(pulseTimer);if(pulseKick)clearTimeout(pulseKick);beatTimer=pulseTimer=pulseKick=null}
+  function startSending(){
+    stopSending();
+    if(!enabled||document.visibilityState!=="visible")return;
+    post({heartbeat:1});
+    beatTimer=setInterval(function(){if(enabled&&document.visibilityState==="visible")post({heartbeat:1})},4*60*1000);
+    pulseKick=setTimeout(function(){if(enabled&&document.visibilityState==="visible")post({monitorPulse:1})},20*1000);
+    pulseTimer=setInterval(function(){if(enabled&&document.visibilityState==="visible")post({monitorPulse:1})},10*60*1000);
   }
-  function beat(){if(document.visibilityState==="visible")post({heartbeat:1})}
-  function pulse(){if(document.visibilityState==="visible")post({monitorPulse:1})}
-  beat();
-  setInterval(beat,4*60*1000);          /* 4分ごと: 接続中の合図（軽量） */
-  setTimeout(pulse,20*1000);            /* 開いて20秒後に1回巡回 */
-  setInterval(pulse,10*60*1000);        /* 以後10分ごと（GAS側で8分未満は自動スキップ） */
-  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")beat()});
+  function paint(){
+    if(!btn)return;
+    btn.textContent=enabled?"🟢 監視ON":"⚪ 監視OFF";
+    btn.style.background=enabled?"linear-gradient(135deg,#10b981,#2563eb)":"#334155";
+    btn.title=enabled?"仕入れ監視を送信中（表示中のみ）。押すと停止":"監視は停止中。押すとこのタブを開いている間だけ監視します";
+  }
+  var btn=document.createElement("button");
+  btn.type="button";btn.id="vtMonitorToggle";
+  btn.style.cssText="position:fixed;left:14px;bottom:14px;z-index:99998;min-height:44px;padding:10px 15px;border:0;border-radius:999px;color:#fff;font:900 11px/1.2 -apple-system,'Hiragino Kaku Gothic ProN',sans-serif;cursor:pointer;box-shadow:0 8px 22px #0009";
+  btn.addEventListener("click",function(){
+    enabled=!enabled;try{localStorage.setItem(KEY,enabled?"1":"0")}catch(_){}
+    paint();
+    if(enabled)startSending();else{stopSending();post({monitorStop:1})}
+  });
+  (document.body||document.documentElement).appendChild(btn);
+  paint();
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){if(enabled)startSending()}else stopSending()});
+  window.addEventListener("pagehide",stopSending);
+  window.addEventListener("beforeunload",stopSending);
+  if(enabled)startSending(); // 前回ONにしていた場合のみ、開いている間だけ再開
 }catch(e){}
 })();
 </script>
